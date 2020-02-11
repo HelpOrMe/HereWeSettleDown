@@ -10,12 +10,13 @@ namespace Generator
         public int mapHeight;
         
         public GenerationSettings settings;
+        public AnimationCurve meshHeightCurve;
         public float meshHeightMultiplier;
 
-        public bool evoluteBiomesHeight;
+        public bool EvoluteHeight;
+        public DisplayType displayType;
 
         public MapDisplay mapDisplay;
-        public DisplayType displayType;
         public BiomesMapGenerator biomesGenerator;
 
         [HideInInspector] static public float[,] map;
@@ -25,14 +26,9 @@ namespace Generator
         {
             CorrectValuesInGenerators();
             GenerateGlobalMap();
-
-            // Generate biomes mask
-            BiomePosition[] biomesPositions = biomesGenerator.RandomizeBiomePositions();
-            biomesMask = biomesGenerator.GenerateBiomeMask(biomesPositions);
-
-            // Add biome noise
-            if (evoluteBiomesHeight)
-                map = biomesGenerator.EvoluteBiomesHeight(map, biomesMask);
+            biomesMask = biomesGenerator.GenerateBiomeMask();
+            if (EvoluteHeight)
+                map = biomesGenerator.EvoluteHeightByBiomes(map, biomesMask);
 
             DisplayMap();
         }
@@ -47,8 +43,7 @@ namespace Generator
         void GenerateGlobalMap()
         {
             map = Noise.GenerateNoiseMap(
-                seed, mapWidth, mapHeight,
-                settings.heightCurve, settings.noiseScale,
+                seed, mapWidth, mapHeight, settings.noiseScale,
                 settings.octaves, settings.persistance,
                 settings.lacunarity, settings.offset);
         }
@@ -57,18 +52,21 @@ namespace Generator
         {
             Texture2D texture;
 
-            if (displayType == DisplayType.Biomes)
-                texture = TextureGenerator.TextureFromColourMap(biomesGenerator.CreateColorMap(biomesMask), mapWidth, mapHeight);
+            if (displayType == DisplayType.GameView)
+                texture = TextureGenerator.TextureFromColorRegions(map, biomesMask, biomesGenerator.biomes);
+            else if (displayType == DisplayType.Biomes)
+                texture = TextureGenerator.TextureFromColorMap(biomesGenerator.CreateColorMap(biomesMask), mapWidth, mapHeight);
             else
                 texture = TextureGenerator.TextureFromHeightMap(map);
 
-            mapDisplay.DrawMesh(MeshGenerator.GenerateTerrainMesh(map, meshHeightMultiplier), texture);
+            mapDisplay.DrawMesh(MeshGenerator.GenerateTerrainMesh(map, meshHeightMultiplier, meshHeightCurve), texture);
         }
 
         public enum DisplayType
         {
             Noise,
-            Biomes
+            Biomes,
+            GameView
         }
     }
 
@@ -76,7 +74,6 @@ namespace Generator
     public struct GenerationSettings
     {
         public float noiseScale;
-        public AnimationCurve heightCurve;
         public int octaves;
         [Range(0f, 1f)]
         public float persistance;

@@ -4,12 +4,11 @@ namespace Generator
 {
     public static class Noise
     {
-        public static float[,] GenerateNoiseMap(int seed, int mapWidth, int mapHeight, AnimationCurve heightCurve, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
+        public static float[,] GenerateNoiseMap(int seed, int mapWidth, int mapHeight, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
         {
             float[,] noiseMap = new float[mapWidth, mapHeight];
 
             System.Random prng = new System.Random(seed);
-
             Vector2[] octaveOffsets = new Vector2[octaves];
             for (int i = 0; i < octaves; i++)
             {
@@ -19,18 +18,22 @@ namespace Generator
             }
 
             if (scale <= 0)
+            {
                 scale = 0.0001f;
+            }
 
-            /*float maxNoiseHeight = float.MinValue;
-            float minNoiseHeight = float.MaxValue;*/
+            float maxNoiseHeight = float.MinValue;
+            float minNoiseHeight = float.MaxValue;
 
             float halfWidth = mapWidth / 2f;
             float halfHeight = mapHeight / 2f;
+
 
             for (int y = 0; y < mapHeight; y++)
             {
                 for (int x = 0; x < mapWidth; x++)
                 {
+
                     float amplitude = 1;
                     float frequency = 1;
                     float noiseHeight = 0;
@@ -47,21 +50,25 @@ namespace Generator
                         frequency *= lacunarity;
                     }
 
-                    /*if (noiseHeight > maxNoiseHeight)
+                    if (noiseHeight > maxNoiseHeight)
+                    {
                         maxNoiseHeight = noiseHeight;
+                    }
                     else if (noiseHeight < minNoiseHeight)
-                        minNoiseHeight = noiseHeight;*/
-                    noiseMap[x, y] = heightCurve.Evaluate(noiseHeight);
+                    {
+                        minNoiseHeight = noiseHeight;
+                    }
+                    noiseMap[x, y] = noiseHeight;
                 }
             }
 
-            /*for (int y = 0; y < mapHeight; y++)
+            for (int y = 0; y < mapHeight; y++)
             {
                 for (int x = 0; x < mapWidth; x++)
                 {
                     noiseMap[x, y] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, noiseMap[x, y]);
                 }
-            }*/
+            }
 
             return noiseMap;
         }
@@ -77,7 +84,7 @@ namespace Generator
                     float x = i / (float)width * 2 - 1;
                     float y = j / (float)height * 2 - 1;
 
-                    float value = Mathf.Max(Mathf.Abs(x), Mathf.Abs(y));
+                    float value = -Mathf.Max(Mathf.Abs(x), Mathf.Abs(y));
                     map[i, j] = value;
                 }
             }

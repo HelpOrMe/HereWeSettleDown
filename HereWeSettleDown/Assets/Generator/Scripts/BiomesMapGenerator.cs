@@ -11,6 +11,12 @@ namespace Generator
         [HideInInspector] public int mapHeight;
         [HideInInspector] public int seed;
 
+        public int[,] GenerateBiomeMask()
+        {
+            BiomePosition[] biomePositions = RandomizeBiomePositions();
+            return GenerateMaskByPositions(biomePositions);
+        }
+
         public BiomePosition[] RandomizeBiomePositions()
         {
             System.Random prng = new System.Random(seed);
@@ -28,7 +34,7 @@ namespace Generator
             return createdBiomes.ToArray();
         }
 
-        public int[,] GenerateBiomeMask(BiomePosition[] biomesPositions)
+        public int[,] GenerateMaskByPositions(BiomePosition[] biomesPositions)
         {
             int[,] mask = new int[mapWidth, mapHeight];
             for (int i = 0; i < mapWidth; i++)
@@ -59,7 +65,7 @@ namespace Generator
             return mask;
         }
         
-        public float[,] EvoluteBiomesHeight(float[,] map, int[,] mask)
+        public float[,] EvoluteHeightByBiomes(float[,] map, int[,] mask)
         {
             // Generate biomes layers
             Dictionary<int, Biome> indToBiome = new Dictionary<int, Biome>();
