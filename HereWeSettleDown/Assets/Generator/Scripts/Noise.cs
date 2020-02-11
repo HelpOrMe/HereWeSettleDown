@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Generator.Test
+namespace Generator
 {
     public static class Noise
     {
-        public static float[,] GenerateNoiseMap(int seed, int mapWidth, int mapHeight, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
+        public static float[,] GenerateNoiseMap(int seed, int mapWidth, int mapHeight, AnimationCurve heightCurve, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
         {
             float[,] noiseMap = new float[mapWidth, mapHeight];
 
@@ -51,7 +51,8 @@ namespace Generator.Test
                         maxNoiseHeight = noiseHeight;
                     else if (noiseHeight < minNoiseHeight)
                         minNoiseHeight = noiseHeight;
-                    noiseMap[x, y] = noiseHeight;
+
+                    noiseMap[x, y] = heightCurve.Evaluate(noiseHeight);
                 }
             }
 
@@ -78,18 +79,12 @@ namespace Generator.Test
                     float y = j / (float)size * 2 - 1;
 
                     float value = Mathf.Max(Mathf.Abs(x), Mathf.Abs(y));
-                    map[i, j] = value; //EvaluateFalloffMap(value);
+                    map[i, j] = value;
                 }
             }
 
             return map;
         }
-        static float EvaluateFalloffMap(float value)
-        {
-            float a = 3;
-            float b = 2.2f;
-
-            return Mathf.Pow(value, a) / (Mathf.Pow(value, a) + Mathf.Pow(b - b * value, a));
-        }
     }
 }
+
