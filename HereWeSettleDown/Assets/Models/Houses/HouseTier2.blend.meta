@@ -23,6 +23,8 @@ ModelImporter:
     100034: Window3
     100036: Windowup
     100038: Windowup2
+    100040: Window.001
+    100042: Window.002
     400000: Bricks
     400002: chimney
     400004: Door
@@ -43,6 +45,8 @@ ModelImporter:
     400034: Window3
     400036: Windowup
     400038: Windowup2
+    400040: Window.001
+    400042: Window.002
     2100000: Material
     2100002: No Name
     2300000: Bricks
@@ -64,6 +68,8 @@ ModelImporter:
     2300032: Window3
     2300034: Windowup
     2300036: Windowup2
+    2300038: Window.001
+    2300040: Window.002
     3300000: Bricks
     3300002: chimney
     3300004: Door
@@ -83,6 +89,8 @@ ModelImporter:
     3300032: Window3
     3300034: Windowup
     3300036: Windowup2
+    3300038: Window.001
+    3300040: Window.002
     4300000: Main
     4300002: Foundation
     4300004: Stairs
@@ -102,6 +110,8 @@ ModelImporter:
     4300032: Lightup2
     4300034: Lightup
     4300036: chimney
+    4300038: Window.001
+    4300040: Window.002
   externalObjects: {}
   materials:
     importMaterials: 1
