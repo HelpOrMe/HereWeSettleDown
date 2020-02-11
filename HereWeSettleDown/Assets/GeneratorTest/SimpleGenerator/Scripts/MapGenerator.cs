@@ -24,7 +24,25 @@ namespace Generator.Test
         {
             // Generate new noise map and display it
             float[,] noiseMap = Noise.GenerateNoiseMap(seed, mapWidth, mapHeight, noiseScale, octaves, persistance, lacunarity, offset);
-            mapDisplay.DrawNoiseMap(noiseMap);
+            Color[] colorMap = GenerateColorMap(noiseMap);
+            mapDisplay.DrawColorMap(colorMap, noiseMap.GetLength(0), noiseMap.GetLength(1));
+        }
+
+        public Color[] GenerateColorMap(float[,] noiseMap)
+        {
+            int width = noiseMap.GetLength(0);
+            int height = noiseMap.GetLength(1);
+
+            Color[] colorMap = new Color[width * height];
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    colorMap[y * width + x] = Color.Lerp(Color.black, Color.white, noiseMap[x, y]);
+                }
+            }
+
+            return colorMap;
         }
 
         void OnValidate()

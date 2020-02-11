@@ -6,13 +6,10 @@ namespace Generator.Test
     {
         public Renderer textureRenderer;
 
-        public void DrawNoiseMap(float[,] noiseMap)
+        public void DrawColorMap(Color[] colorMap, int width, int height)
         {
-            int width = noiseMap.GetLength(0);
-            int height = noiseMap.GetLength(1);
-
             Texture2D texture = new Texture2D(width, height);
-            Color[] colourMap = new Color[width * height];
+            /*Color[] colourMap = new Color[width * height];
 
             for (int y = 0; y < height; y++)
             {
@@ -20,9 +17,9 @@ namespace Generator.Test
                 {
                     colourMap[y * width + x] = Color.Lerp(Color.black, Color.white, noiseMap[x, y]);
                 }
-            }
+            }*/
 
-            texture.SetPixels(colourMap);
+            texture.SetPixels(colorMap);
             texture.Apply();
 
             textureRenderer.sharedMaterial.mainTexture = texture;
