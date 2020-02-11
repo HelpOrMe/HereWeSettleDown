@@ -4,11 +4,15 @@ namespace Generator
 {
     public class MapGenerator : MonoBehaviour
     {
-        public int mapWidth;
-        public int mapHeight;
         public int seed;
 
+        public int mapWidth;
+        public int mapHeight;
+        
+        public GenerationSettings settings;
         public float meshHeightMultiplier;
+
+        public bool evoluteBiomesHeight;
 
         public MapDisplay mapDisplay;
         public DisplayType displayType;
@@ -20,13 +24,15 @@ namespace Generator
         public void GenerateMap()
         {
             CorrectValuesInGenerators();
+            GenerateGlobalMap();
 
             // Generate biomes mask
-            BiomePosition[] biomes = biomesGenerator.RandomizeBiomePositions();
-            biomesMask = biomesGenerator.GenerateBiomeMask(biomes);
+            BiomePosition[] biomesPositions = biomesGenerator.RandomizeBiomePositions();
+            biomesMask = biomesGenerator.GenerateBiomeMask(biomesPositions);
 
-            // Generate biome map
-            map = biomesGenerator.GenerateBiomeMap(biomesMask);
+            // Add biome noise
+            if (evoluteBiomesHeight)
+                map = biomesGenerator.EvoluteBiomesHeight(map, biomesMask);
 
             DisplayMap();
         }
@@ -36,6 +42,15 @@ namespace Generator
             biomesGenerator.mapWidth = mapWidth;
             biomesGenerator.mapHeight = mapHeight;
             biomesGenerator.seed = seed;
+        }
+
+        void GenerateGlobalMap()
+        {
+            map = Noise.GenerateNoiseMap(
+                seed, mapWidth, mapHeight,
+                settings.heightCurve, settings.noiseScale,
+                settings.octaves, settings.persistance,
+                settings.lacunarity, settings.offset);
         }
 
         void DisplayMap()
@@ -55,6 +70,18 @@ namespace Generator
             Noise,
             Biomes
         }
+    }
+
+    [System.Serializable]
+    public struct GenerationSettings
+    {
+        public float noiseScale;
+        public AnimationCurve heightCurve;
+        public int octaves;
+        [Range(0f, 1f)]
+        public float persistance;
+        public float lacunarity;
+        public Vector2 offset;
     }
 }
 

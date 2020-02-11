@@ -21,8 +21,8 @@ namespace Generator
             if (scale <= 0)
                 scale = 0.0001f;
 
-            float maxNoiseHeight = float.MinValue;
-            float minNoiseHeight = float.MaxValue;
+            /*float maxNoiseHeight = float.MinValue;
+            float minNoiseHeight = float.MaxValue;*/
 
             float halfWidth = mapWidth / 2f;
             float halfHeight = mapHeight / 2f;
@@ -47,36 +47,35 @@ namespace Generator
                         frequency *= lacunarity;
                     }
 
-                    if (noiseHeight > maxNoiseHeight)
+                    /*if (noiseHeight > maxNoiseHeight)
                         maxNoiseHeight = noiseHeight;
                     else if (noiseHeight < minNoiseHeight)
-                        minNoiseHeight = noiseHeight;
-
+                        minNoiseHeight = noiseHeight;*/
                     noiseMap[x, y] = heightCurve.Evaluate(noiseHeight);
                 }
             }
 
-            for (int y = 0; y < mapHeight; y++)
+            /*for (int y = 0; y < mapHeight; y++)
             {
                 for (int x = 0; x < mapWidth; x++)
                 {
                     noiseMap[x, y] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, noiseMap[x, y]);
                 }
-            }
+            }*/
 
             return noiseMap;
         }
 
-        public static float[,] GenerateFalloffMap(int size)
+        public static float[,] GenerateFalloffMap(int width, int height)
         {
-            float[,] map = new float[size, size];
+            float[,] map = new float[width, height];
 
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < width; i++)
             {
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < height; j++)
                 {
-                    float x = i / (float)size * 2 - 1;
-                    float y = j / (float)size * 2 - 1;
+                    float x = i / (float)width * 2 - 1;
+                    float y = j / (float)height * 2 - 1;
 
                     float value = Mathf.Max(Mathf.Abs(x), Mathf.Abs(y));
                     map[i, j] = value;

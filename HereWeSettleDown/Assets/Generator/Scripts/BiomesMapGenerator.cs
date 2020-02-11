@@ -5,11 +5,10 @@ namespace Generator
 {
     public class BiomesMapGenerator : MonoBehaviour
     {
+        public Biome[] biomes;
+
         [HideInInspector] public int mapWidth;
         [HideInInspector] public int mapHeight;
-
-        public Biome[] biomes;
-        
         [HideInInspector] public int seed;
 
         public BiomePosition[] RandomizeBiomePositions()
@@ -29,7 +28,7 @@ namespace Generator
             return createdBiomes.ToArray();
         }
 
-        public int[,] GenerateBiomeMask(BiomePosition[] targetBiomes)
+        public int[,] GenerateBiomeMask(BiomePosition[] biomesPositions)
         {
             int[,] mask = new int[mapWidth, mapHeight];
             for (int i = 0; i < mapWidth; i++)
@@ -39,9 +38,9 @@ namespace Generator
                     int biomeIndex = 0;
                     int dist = int.MaxValue;
 
-                    for (int b = 0; b < targetBiomes.Length; b++)
+                    for (int b = 0; b < biomesPositions.Length; b++)
                     {
-                        Vector2Int biomePosition = targetBiomes[b].position;
+                        Vector2Int biomePosition = biomesPositions[b].position;
 
                         int xdiff = biomePosition.x - i;
                         int ydiff = biomePosition.y - j;
@@ -49,31 +48,28 @@ namespace Generator
 
                         if (cdist < dist)
                         {
-                            biomeIndex = targetBiomes[b].targetBiome.index;
+                            biomeIndex = b;
                             dist = cdist;
                         }
                     }
-                    mask[i, j] = biomeIndex;
+
+                    mask[i, j] = biomesPositions[biomeIndex].targetBiome.index;
                 }
             }
             return mask;
         }
-
-        public float[,] GenerateBiomeMap(int[,] mask)
+        
+        public float[,] EvoluteBiomesHeight(float[,] map, int[,] mask)
         {
             // Generate biomes layers
-            Dictionary<int, BiomeLayer> indToBiome = new Dictionary<int, BiomeLayer>();
+            Dictionary<int, Biome> indToBiome = new Dictionary<int, Biome>();
             for (int i = 0; i < biomes.Length; i ++)
             {
                 if (!indToBiome.ContainsKey(biomes[i].index))
                 {
-                    BiomeGenerationSettings settings = biomes[i].settings;
-                    float[,] noiseLayer = Noise.GenerateNoiseMap(seed, mapWidth, mapHeight, settings.heightCurve, settings.noiseScale, settings.octaves, settings.persistance, settings.lacunarity, settings.offset);
-                    indToBiome[biomes[i].index] = new BiomeLayer(biomes[i], noiseLayer);
+                    indToBiome[biomes[i].index] = biomes[i];
                 }
             }
-
-            float[,] map = new float[mask.GetLength(0), mask.GetLength(1)];
 
             // Set layers in map
             for (int x = 0; x < map.GetLength(0); x++)
@@ -82,7 +78,7 @@ namespace Generator
                 {
                     if (indToBiome.ContainsKey(mask[x,y]))
                     {
-                        map[x, y] = indToBiome[mask[x, y]].noiseLayer[x, y];
+                        map[x, y] = Mathf.Clamp01(indToBiome[mask[x, y]].heightCurve.Evaluate(map[x, y]));
                     }
                 }
             }
@@ -125,17 +121,5 @@ namespace Generator
 
         public Biome targetBiome;
         public Vector2Int position;
-    }
-
-    public struct BiomeLayer
-    {
-        public BiomeLayer(Biome b, float[,] nl)
-        {
-            targetBiome = b;
-            noiseLayer = nl;
-        }
-
-        public Biome targetBiome;
-        public float[,] noiseLayer;
     }
 }
