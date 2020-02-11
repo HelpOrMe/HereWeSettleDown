@@ -1,24 +1,25 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace Generator.Test._Editor
+namespace Generator._Editor
 {
-    [CustomEditor(typeof(MapGenerator))]
+    [CustomEditor(typeof(MapGenerator), true)]
     public class MapGeneratorEditor : Editor
     {
+        static bool autoUpdate;
+
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-
             MapGenerator mapGenerator = (MapGenerator)target;
-            if (mapGenerator.autoUpdate)
-            {
+
+            autoUpdate = EditorGUILayout.Toggle("Auto Update", autoUpdate);
+
+            if (autoUpdate)
                 mapGenerator.GenerateMap();
-            }
+
             if (GUILayout.Button("Generate map"))
-            {
                 mapGenerator.GenerateMap();
-            }
         }
     }
 }
