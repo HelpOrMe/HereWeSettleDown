@@ -19,7 +19,7 @@ namespace Generator
         public MapDisplay mapDisplay;
         public BiomesMapGenerator biomesGenerator;
 
-        [HideInInspector] static public float[,] map;
+        [HideInInspector] static public float[,] heightMap;
         [HideInInspector] static public int[,] biomesMask;
 
         public void GenerateMap()
@@ -28,7 +28,7 @@ namespace Generator
             GenerateGlobalMap();
             biomesMask = biomesGenerator.GenerateBiomeMask();
             if (EvoluteHeight)
-                map = biomesGenerator.EvoluteHeightByBiomes(map, biomesMask);
+                heightMap = biomesGenerator.EvoluteHeightByBiomes(heightMap, biomesMask);
 
             DisplayMap();
         }
@@ -42,7 +42,7 @@ namespace Generator
 
         void GenerateGlobalMap()
         {
-            map = Noise.GenerateNoiseMap(
+            heightMap = Noise.GenerateNoiseMap(
                 seed, mapWidth, mapHeight, settings.noiseScale,
                 settings.octaves, settings.persistance,
                 settings.lacunarity, settings.offset);
@@ -50,16 +50,19 @@ namespace Generator
 
         void DisplayMap()
         {
-            Texture2D texture;
+            Color[] colorMap;
 
             if (displayType == DisplayType.GameView)
-                texture = TextureGenerator.TextureFromColorRegions(map, biomesMask, biomesGenerator.biomes);
+                colorMap = ColorMapGenerator.ColorMapFromColorRegions(heightMap, biomesMask, biomesGenerator.biomes);
             else if (displayType == DisplayType.Biomes)
-                texture = TextureGenerator.TextureFromColorMap(biomesGenerator.CreateColorMap(biomesMask), mapWidth, mapHeight);
+                colorMap = biomesGenerator.CreateColorMap(biomesMask);
             else
-                texture = TextureGenerator.TextureFromHeightMap(map);
+                colorMap = ColorMapGenerator.ColorMapFromHeightMap(heightMap);
 
-            mapDisplay.DrawMesh(MeshGenerator.GenerateTerrainMesh(map, meshHeightMultiplier, meshHeightCurve), texture);
+            MeshData meshData = MeshGenerator.GenerateTerrainMesh(seed, heightMap, meshHeightMultiplier, meshHeightCurve);
+            meshData.SetColorMap(colorMap);
+
+            mapDisplay.DrawMesh(meshData);
         }
 
         public enum DisplayType
