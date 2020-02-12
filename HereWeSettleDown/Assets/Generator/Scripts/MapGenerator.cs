@@ -56,6 +56,8 @@ namespace Generator
                 colorMap = ColorMapGenerator.ColorMapFromColorRegions(heightMap, biomesMask, biomesGenerator.biomes);
             else if (displayType == DisplayType.Biomes)
                 colorMap = biomesGenerator.CreateColorMap(biomesMask);
+            else if (displayType == DisplayType.Gradeint)
+                colorMap = ColorMapGenerator.Gradient(mapWidth, mapHeight);
             else
                 colorMap = ColorMapGenerator.ColorMapFromHeightMap(heightMap);
 
@@ -69,6 +71,7 @@ namespace Generator
         {
             Noise,
             Biomes,
+            Gradeint,
             GameView
         }
     }

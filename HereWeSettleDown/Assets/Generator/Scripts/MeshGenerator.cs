@@ -11,6 +11,7 @@ namespace Generator
             int width = heightMap.GetLength(0);
             int height = heightMap.GetLength(1);
 
+            // Center mesh
             float topLeftX = (width - 1) / -2f;
             float topLeftZ = (height - 1) / 2f;
 
@@ -140,6 +141,7 @@ namespace Generator
                 }
                 else
                     newColors[i] = lastColorPack[ind];
+
                 newUV[i] = meshData.uvs[meshData.triangles[i]];
                 newTriangles[i] = i;
 

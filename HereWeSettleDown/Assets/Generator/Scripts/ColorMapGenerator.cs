@@ -55,5 +55,13 @@ namespace Generator
 
             return colorMap;
         }
+
+        public static Color[] Gradient(int width, int height)
+        {
+            Color[] colorMap = new Color[width * height];
+            for (int i = 0; i < colorMap.Length; i++)
+                colorMap[i] = Color.Lerp(Color.black, Color.white, i / (float)colorMap.Length);
+            return colorMap;
+        }
     }
 }
