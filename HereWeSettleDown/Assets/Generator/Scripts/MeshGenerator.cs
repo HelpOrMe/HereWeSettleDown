@@ -1,17 +1,16 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 
 namespace Generator
 {
     public static class MeshGenerator
     {
-        public static MeshData GenerateTerrainMesh(int seed, float[,] heightMap, float heightMultiplier, AnimationCurve heightCurve)
+        public static MeshData GenerateTerrainMesh(int seed, float[,] heightMap, Vector2 triangleScale, float heightMultiplier, AnimationCurve heightCurve)
         {
             System.Random prng = new System.Random(seed);
 
             int width = heightMap.GetLength(0);
             int height = heightMap.GetLength(1);
 
-            // Center mesh
             float topLeftX = (width - 1) / -2f;
             float topLeftZ = (height - 1) / 2f;
 
@@ -22,7 +21,7 @@ namespace Generator
             {
                 for (int x = 0; x < width; x++)
                 {
-                    meshData.vertices[vertexIndex] = new Vector3(topLeftX + x * 2 + prng.Next(0, 100) / 100f, heightCurve.Evaluate(heightMap[x, y]) * heightMultiplier, topLeftZ - y * 2 + prng.Next(0, 100) / 100f);
+                    meshData.vertices[vertexIndex] = new Vector3(topLeftX + x * triangleScale.x, heightCurve.Evaluate(heightMap[x, y]) * heightMultiplier, topLeftZ - y * triangleScale.y );
                     meshData.uvs[vertexIndex] = new Vector2(x / (float)width, y / (float)height);
 
                     if (x < width - 1 && y < height - 1)
@@ -35,11 +34,15 @@ namespace Generator
                 }
             }
             
-            return meshData;
+            return meshData; 
+
+            int width = heightMap.GetLength(0);
+            int height = heightMap.GetLength(1);
+
         }
     }
     
-    public class MeshData
+    public class MeshData2
     {
         public Vector3[] vertices;
         public int[] triangles;
@@ -128,7 +131,6 @@ namespace Generator
             int[] newTriangles = new int[meshData.triangles.Length];
 
             // Rebuild mesh so that every triangle has unique vertices
-
             ColorPack lastColorPack = new ColorPack();
             int ind = 0;
             for (var i = 0; i < meshData.triangles.Length; i++)
@@ -160,37 +162,4 @@ namespace Generator
         int Index(int x, int y) => width * y + x;
     }
 
-    public struct ColorPack
-    {
-        public ColorPack(Color color1, Color color2, Color color3)
-        {
-            this.color1 = color1;
-            this.color2 = color2;
-            this.color3 = color3;
-        }
-
-        public ColorPack(Color color)
-        {
-            color1 = color;
-            color2 = color;
-            color3 = color;
-        }
-
-        public Color this[int index]
-        {
-            get
-            {
-                if (index == 0)
-                    return color1;
-                else if (index == 1)
-                    return color2;
-                else
-                    return color3;
-            }
-        }
-
-        public Color color1;
-        public Color color2;
-        public Color color3;
-    }
-}
+}*/
