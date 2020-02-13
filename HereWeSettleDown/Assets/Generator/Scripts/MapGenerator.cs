@@ -8,12 +8,19 @@ namespace Generator
 
         public int mapWidth;
         public int mapHeight;
-        
+
+        public Vector2 triangleSizeScale;
+        public Vector2Int triangleRangeXScale;
+        public Vector2Int triangleRangeYScale;
+
+
         public GenerationSettings settings;
         public AnimationCurve meshHeightCurve;
         public float meshHeightMultiplier;
+        public bool EvoluteHeightFromBiomes;
 
-        public bool EvoluteHeight;
+        public bool SmoothColorMap;
+
         public DisplayType displayType;
 
         public MapDisplay mapDisplay;
@@ -27,7 +34,7 @@ namespace Generator
             CorrectValuesInGenerators();
             GenerateGlobalMap();
             biomesMask = biomesGenerator.GenerateBiomeMask();
-            if (EvoluteHeight)
+            if (EvoluteHeightFromBiomes)
                 heightMap = biomesGenerator.EvoluteHeightByBiomes(heightMap, biomesMask);
 
             DisplayMap();
@@ -57,12 +64,16 @@ namespace Generator
             else if (displayType == DisplayType.Biomes)
                 colorMap = biomesGenerator.CreateColorMap(biomesMask);
             else
-                colorMap = ColorMapGenerator.ColorMapFromHeightMap(heightMap);
+                colorMap = ColorMapGenerator.ColorMapFromHeightMap2(heightMap);
 
-            MeshData meshData = MeshGenerator.GenerateTerrainMesh(seed, heightMap, meshHeightMultiplier, meshHeightCurve);
-            meshData.SetColorMap(colorMap);
+            //MeshData meshData = MeshGenerator.GenerateTerrainMesh(seed, heightMap, triangleSizeScale, meshHeightMultiplier, meshHeightCurve);
 
-            mapDisplay.DrawMesh(meshData);
+            //meshData.SetColorMap(colorMap);
+
+            ColorPack[,] convertedColorMap = ColorMapGenerator.ConvertColorMap(mapWidth, mapHeight, colorMap);
+            if (SmoothColorMap)
+                convertedColorMap = ColorMapGenerator.SmoothColorMap(convertedColorMap);
+            mapDisplay.DrawMesh(MeshEditor.GenerateNewMesh(seed, heightMap, triangleRangeXScale, triangleRangeYScale, triangleSizeScale, meshHeightMultiplier, meshHeightCurve, convertedColorMap));
         }
 
         public enum DisplayType
