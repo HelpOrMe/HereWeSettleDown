@@ -101,7 +101,7 @@ namespace Generator
             return colorMap;
         }
 
-        public static Color[] ColorMapFromHeightMap2(float[,] heightMap)
+        public static Color[] ColorMapFromHeightMap(float[,] heightMap)
         {
             int width = heightMap.GetLength(0);
             int height = heightMap.GetLength(1);
@@ -118,8 +118,7 @@ namespace Generator
             return colorMap;
         }
 
-
-        public static Color[] ColorMapFromColorRegions(float[,] map, int[,] mask, Biome[] biomes)
+        public static Color[] ColorMapFromColorRegions(float[,] map, BiomeMask[] masks, Biome[] biomes)
         {
             // Set dicitionary with index to colors
             Dictionary<int, BiomeColorRegion[]> indexToColorRegions = new Dictionary<int, BiomeColorRegion[]>();
@@ -128,17 +127,54 @@ namespace Generator
                     indexToColorRegions.Add(biomes[i].index, biomes[i].colorRegions);
 
             // Create color map
-            int width = mask.GetLength(0);
-            int height = mask.GetLength(1);
+            int width = map.GetLength(0);
+            int height = map.GetLength(1);
 
             Color[] colorMap = new Color[width * height];
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    if (indexToColorRegions.ContainsKey(mask[x,y]))
+                    for (int i = 0; i < masks.Length; i ++)
                     {
-                        foreach (BiomeColorRegion colorRegion in indexToColorRegions[mask[x, y]])
+                        if (indexToColorRegions.ContainsKey(masks[i].mask[x, y]))
+                        {
+                            foreach (BiomeColorRegion colorRegion in indexToColorRegions[masks[i].mask[x, y]])
+                            {
+                                if (map[x, y] <= colorRegion.height)
+                                {
+                                    colorMap[y * width + x] = colorRegion.color;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return colorMap;
+        }
+
+        public static Color[] ColorMapFromColorRegions(float[,] map, int[,] globalMask, Biome[] biomes)
+        {
+            // Set dicitionary with index to colors
+            Dictionary<int, BiomeColorRegion[]> indexToColorRegions = new Dictionary<int, BiomeColorRegion[]>();
+            for (int i = 0; i < biomes.Length; i++)
+                if (!indexToColorRegions.ContainsKey(biomes[i].index))
+                    indexToColorRegions.Add(biomes[i].index, biomes[i].colorRegions);
+
+            // Create color map
+            int width = globalMask.GetLength(0);
+            int height = globalMask.GetLength(1);
+
+            Color[] colorMap = new Color[width * height];
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (indexToColorRegions.ContainsKey(globalMask[x, y]))
+                    {
+                        foreach (BiomeColorRegion colorRegion in indexToColorRegions[globalMask[x, y]])
                         {
                             if (map[x, y] <= colorRegion.height)
                             {

@@ -7,65 +7,41 @@ namespace Generator
     {
         public Biome[] biomes;
 
-        [HideInInspector] public int mapWidth;
-        [HideInInspector] public int mapHeight;
-        [HideInInspector] public int seed;
-
-        public int[,] GenerateBiomeMask()
+        public BiomeMask[] GenerateBiomesMask(int width, int height)
         {
-            BiomePosition[] biomePositions = RandomizeBiomePositions();
-            return GenerateMaskByPositions(biomePositions);
-        }
-
-        public BiomePosition[] RandomizeBiomePositions()
-        {
-            System.Random prng = new System.Random(seed);
-
-            List<BiomePosition> createdBiomes = new List<BiomePosition>();
-            for (int b = 0; b < biomes.Length; b++)
+            BiomeMask[] masks = new BiomeMask[biomes.Length];
+            
+            for (int i = 0; i < biomes.Length; i++)
             {
-                for (int i = 0; i < biomes[b].countOfBiomes; i++)
+                int[,] intMask = new int[width, height];
+
+                BiomeMaskGeneration biomeSettings = biomes[i].maskSettings;
+                GenerationSettings genSettings = biomeSettings.settings;
+
+                float[,] heightMap = Noise.GenerateNoiseMap(
+                    width, height, 
+                    genSettings.noiseScale, genSettings.octaves, genSettings.persistance, 
+                    genSettings.lacunarity, genSettings.offset);
+
+                for (int x = 0; x < width; x++)
                 {
-                    Vector2Int position = new Vector2Int(prng.Next(0, mapWidth), prng.Next(0, mapHeight));
-                    createdBiomes.Add(new BiomePosition(biomes[b], position));
-                }
-            }
-
-            return createdBiomes.ToArray();
-        }
-
-        public int[,] GenerateMaskByPositions(BiomePosition[] biomesPositions)
-        {
-            int[,] mask = new int[mapWidth, mapHeight];
-            for (int i = 0; i < mapWidth; i++)
-            {
-                for (int j = 0; j < mapHeight; j++)
-                {
-                    int biomeIndex = 0;
-                    int dist = int.MaxValue;
-
-                    for (int b = 0; b < biomesPositions.Length; b++)
+                    for (int y = 0; y < height; y++)
                     {
-                        Vector2Int biomePosition = biomesPositions[b].position;
-
-                        int xdiff = biomePosition.x - i;
-                        int ydiff = biomePosition.y - j;
-                        int cdist = xdiff * xdiff + ydiff * ydiff;
-
-                        if (cdist < dist)
+                        if ((heightMap[x, y] > biomeSettings.minHeightMask && 
+                            heightMap[x, y] < biomeSettings.maxHeightMask) ||
+                            biomes[i].absolute)
                         {
-                            biomeIndex = b;
-                            dist = cdist;
+                            intMask[x, y] = biomes[i].index;
                         }
                     }
-
-                    mask[i, j] = biomesPositions[biomeIndex].targetBiome.index;
                 }
+                masks[i] = new BiomeMask(intMask);
             }
-            return mask;
+
+            return masks;
         }
         
-        public float[,] EvoluteHeightByBiomes(float[,] map, int[,] mask)
+        public float[,] EvaluteHeightByBiomes(float[,] map, int[,] globalMask)
         {
             // Generate biomes layers
             Dictionary<int, Biome> indToBiome = new Dictionary<int, Biome>();
@@ -82,9 +58,9 @@ namespace Generator
             {
                 for (int y = 0; y < map.GetLength(1); y++)
                 {
-                    if (indToBiome.ContainsKey(mask[x,y]))
+                    if (indToBiome.ContainsKey(globalMask[x,y]))
                     {
-                        map[x, y] = Mathf.Clamp01(indToBiome[mask[x, y]].heightCurve.Evaluate(map[x, y]));
+                        map[x, y] = Mathf.Clamp01(indToBiome[globalMask[x, y]].evaluteWorldHeight.Evaluate(map[x, y]));
                     }
                 }
             }
@@ -109,23 +85,72 @@ namespace Generator
             {
                 for (int y = 0; y < height; y++)
                 {
-                    colorMap[y * width + x] = indToColor[mask[x, y]];
+                    if (indToColor.ContainsKey(mask[x, y]))
+                        colorMap[y * width + x] = indToColor[mask[x, y]];
                 }
             }
 
             return colorMap;
         }
+
+        public int[,] СombineMasks(int width, int height, BiomeMask[] biomeMasks)
+        {
+            int[,] globalMask = new int[width, height];
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    for (int i = 0; i < biomeMasks.Length; i++)
+                    {
+                        if (biomeMasks[i].mask[x, y] != 0)
+                            globalMask[x, y] = biomeMasks[i].mask[x, y];
+                    }
+                }
+            }
+
+            return globalMask;
+        }
     }
 
-    public struct BiomePosition
+    [System.Serializable]
+    public struct Biome
     {
-        public BiomePosition(Biome b, Vector2Int p)
-        {
-            targetBiome = b;
-            position = p;
-        }
+        public string name;
+        public Color mapColor;
+        public int index;
+        public bool absolute;
 
-        public Biome targetBiome;
-        public Vector2Int position;
+        public AnimationCurve evaluteWorldHeight;
+        public BiomeMaskGeneration maskSettings;
+
+        public BiomeColorRegion[] colorRegions;
+    }
+
+    [System.Serializable]
+    public struct BiomeColorRegion
+    {
+        public string name;
+        public float height;
+        public Color color;
+    }
+
+    [System.Serializable]
+    public struct BiomeMaskGeneration
+    {
+        [Range(0, 1)]
+        public float minHeightMask;
+        [Range(0, 1)]
+        public float maxHeightMask;
+        public GenerationSettings settings;
+    }
+
+    public struct BiomeMask
+    {
+        public int[,] mask;
+        
+        public BiomeMask(int[,] mask)
+        {
+            this.mask = mask;
+        }
     }
 }

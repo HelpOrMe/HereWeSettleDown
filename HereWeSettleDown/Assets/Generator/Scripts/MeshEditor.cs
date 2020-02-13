@@ -4,14 +4,14 @@ namespace Generator
 {
     public static class MeshEditor
     {
-        public static MeshData GenerateNewMesh(int seed, float[,] heightMap, Vector2Int xRandomRange, Vector2Int yRandomRange, 
+        public static MeshData GenerateNewMesh(float[,] heightMap, Vector2Int xRandomRange, Vector2Int yRandomRange, 
             Vector2 triangleScale, float heightMultiplier, AnimationCurve heightCurve, ColorPack[,] colorMap)
         {
             int width = heightMap.GetLength(0) - 1;
             int height = heightMap.GetLength(1) - 1;
 
             // Generate random offset map
-            Vector3[,] offsetMap = GenerateRandomOffset(seed, width + 1, height + 1, xRandomRange, yRandomRange);
+            Vector3[,] offsetMap = GenerateRandomOffset(width + 1, height + 1, xRandomRange, yRandomRange);
 
             // Generate mesh map
             MeshData meshData = new MeshData(width + 1, height + 1);
@@ -62,16 +62,14 @@ namespace Generator
             return meshData;
         }
 
-        static Vector3[,] GenerateRandomOffset(int seed, int width, int height, Vector2Int xRandRange, Vector2Int yRandRange)
+        static Vector3[,] GenerateRandomOffset(int width, int height, Vector2Int xRandRange, Vector2Int yRandRange)
         {
-            System.Random prng = new System.Random(seed);
-
             Vector3[,] offset = new Vector3[width, height];
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    offset[x, y] = new Vector3(prng.Next(xRandRange.x, xRandRange.y) / 100f, 0, prng.Next(yRandRange.x, yRandRange.y) / 100f);
+                    offset[x, y] = new Vector3(Noise.prng.Next(xRandRange.x, xRandRange.y) / 100f, 0, Noise.prng.Next(yRandRange.x, yRandRange.y) / 100f);
                 }
             }
 
