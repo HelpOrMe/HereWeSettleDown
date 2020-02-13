@@ -13,13 +13,14 @@ namespace Generator
         public Vector2Int triangleRangeXScale;
         public Vector2Int triangleRangeYScale;
 
-
         public GenerationSettings settings;
         public AnimationCurve meshHeightCurve;
         public float meshHeightMultiplier;
-        public bool EvoluteHeightFromBiomes;
+        public bool evaluteHeightFromBiomes;
 
-        public bool SmoothColorMap;
+        [Range(0, 3)]
+        public int SmoothIterations;
+        public bool FastBiomeColoring;
 
         public DisplayType displayType;
 
@@ -27,53 +28,59 @@ namespace Generator
         public BiomesMapGenerator biomesGenerator;
 
         [HideInInspector] static public float[,] heightMap;
-        [HideInInspector] static public int[,] biomesMask;
+        [HideInInspector] static public BiomeMask[] biomesMasks;
+        [HideInInspector] static public int[,] globalBiomeMask;
 
         public void GenerateMap()
         {
-            CorrectValuesInGenerators();
+            Noise.SetupPRNG(seed);
+
             GenerateGlobalMap();
-            biomesMask = biomesGenerator.GenerateBiomeMask();
-            if (EvoluteHeightFromBiomes)
-                heightMap = biomesGenerator.EvoluteHeightByBiomes(heightMap, biomesMask);
+            biomesMasks = biomesGenerator.GenerateBiomesMask(mapWidth, mapHeight);
+            globalBiomeMask = biomesGenerator.СombineMasks(mapWidth, mapHeight, biomesMasks);
+
+            if (evaluteHeightFromBiomes)
+                heightMap = biomesGenerator.EvaluteHeightByBiomes(heightMap, globalBiomeMask);
 
             DisplayMap();
-        }
-
-        void CorrectValuesInGenerators()
-        {
-            biomesGenerator.mapWidth = mapWidth;
-            biomesGenerator.mapHeight = mapHeight;
-            biomesGenerator.seed = seed;
         }
 
         void GenerateGlobalMap()
         {
             heightMap = Noise.GenerateNoiseMap(
-                seed, mapWidth, mapHeight, settings.noiseScale,
+                mapWidth, mapHeight, settings.noiseScale,
                 settings.octaves, settings.persistance,
                 settings.lacunarity, settings.offset);
         }
 
         void DisplayMap()
         {
+            // Generate color map
             Color[] colorMap;
 
+            // Choose map display mode
             if (displayType == DisplayType.GameView)
-                colorMap = ColorMapGenerator.ColorMapFromColorRegions(heightMap, biomesMask, biomesGenerator.biomes);
+            {
+                if (FastBiomeColoring)
+                    colorMap = ColorMapGenerator.ColorMapFromColorRegions(heightMap, globalBiomeMask, biomesGenerator.biomes);
+                else
+                    colorMap = ColorMapGenerator.ColorMapFromColorRegions(heightMap, biomesMasks, biomesGenerator.biomes);
+            }
             else if (displayType == DisplayType.Biomes)
-                colorMap = biomesGenerator.CreateColorMap(biomesMask);
+                colorMap = biomesGenerator.CreateColorMap(globalBiomeMask);
             else
-                colorMap = ColorMapGenerator.ColorMapFromHeightMap2(heightMap);
-
-            //MeshData meshData = MeshGenerator.GenerateTerrainMesh(seed, heightMap, triangleSizeScale, meshHeightMultiplier, meshHeightCurve);
-
-            //meshData.SetColorMap(colorMap);
+                colorMap = ColorMapGenerator.ColorMapFromHeightMap(heightMap);
 
             ColorPack[,] convertedColorMap = ColorMapGenerator.ConvertColorMap(mapWidth, mapHeight, colorMap);
-            if (SmoothColorMap)
+            for (int i = 0; i < SmoothIterations; i++)
                 convertedColorMap = ColorMapGenerator.SmoothColorMap(convertedColorMap);
-            mapDisplay.DrawMesh(MeshEditor.GenerateNewMesh(seed, heightMap, triangleRangeXScale, triangleRangeYScale, triangleSizeScale, meshHeightMultiplier, meshHeightCurve, convertedColorMap));
+
+            mapDisplay.DrawMesh(
+                MeshEditor.GenerateNewMesh(
+                    heightMap, triangleRangeXScale, triangleRangeYScale, 
+                    triangleSizeScale, meshHeightMultiplier, 
+                    meshHeightCurve, convertedColorMap)
+                );
         }
 
         public enum DisplayType
