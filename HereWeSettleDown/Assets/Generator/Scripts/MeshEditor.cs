@@ -4,62 +4,80 @@ namespace Generator
 {
     public static class MeshEditor
     {
-        public static MeshData GenerateNewMesh(float[,] heightMap, Vector2Int xRandomRange, Vector2Int yRandomRange, 
+        public static MeshData[,] GenerateChunkMeshes(int chunkWidth, int chunkHeight, int chunkXCount, int chunkYCount, float[,] heightMap, Vector2Int xRandomRange, Vector2Int yRandomRange,
             Vector2 triangleScale, float heightMultiplier, AnimationCurve heightCurve, ColorPack[,] colorMap)
         {
-            int width = heightMap.GetLength(0) - 1;
-            int height = heightMap.GetLength(1) - 1;
+            int width = heightMap.GetLength(0);
+            int height = heightMap.GetLength(1);
+
+            chunkWidth--;
+            chunkHeight--;
 
             // Generate random offset map
-            Vector3[,] offsetMap = GenerateRandomOffset(width + 1, height + 1, xRandomRange, yRandomRange);
+            Vector3[,] offsetMap = GenerateRandomOffset(width, height, xRandomRange, yRandomRange);
 
-            // Generate mesh map
-            MeshData meshData = new MeshData(width + 1, height + 1);
-
-            int lastVert = 0;
-            for (int x = 0; x < width; x++)
+            // Generate all meshes
+            MeshData[,] meshesMap = new MeshData[chunkXCount, chunkYCount];
+            
+            for (int cX = 0; cX < chunkXCount; cX++)
             {
-                for (int y = 0; y < height; y++)
+                for (int cY = 0; cY < chunkYCount; cY++)
                 {
-                    // Create two triangles
-                    for (int i = 0; i < 2; i++)
+                    // Generate chunk mesh
+                    MeshData meshData = new MeshData(chunkWidth + 1, chunkHeight + 1);
+                    int lastVert = 0;
+                    for (int x = cX * chunkWidth ; x < cX * chunkWidth  + chunkWidth ; x++)
                     {
-                        int[] order;
-                        if (i == 0)
-                            order = new int[3] { 0, 1, 2 };
-                        else
-                            order = new int[3] { 1, 0, 2 };
-
-                        int[] vertIndexes = new int[3] 
-                        { 
-                            lastVert + order[0], 
-                            lastVert + order[1], 
-                            lastVert + order[2]
-                        };
-                        Vector3[] vertPositions = new Vector3[3] 
+                        for (int y = cY * chunkHeight ; y < cY * chunkHeight  + chunkHeight ; y++)
                         {
-                            new Vector3(x, heightCurve.Evaluate(heightMap[x, y + 1]), y + 1) + offsetMap[x, y + 1],
-                            new Vector3(x + 1, heightCurve.Evaluate(heightMap[x + 1, y]), y) + offsetMap[x + 1, y],
-                            new Vector3(x + i, heightCurve.Evaluate(heightMap[x + i, y + i]), y + i) + offsetMap[x + i, y + i]
-                        };
-                        
-                        Vector2[] uv = new Vector2[3]
-                        {
-                            new Vector2(x / (float)width, (y + 1) / (float)height),
-                            new Vector2((x + 1) / (float)width, y / (float)height),
-                            new Vector2((x + i) / (float)width, (y + i) / (float)height)
-                        };
+                            int px = x % chunkWidth ;
+                            int py = y % chunkHeight ;
 
-                        // Scale vertPositions
-                        for (int j = 0; j < 3; j++)
-                            vertPositions[j] = Vector3.Scale(vertPositions[j], new Vector3(triangleScale.x, heightMultiplier, triangleScale.y));
+                            // Create two triangles
+                            for (int i = 0; i < 2; i++)
+                            {
+                                int[] order;
+                                if (i == 0)
+                                    order = new int[3] { 0, 1, 2 };
+                                else
+                                    order = new int[3] { 1, 0, 2 };
 
-                        meshData.AddTriangle(vertIndexes, vertPositions, uv, colorMap[x, y][i]);
-                        lastVert += 3;
+                                int[] vertIndexes = new int[3]
+                                {
+                                    lastVert + order[0],
+                                    lastVert + order[1],
+                                    lastVert + order[2]
+                                };
+                                Vector3[] vertPositions = new Vector3[3]
+                                {
+                                    new Vector3(px, heightCurve.Evaluate(heightMap[x, y + 1]), py + 1) + offsetMap[x, y + 1],
+                                    new Vector3(px + 1, heightCurve.Evaluate(heightMap[x + 1, y]), py) + offsetMap[x + 1, y],
+                                    new Vector3(px + i, heightCurve.Evaluate(heightMap[x + i, y + i]), py + i) + offsetMap[x + i, y + i]
+                                };
+
+                                Vector2[] uv = new Vector2[3]
+                                {
+                                    new Vector2(x / (float)(width), (y + 1) / (float)(height)),
+                                    new Vector2((x + 1) / (float)(width), y / (float)(height)),
+                                    new Vector2((x + i) / (float)(width), (y + i) / (float)(height))
+                                };
+
+                                // Scale vertPositions
+                                for (int j = 0; j < 3; j++)
+                                    vertPositions[j] = Vector3.Scale(vertPositions[j], new Vector3(triangleScale.x, heightMultiplier, triangleScale.y));
+
+                                meshData.AddTriangle(vertIndexes, vertPositions, uv, colorMap[x, y][i]);
+                                lastVert += 3;
+                            }
+                        }
                     }
+
+                    meshesMap[cX, cY] = meshData;
                 }
             }
-            return meshData;
+            
+            
+            return meshesMap;
         }
 
         static Vector3[,] GenerateRandomOffset(int width, int height, Vector2Int xRandRange, Vector2Int yRandRange)
@@ -79,7 +97,8 @@ namespace Generator
 
     public class MeshData
     {
-        //public Quad[,] map;
+        public int width;
+        public int height;
 
         public int[] triangles;
         public Vector3[] vertices;
@@ -90,8 +109,10 @@ namespace Generator
 
         public MeshData(int width, int height)
         {
-            int size = (width - 1) * (height - 1) * 6;
+            this.width = width;
+            this.height = height;
 
+            int size = (width - 1) * (height - 1) * 6;
             vertices = new Vector3[size];
             triangles = new int[size];
             uv = new Vector2[size];
@@ -126,46 +147,57 @@ namespace Generator
         }
     }
 
-    public struct Quad
+    public class MeshDataEditor
     {
-        public Triangle[] triangles;
+        MeshData meshData;
+        public Vector3[,] verticesMap;
 
-        public Quad(Triangle first, Triangle second)
+        public MeshDataEditor(MeshData meshData)
         {
-            triangles = new Triangle[2] { first, second };
-        }
-    }
-
-    public struct Triangle
-    {
-        public Vertex[] vertices;
-
-        public Triangle(Vertex[] vertices)
-        {
-            this.vertices = vertices;
+            this.meshData = meshData;
+            SetVerticesMap();
         }
 
-        public Triangle(int[] indexes, Vector3[] positions)
+        void SetVerticesMap()
         {
-            vertices = new Vertex[3];
-            for (int i = 0; i < 3; i++)
-                vertices[i] = new Vertex(positions[i], this, Color.black, indexes[i]);
+            verticesMap = new Vector3[meshData.width, meshData.height];
+
+            int vertexIndex = 0;
+            for (int x = 0; x < meshData.width - 1; x++)
+            {
+                for (int y = 0; y < meshData.height - 1; y++)
+                {
+                    verticesMap[x, y + 1] = meshData.vertices[vertexIndex];
+                    verticesMap[x + 1, y] = meshData.vertices[vertexIndex + 1];
+                    verticesMap[x, y] = meshData.vertices[vertexIndex + 2];
+                    verticesMap[x + 1, y + 1] = meshData.vertices[vertexIndex + 5];
+                    vertexIndex += 6;
+                }
+            }
         }
-    }
 
-    public struct Vertex
-    {
-        public Vector3 position;
-        public Triangle parent;
-        public Color color;
-        public int index;
-
-        public Vertex(Vector3 position, Triangle parent, Color color, int index)
+        void ApplyVerticesMap()
         {
-            this.position = position;
-            this.parent = parent;
-            this.color = color;
-            this.index = index;
+            int vertexIndex = 0;
+            for (int x = 0; x < meshData.width - 1; x++)
+            {
+                for (int y = 0; y < meshData.height - 1; y++)
+                {
+                    meshData.vertices[vertexIndex] = verticesMap[x, y + 1];
+                    meshData.vertices[vertexIndex + 1] = verticesMap[x + 1, y];
+                    meshData.vertices[vertexIndex + 2] = verticesMap[x, y];
+                    meshData.vertices[vertexIndex + 3] = verticesMap[x + 1, y];
+                    meshData.vertices[vertexIndex + 4] = verticesMap[x, y + 1];
+                    meshData.vertices[vertexIndex + 5] = verticesMap[x + 1, y + 1];
+                    vertexIndex += 6;
+                }
+            }
+        }
+
+        public MeshData GetMeshData()
+        {
+            ApplyVerticesMap();
+            return meshData;
         }
     }
 

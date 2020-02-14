@@ -6,6 +6,9 @@ namespace Generator
     {
         public int seed;
 
+        public int chunkWidth;
+        public int chunkHeight;
+
         public int mapWidth;
         public int mapHeight;
 
@@ -24,12 +27,14 @@ namespace Generator
 
         public DisplayType displayType;
 
-        public MapDisplay mapDisplay;
+        public GameObject chunkTerrain;
         public BiomesMapGenerator biomesGenerator;
 
-        [HideInInspector] static public float[,] heightMap;
-        [HideInInspector] static public BiomeMask[] biomesMasks;
-        [HideInInspector] static public int[,] globalBiomeMask;
+        public static float[,] heightMap;
+        public static BiomeMask[] biomesMasks;
+        public static int[,] globalBiomeMask;
+
+        public static Chunk[,] chunkMap;
 
         public void GenerateMap()
         {
@@ -38,11 +43,10 @@ namespace Generator
             GenerateGlobalMap();
             biomesMasks = biomesGenerator.GenerateBiomesMask(mapWidth, mapHeight);
             globalBiomeMask = biomesGenerator.СombineMasks(mapWidth, mapHeight, biomesMasks);
-
             if (evaluteHeightFromBiomes)
                 heightMap = biomesGenerator.EvaluteHeightByBiomes(heightMap, globalBiomeMask);
 
-            DisplayMap();
+            GenerateChunks();
         }
 
         void GenerateGlobalMap()
@@ -53,7 +57,32 @@ namespace Generator
                 settings.lacunarity, settings.offset);
         }
 
-        void DisplayMap()
+        void GenerateChunks()
+        {
+            // Generate meshes
+            ColorPack[,] colorMap = GenerateColorMap();
+            MeshData[,] chunkMeshesMap = MeshEditor.GenerateChunkMeshes(
+                chunkWidth, chunkHeight, mapWidth / chunkWidth, 
+                mapHeight / chunkHeight, heightMap, 
+                triangleRangeXScale, triangleRangeYScale, 
+                triangleSizeScale, meshHeightMultiplier, 
+                meshHeightCurve, colorMap);
+
+            // Setup chunks
+            int width = mapWidth / chunkWidth;
+            int height = mapHeight / chunkHeight;
+            chunkMap = new Chunk[width, height];
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    chunkMap[x, y] = new Chunk(chunkTerrain, new Vector2Int(x, y), new Vector2Int(chunkWidth, chunkHeight), chunkMeshesMap[x, y]);
+                }
+            }
+        }
+
+        ColorPack[,] GenerateColorMap()
         {
             // Generate color map
             Color[] colorMap;
@@ -75,12 +104,7 @@ namespace Generator
             for (int i = 0; i < SmoothIterations; i++)
                 convertedColorMap = ColorMapGenerator.SmoothColorMap(convertedColorMap);
 
-            mapDisplay.DrawMesh(
-                MeshEditor.GenerateNewMesh(
-                    heightMap, triangleRangeXScale, triangleRangeYScale, 
-                    triangleSizeScale, meshHeightMultiplier, 
-                    meshHeightCurve, convertedColorMap)
-                );
+            return convertedColorMap;
         }
 
         public enum DisplayType
