@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Generator.Custom;
 
 namespace Generator
 {
@@ -9,6 +10,20 @@ namespace Generator
         public static void SetupPRNG(int seed)
         {
             prng = new System.Random(seed);
+        }
+
+        public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, GenerationSettings settings)
+        {
+            float[,] heightMap = GenerateNoiseMap(mapWidth, mapHeight, settings.noiseScale, settings.octaves, settings.persistance, settings.lacunarity, settings.offset);
+
+            for (int y = 0; y < mapHeight; y++)
+            {
+                for (int x = 0; x < mapWidth; x++)
+                {
+                    heightMap[x, y] = settings.heightCurve.Evaluate(heightMap[x, y]);
+                }
+            }
+            return heightMap;
         }
 
         public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
@@ -90,12 +105,20 @@ namespace Generator
                     float x = i / (float)width * 2 - 1;
                     float y = j / (float)height * 2 - 1;
 
-                    float value = -Mathf.Max(Mathf.Abs(x), Mathf.Abs(y));
-                    map[i, j] = value;
+                    float value = Mathf.Max(Mathf.Abs(x), Mathf.Abs(y));
+                    map[i, j] = EvaluateFalloffValue(value);
                 }
             }
 
             return map;
+        }
+
+        static float EvaluateFalloffValue(float value)
+        {
+            float a = 3;
+            float b = 2.2f;
+
+            return Mathf.Pow(value, a) / (Mathf.Pow(value, a) + Mathf.Pow(b - b * value, a));
         }
     }
 }

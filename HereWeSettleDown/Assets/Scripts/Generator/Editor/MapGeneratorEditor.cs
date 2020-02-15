@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace Generator._Editor
+namespace Generator.Custom._Editor
 {
     [CustomEditor(typeof(MapGenerator), true)]
     public class MapGeneratorEditor : Editor
@@ -17,18 +17,10 @@ namespace Generator._Editor
 
             if (autoUpdate || GUILayout.Button("Generate map"))
             {
-                if (MapGenerator.chunkMap != null)
+                foreach (Transform chunk in FindObjectOfType<ChunkGenerator>().transform)
                 {
-                    for (int x = 0; x < MapGenerator.chunkMap.GetLength(0); x++)
-                    {
-                        for (int y = 0; y < MapGenerator.chunkMap.GetLength(1); y++)
-                        {
-                            if (MapGenerator.chunkMap[x, y].chunkObject)
-                                Destroy(MapGenerator.chunkMap[x, y].chunkObject);
-                        }
-                    }
+                    Destroy(chunk.gameObject);
                 }
-                
                 mapGenerator.GenerateMap();
             }
         }
