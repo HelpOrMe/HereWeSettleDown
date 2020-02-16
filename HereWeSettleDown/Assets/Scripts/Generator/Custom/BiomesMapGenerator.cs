@@ -11,15 +11,11 @@ namespace Generator.Custom
 
         private Dictionary<int, Biome> indToBiome = new Dictionary<int, Biome>();
 
-        private void Awake()
-        {
-            values["biomes"] = biomes;
-        }
-
         public override void OnRegistrate()
         {
             if (EvaluteMapHeightByBiomes)
                 HeightMapGenerator.RegistrateFunc(EvaluteHeightByBiomes, 1);
+            values["biomes"] = biomes;
         }
 
         public override void OnGenerate()

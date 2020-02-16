@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using World.MeshSystem;
 
 namespace Generator.Custom
 {
@@ -12,14 +12,6 @@ namespace Generator.Custom
 
         public GenerationSettings settings;
 
-        public void SetMapGenerationValues()
-        {
-            SubGenerator.values.Clear();
-            SubGenerator.values["mapWidth"] = mapWidth;
-            SubGenerator.values["mapHeight"] = mapHeight;
-            SubGenerator.values["mapGenerationSettings"] = settings;
-        }
-
         public void GenerateMap()
         {
             Noise.SetupPRNG(seed);
@@ -28,9 +20,17 @@ namespace Generator.Custom
             StartGenerate();
         }
 
+        public void SetMapGenerationValues()
+        {
+            SubGenerator.values.Clear();
+            SubGenerator.values["mapWidth"] = mapWidth;
+            SubGenerator.values["mapHeight"] = mapHeight;
+            SubGenerator.values["mapGenerationSettings"] = settings;
+        }
+
         public override void OnGenerationEnd()
         {
-            Debug.Log("Yeeeey!");
+            print("Yeeey!");
         }
     }
 

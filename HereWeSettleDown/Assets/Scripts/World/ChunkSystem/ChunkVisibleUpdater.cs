@@ -3,7 +3,7 @@ using UnityEngine;
 using Generator;
 using Generator.Custom;
 
-namespace Chunks
+namespace World.ChunkSystem
 {
     /*public class ChunkVisibleUpdater : MonoBehaviour
     {

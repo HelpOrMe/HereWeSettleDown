@@ -27,7 +27,7 @@ namespace Generator
 
         public void RegistrateGenerators()
         {
-            ClearRegisteredGenerators();
+            ClearRegistratedGenerators();
 
             registratedGenerators = ObjectFinder.FindRootObjects<SubGenerator>();
             foreach (SubGenerator gen in registratedGenerators)
@@ -50,7 +50,7 @@ namespace Generator
             GeneratorsRegistered = true;
         }
 
-        public void ClearRegisteredGenerators()
+        public void ClearRegistratedGenerators()
         {
             generatorsRegData.Clear();
             generatorsPriority.Clear();

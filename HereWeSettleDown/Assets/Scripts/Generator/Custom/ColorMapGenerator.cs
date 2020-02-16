@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using World.MeshSystem;
 
 namespace Generator.Custom
 {
@@ -9,6 +10,8 @@ namespace Generator.Custom
         public DisplayType displayType;
         [Range(0, 3)] 
         public int smoothIterations;
+
+        private Color[] colorMap;
 
         public override void OnGenerate()
         {
@@ -20,7 +23,6 @@ namespace Generator.Custom
         public void GenerateSimpleColorMap()
         {
             float[,] heightMap = GetValue<float[,]>("heightMap");
-            Color[] colorMap = null;
 
             if (DisplayType.GameView == displayType)
             {
@@ -54,13 +56,10 @@ namespace Generator.Custom
             {
                 colorMap = ColorMapFromHeightMap(heightMap);
             }
-
-            values["colorMap"] = colorMap;
         }
 
         public void GeneratePackColorMap()
         {
-            Color[] colorMap = GetValue<Color[]>("colorMap");
             int width = GetValue<int>("mapWidth");
             int height = GetValue<int>("mapHeight");
 
@@ -68,7 +67,7 @@ namespace Generator.Custom
             for (int i = 0; i < smoothIterations; i++)
                 convertedColorMap = SmoothColorMap(convertedColorMap);
 
-            values["colorpackMap"] = convertedColorMap;
+            values["colorMap"] = convertedColorMap;
         }
 
         public ColorPack[,] ConvertColorMap(int width, int height, Color[] _colors)
@@ -80,15 +79,14 @@ namespace Generator.Custom
                 for (int y = 0; y < height; y ++)
                 {
                     Color targetColor = _colors[width * y + x];
-                    Color[] colorList = new Color[3] { targetColor, targetColor, targetColor };
 
                     // Color main quad
                     if (x < width - 1 && y < height - 1)
-                        colorMap[x, y][0] = colorList;
+                        colorMap[x, y][0] = targetColor;
 
                     // Color left-bottom quad
                     if (x - 1 >= 0 && y - 1 > 0)
-                        colorMap[x - 1, y - 1][1] = colorList;
+                        colorMap[x - 1, y - 1][1] = targetColor;
 
                     // Color left quad
                     if (x - 1 >= 0 && y < height - 1)
@@ -119,14 +117,14 @@ namespace Generator.Custom
                         List<Color> neighborColors = new List<Color>();
 
                         // First triangle
-                        neighborColors.Add(colorPack[i + sign][0]);
+                        neighborColors.Add(colorPack[i + sign]);
                         if (x - sign >= 0 && x - sign < width)
-                            neighborColors.Add(colorMap[x - sign, y][i + sign][0]);
+                            neighborColors.Add(colorMap[x - sign, y][i + sign]);
                         if (y - sign >= 0 && y - sign < height)
-                            neighborColors.Add(colorMap[x, y - sign][i + sign][0]);
+                            neighborColors.Add(colorMap[x, y - sign][i + sign]);
 
                         if (TwoSameColors(neighborColors.ToArray(), out Color newColor))
-                            colorPack[i] = new Color[] { newColor, newColor, newColor };
+                            colorPack[i] = newColor;
                     }
                     colorMap[x, y] = colorPack;
                 }

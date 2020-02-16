@@ -11,10 +11,6 @@ namespace Generator.Custom
         public bool UseFalloffMap;
         public AnimationCurve falloffMapCurve;
 
-        // public float heightScale;
-        // public float maxFinalHeight;
-        // public float minFinalHeight;
-
         // From mapGenerationSettings
         private AnimationCurve heightCurve;
 
