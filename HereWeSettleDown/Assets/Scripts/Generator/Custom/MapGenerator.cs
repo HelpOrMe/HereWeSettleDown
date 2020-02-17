@@ -4,8 +4,6 @@ namespace Generator.Custom
 {
     public class MapGenerator : MasterGenerator
     {
-        public int seed;
-
         public int mapWidth;
         public int mapHeight;
 
@@ -13,7 +11,6 @@ namespace Generator.Custom
 
         public void GenerateMap()
         {
-            Noise.SetupPRNG(seed);
             SetMapGenerationValues();
             RegistrateGenerators();
             StartGenerate();

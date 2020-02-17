@@ -10,6 +10,8 @@ namespace Generator
 {
     public class MasterGenerator : MonoBehaviour
     {
+        public int seed;
+
         public static bool GeneratorsRegistered { get; private set; }
         public static bool GenerationEnd { get; private set; }
 
@@ -33,6 +35,7 @@ namespace Generator
         public void RegistrateGenerators()
         {
             ClearRegistratedGenerators();
+            System.Random mainPrng = new System.Random(seed);
 
             registratedGenerators = ObjectFinder.FindRootObjects<SubGenerator>();
             foreach (SubGenerator gen in registratedGenerators)
@@ -51,6 +54,8 @@ namespace Generator
                     // Add generator to state dictionary
                     generatorStates[gen] = false;
 
+                    // Add SubGenerator prng
+                    gen.ownPrng = new System.Random(mainPrng.Next(int.MinValue, int.MaxValue));
                     gen.OnRegistrate();
                 }
             }
@@ -162,7 +167,8 @@ namespace Generator
             if (GeneratorsRegistered && !generatorStates.Values.Contains(false))
             {
                 generationEndedAt = Time.time;
-                Debug.Log("Time passed from generation start " + (generationEndedAt - generationStartedAt));
+                Debug.Log("Time has passed since the start of generation " + (generationEndedAt - generationStartedAt));
+
                 GenerationEnd = true;
                 OnGenerationEnd();
             }

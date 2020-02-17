@@ -7,6 +7,7 @@ namespace Generator
     public class SubGenerator : MonoBehaviour
     {
         public static Dictionary<string, object> values = new Dictionary<string, object>();
+        public System.Random ownPrng;
 
         public virtual void OnRegistrate() { }
         public virtual void OnGenerate() { }
@@ -47,12 +48,13 @@ namespace Generator
     {
         public GeneratorRegData data;
 
-        public WorldGenerator(int priority = 0, bool useOwnThread = false, params string[] requireValues)
+        public WorldGenerator(int priority = 0, bool useOwnThread = false, bool useOwnPRNG = false, params string[] requireValues)
         {
             data = new GeneratorRegData()
             {
                 priority = priority,
                 useThread = useOwnThread,
+                useOwnPRNG = useOwnPRNG,
                 requireValues = requireValues
             };
         }
@@ -62,6 +64,7 @@ namespace Generator
     {
         public int priority;
         public bool useThread;
+        public bool useOwnPRNG;
         public string[] requireValues;
     }
 }

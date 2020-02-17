@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(10, true, "mapWidth", "mapHeight", "mapGenerationSettings")]
+    [WorldGenerator(10, true, true, "mapWidth", "mapHeight", "mapGenerationSettings")]
     public class HeightMapGenerator : SubGenerator
     {
         public bool UseFalloffMap;
@@ -48,6 +48,7 @@ namespace Generator.Custom
         public void GenerateHeightMap(int mapWidth, int mapHeight, GenerationSettings settings)
         {
             float[,] heightMap = Noise.GenerateNoiseMap(
+                ownPrng,
                 mapWidth, mapHeight, settings.noiseScale, 
                 settings.octaves, settings.persistance, 
                 settings.lacunarity, settings.offset);

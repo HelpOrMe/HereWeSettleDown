@@ -415,7 +415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1065009227
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -776,7 +776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1784873496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -789,6 +789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb726f1ff6420594b9798ec0977a5f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewer: {fileID: 1065009230}
+  maxViewDistance: 100
 --- !u!4 &1784873497
 Transform:
   m_ObjectHideFlags: 0
@@ -902,8 +904,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 0
-  mapWidth: 300
-  mapHeight: 300
+  mapWidth: 500
+  mapHeight: 500
   settings:
     heightCurve:
       serializedVersion: 2

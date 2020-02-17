@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(9, true, "mapWidth", "mapHeight")]
+    [WorldGenerator(9, true, true, "mapWidth", "mapHeight")]
     public class BiomesMapGenerator : SubGenerator
     {
         public bool EvaluteMapHeightByBiomes;
@@ -40,7 +40,7 @@ namespace Generator.Custom
                 int[,] intMask = new int[width, height];
                 BiomeMaskGeneration biomeSettings = biomes[i].maskSettings;
 
-                float[,] heightMap = Noise.GenerateNoiseMap(width, height, biomeSettings.settings);
+                float[,] heightMap = Noise.GenerateNoiseMap(ownPrng, width, height, biomeSettings.settings);
                 for (int x = 0; x < width; x++)
                 {
                     for (int y = 0; y < height; y++)

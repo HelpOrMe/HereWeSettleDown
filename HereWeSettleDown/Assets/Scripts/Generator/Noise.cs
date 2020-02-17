@@ -5,16 +5,9 @@ namespace Generator
 {
     public static class Noise
     {
-        public static System.Random prng { get; private set; }
-
-        public static void SetupPRNG(int seed)
+        public static float[,] GenerateNoiseMap(System.Random prng, int mapWidth, int mapHeight, GenerationSettings settings)
         {
-            prng = new System.Random(seed);
-        }
-
-        public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, GenerationSettings settings)
-        {
-            float[,] heightMap = GenerateNoiseMap(mapWidth, mapHeight, settings.noiseScale, settings.octaves, settings.persistance, settings.lacunarity, settings.offset);
+            float[,] heightMap = GenerateNoiseMap(prng, mapWidth, mapHeight, settings.noiseScale, settings.octaves, settings.persistance, settings.lacunarity, settings.offset);
 
             for (int y = 0; y < mapHeight; y++)
             {
@@ -26,7 +19,7 @@ namespace Generator
             return heightMap;
         }
 
-        public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
+        public static float[,] GenerateNoiseMap(System.Random prng, int mapWidth, int mapHeight, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
         {
             float[,] noiseMap = new float[mapWidth, mapHeight];
 
