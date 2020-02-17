@@ -44,6 +44,12 @@ namespace World.MeshSystem
             SetQuadMap();
         }
 
+        public void SetConnectChunk(Chunk chunk)
+        {
+            connectedChunk = chunk;
+            //...
+        }
+
         public void SetDefaultTriangles()
         {
             for (int x = 0; x < width; x++)
@@ -75,19 +81,13 @@ namespace World.MeshSystem
             }
         }
 
-        public void SetConnectChunk(Chunk chunk)
-        {
-            connectedChunk = chunk;
-            //...
-        }
-
         public void UpdateQuadValues(int x, int y)
         {
             int sVertInd = (y * width + x) * 6;
             for (int i = 0; i < 6; i++)
             {
                 vertices[sVertInd + i] = quadMap[x, y].GetVert(verticesIndexPattern[i]);
-                colors[sVertInd + i] = quadMap[x, y].GetColor(i > 3 ? 1 : 0);
+                colors[sVertInd + i] = quadMap[x, y].GetColor(i > 2 ? 1 : 0);
             }
         }
 

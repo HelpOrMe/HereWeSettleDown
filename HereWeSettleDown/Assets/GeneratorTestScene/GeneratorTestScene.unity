@@ -160,10 +160,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.29439926
-      value: 0
-      inSlope: 1.417232
-      outSlope: 1.417232
+      time: 0.29665756
+      value: 0.045654297
+      inSlope: 1.3568721
+      outSlope: 1.3568721
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
@@ -171,8 +171,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1.417232
-      outSlope: 1.417232
+      inSlope: 1.3568721
+      outSlope: 1.3568721
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -380,7 +380,7 @@ MonoBehaviour:
       height: 0.21
       color: {r: 0.21960784, g: 0.5176471, b: 0.5647059, a: 0}
     - name: Sand
-      height: 0.25
+      height: 0.3
       color: {r: 0.6509804, g: 0.6901961, b: 0.5568628, a: 0}
     - name: Mountain
       height: 0.35
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a688c5b09821c224cbc4a2136a5e3782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayType: 2
+  displayType: 3
   smoothIterations: 1
 --- !u!1 &1324067148
 GameObject:
@@ -754,7 +754,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375147036}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 970, z: 0}
+  m_LocalPosition: {x: 1500, y: 970, z: 1500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -910,21 +910,21 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 1
-        outSlope: 1
+        value: 0.17004395
+        inSlope: 0.82995605
+        outSlope: 0.82995605
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 1
-        outSlope: 1
+        inSlope: 0.82995605
+        outSlope: 0.82995605
         tangentMode: 34
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

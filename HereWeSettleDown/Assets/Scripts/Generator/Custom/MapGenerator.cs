@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using World.MeshSystem;
 
 namespace Generator.Custom
@@ -30,7 +31,24 @@ namespace Generator.Custom
 
         public override void OnGenerationEnd()
         {
-            print("Yeeey!");
+            StartCoroutine(Hehe());
+        }
+
+        public IEnumerator Hehe()
+        {
+            Camera cam = Camera.main;
+            while (true)
+            {
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    for (int i = 0; i < 2; i++)
+                        MeshMap.SetColor((int)hit.point.x / 10, (int)hit.point.z / 10, i, Color.white);
+                    MeshMap.ConfirmChanges();
+                }
+                
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 
