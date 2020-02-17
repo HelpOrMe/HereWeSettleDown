@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(10, "mapWidth", "mapHeight", "mapGenerationSettings")]
+    [WorldGenerator(10, true, "mapWidth", "mapHeight", "mapGenerationSettings")]
     public class HeightMapGenerator : SubGenerator
     {
         public bool UseFalloffMap;

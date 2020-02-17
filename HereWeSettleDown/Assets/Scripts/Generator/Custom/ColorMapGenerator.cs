@@ -4,7 +4,7 @@ using World.MeshSystem;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(8, "heightMap", "biomes", "biomeMasks", "globalMask")]
+    [WorldGenerator(8, true, "heightMap", "biomes", "biomeMasks", "globalMask")]
     public class ColorMapGenerator : SubGenerator
     {
         public DisplayType displayType;

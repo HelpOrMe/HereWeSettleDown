@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(9, "mapWidth", "mapHeight")]
+    [WorldGenerator(9, true, "mapWidth", "mapHeight")]
     public class BiomesMapGenerator : SubGenerator
     {
         public bool EvaluteMapHeightByBiomes;

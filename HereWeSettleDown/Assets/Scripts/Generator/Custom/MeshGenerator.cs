@@ -3,7 +3,7 @@ using World.MeshSystem;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(7, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "heightMap", "colorMap")]
+    [WorldGenerator(7, true, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "heightMap", "colorMap")]
     public class MeshGenerator : SubGenerator
     {
         public Vector2Int triangleRangeXScale;
