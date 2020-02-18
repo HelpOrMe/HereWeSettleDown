@@ -4,7 +4,7 @@ using World.MeshSystem;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(6, false, true, "mapWidth", "mapHeight", "chunkMeshDataMap")]
+    [CustomGenerator(6, false, "mapWidth", "mapHeight", "chunkMeshDataMap")]
     public class ChunkGenerator : SubGenerator
     {
         public int chunkWidth;

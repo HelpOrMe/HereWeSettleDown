@@ -1,75 +1,21 @@
 fileFormatVersion: 2
-guid: 92e2c37944d1caa4c93ab06cb2a3f1aa
+guid: 45be411b6920668408fc50592d04e6f6
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Camera
-    100004: Cube
-    100006: Cube.001
-    100008: Light
-    100010: aple
-    100012: aple.001
-    100014: aple.002
-    100016: aple.003
-    100018: aple.004
-    100020: aple.005
-    100022: Plane
-    100024: aple.006
-    100026: aple.007
+    100002: Cube.003
+    100004: Cylinder.001
     400000: //RootNode
-    400002: Camera
-    400004: Cube
-    400006: Cube.001
-    400008: Light
-    400010: aple
-    400012: aple.001
-    400014: aple.002
-    400016: aple.003
-    400018: aple.004
-    400020: aple.005
-    400022: Plane
-    400024: aple.006
-    400026: aple.007
-    2000000: Camera
-    2100000: Material
-    2100002: No Name
-    2100004: Material.001
-    2100006: Material.002
-    2300000: Cube
-    2300002: Cube.001
-    2300004: aple
-    2300006: aple.001
-    2300008: aple.002
-    2300010: aple.003
-    2300012: aple.004
-    2300014: aple.005
-    2300016: Plane
-    2300018: aple.006
-    2300020: aple.007
-    3300000: Cube
-    3300002: Cube.001
-    3300004: aple
-    3300006: aple.001
-    3300008: aple.002
-    3300010: aple.003
-    3300012: aple.004
-    3300014: aple.005
-    3300016: Plane
-    3300018: aple.006
-    3300020: aple.007
-    4300000: Cube
-    4300002: Cube.001
-    4300004: Plane
-    4300006: aple
-    4300008: aple.001
-    4300010: aple.002
-    4300012: aple.003
-    4300014: aple.004
-    4300016: aple.005
-    4300018: aple.006
-    4300020: aple.007
-    10800000: Light
+    400002: Cube.003
+    400004: Cylinder.001
+    2100000: No Name
+    2300000: Cube.003
+    2300002: Cylinder.001
+    3300000: Cube.003
+    3300002: Cylinder.001
+    4300000: Cube.003
+    4300002: Cylinder.001
   externalObjects: {}
   materials:
     importMaterials: 1

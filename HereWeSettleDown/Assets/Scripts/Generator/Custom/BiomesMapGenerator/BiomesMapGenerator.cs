@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(9, true, true, "mapWidth", "mapHeight", "heightMap")]
+    [CustomGenerator(9, true, "mapWidth", "mapHeight", "heightMap")]
     public class BiomesMapGenerator : SubGenerator
     {
         public Biome[] biomes;
@@ -38,6 +38,7 @@ namespace Generator.Custom
         {
             float[,] heightMap = GetValue<float[,]>("heightMap");
             float[,] modHeightMap = (float[,])heightMap.Clone();
+
             BiomeMask[] biomeMasks = new BiomeMask[biomes.Length];
             int[,] globalBiomesMask = new int[width, height];
 
@@ -45,45 +46,30 @@ namespace Generator.Custom
             {
                 Biome biome = biomes[i];
 
-                int[,] biomeMask = new int[width, height];
-                float[,] biomeHeightMask = Noise.GenerateNoiseMap(ownPrng, width, height, biome.GetBiomeMask());
+                int[,] biomeMask = biome.GetBiomeMask(ownPrng, heightMap);
 
                 for (int x = 0; x < width; x++)
                 {
                     for (int y = 0; y < height; y++)
                     {
-                        if (biome.absolute)
-                        {
-                            globalBiomesMask[x, y] = biome.index;
-                            biomeMask[x, y] = biome.index;
-                            if (biome.isEvaluteHeight)
-                                modHeightMap[x, y] = biome.evaluteHeight.Evaluate(heightMap[x, y]);
-                        }
-
-                        // Mask height condition
-                        else if (biome.minMaskHeight < biomeHeightMask[x, y] && biome.maxMaskHeight > biomeHeightMask[x, y])
+                        if (biomeMask[x, y] != 0)
                         {
                             // Spawn on biome condition
                             if (biome.spawnOnAllBiomes || globalBiomesMask[x, y] == 0 ||
                                 GetBiomesIndexes(biome.spawnOnBiomes).Contains(globalBiomesMask[x, y]))
                             {
-                                // Spawn on height condition
-                                if (biome.anySpawnHeight || (biome.minSpawnHeight < heightMap[x, y] && biome.maxSpawnHeight > heightMap[x, y]))
-                                {
-                                    globalBiomesMask[x, y] = biome.index;
-                                    biomeMask[x, y] = biome.index;
+                                globalBiomesMask[x, y] = biome.index;
 
-                                    // Evalute height condition
-                                    if (biome.isEvaluteHeight)
-                                    {
-                                        modHeightMap[x, y] = biome.evaluteHeight.Evaluate(heightMap[x, y]);
-                                    }
+                                // Evalute height condition
+                                if (biome.isEvaluteHeight)
+                                {
+                                    modHeightMap[x, y] = biome.evaluteHeight.Evaluate(heightMap[x, y]);
                                 }
                             }
                         }
                     }
                 }
-                biomeMasks[i] = new BiomeMask(biomeMask);
+                biomeMasks[i] = new BiomeMask(biomeMask, biomes[i]);
             }
 
             values["modHeightMap"] = modHeightMap;
@@ -123,10 +109,12 @@ namespace Generator.Custom
     public struct BiomeMask
     {
         public int[,] mask;
+        public Biome biome;
 
-        public BiomeMask(int[,] mask)
+        public BiomeMask(int[,] mask, Biome biome)
         {
             this.mask = mask;
+            this.biome = biome;
         }
     }
 }

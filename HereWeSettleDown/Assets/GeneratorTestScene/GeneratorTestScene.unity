@@ -112,6 +112,367 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &259231000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 259231002}
+  - component: {fileID: 259231001}
+  m_Layer: 0
+  m_Name: Overworld / Sea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &259231001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259231000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Overworld / Sea
+  mapColor: {r: 0.15686187, g: 0.3970451, b: 0.4433962, a: 0}
+  index: 4
+  spawnOnAllBiomes: 0
+  spawnOnBiomes:
+  - {fileID: 1310180920}
+  anySpawnHeight: 0
+  minSpawnHeight: -1
+  maxSpawnHeight: 0.1
+  heightMaskPatterns:
+  - {fileID: 927982678}
+  isEvaluteHeight: 0
+  evaluteHeight:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.49176788
+      outSlope: 0.49176788
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.49176788
+      inSlope: 0.49176788
+      outSlope: 0.49176788
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  overrideColors: 1
+  colorRegions:
+  - name: Deep water
+    height: 0.11
+    color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
+  - name: Water
+    height: 0.17
+    color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
+  - name: Sand
+    height: 0.3
+    color: {r: 0.98676056, g: 1, b: 0.7311321, a: 0}
+  - name: Low grass
+    height: 0.4
+    color: {r: 0.60784316, g: 0.78431374, b: 0.3372549, a: 0}
+  - name: Grass
+    height: 0.5
+    color: {r: 0.5411765, g: 0.69803923, b: 0.29411766, a: 0}
+  - name: High grass
+    height: 0.7
+    color: {r: 0.4666667, g: 0.6117647, b: 0.2392157, a: 0}
+  - name: Mountain
+    height: 0.9
+    color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 0}
+  - name: Snow
+    height: 1
+    color: {r: 1, g: 1, b: 1, a: 0}
+--- !u!4 &259231002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259231000}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 927982679}
+  m_Father: {fileID: 488692830}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &321821409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 321821410}
+  - component: {fileID: 321821411}
+  m_Layer: 0
+  m_Name: Overworld / Lake
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &321821410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321821409}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 869123741}
+  m_Father: {fileID: 488692830}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &321821411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321821409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Overworld / Sea
+  mapColor: {r: 0.21960783, g: 0.58431375, b: 0.44174895, a: 0}
+  index: 5
+  spawnOnAllBiomes: 1
+  spawnOnBiomes:
+  - {fileID: 1310180920}
+  anySpawnHeight: 0
+  minSpawnHeight: -1
+  maxSpawnHeight: 0.1
+  heightMaskPatterns:
+  - {fileID: 869123742}
+  isEvaluteHeight: 1
+  evaluteHeight:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.9482872
+      outSlope: 0.9482872
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4004072
+      value: 0.37970102
+      inSlope: 0.6619817
+      outSlope: 0.6619817
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.60495377
+      inSlope: 0.048760418
+      outSlope: 0.048760418
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19511102
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  overrideColors: 1
+  colorRegions:
+  - name: Deep water
+    height: 0.21
+    color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
+  - name: Water
+    height: 0.37
+    color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
+  - name: Sand
+    height: 0.4
+    color: {r: 0.98676056, g: 1, b: 0.7311321, a: 0}
+  - name: Low grass
+    height: 0.4
+    color: {r: 0.60784316, g: 0.78431374, b: 0.3372549, a: 0}
+  - name: Grass
+    height: 0.5
+    color: {r: 0.5411765, g: 0.69803923, b: 0.29411766, a: 0}
+  - name: High grass
+    height: 0.7
+    color: {r: 0.4666667, g: 0.6117647, b: 0.2392157, a: 0}
+  - name: Mountain
+    height: 0.9
+    color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 0}
+  - name: Snow
+    height: 1
+    color: {r: 1, g: 1, b: 1, a: 0}
+--- !u!1 &488692829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 488692830}
+  m_Layer: 0
+  m_Name: Overworld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &488692830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488692829}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1310180919}
+  - {fileID: 557799558}
+  - {fileID: 321821410}
+  - {fileID: 259231002}
+  m_Father: {fileID: 1042230692}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &557799557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 557799558}
+  - component: {fileID: 557799559}
+  m_Layer: 0
+  m_Name: Overworld / Mountain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &557799558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557799557}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1084769367}
+  m_Father: {fileID: 488692830}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &557799559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557799557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Overworld / Sea
+  mapColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0}
+  index: 3
+  spawnOnAllBiomes: 0
+  spawnOnBiomes:
+  - {fileID: 1310180920}
+  anySpawnHeight: 0
+  minSpawnHeight: -1
+  maxSpawnHeight: 0.1
+  heightMaskPatterns:
+  - {fileID: 1084769368}
+  isEvaluteHeight: 1
+  evaluteHeight:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  overrideColors: 1
+  colorRegions:
+  - name: Deep water
+    height: 0
+    color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
+  - name: Water
+    height: 0
+    color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
+  - name: Sand
+    height: 0
+    color: {r: 0.98676056, g: 1, b: 0.7311321, a: 0}
+  - name: Low grass
+    height: 0.4
+    color: {r: 0.60784316, g: 0.78431374, b: 0.3372549, a: 0}
+  - name: Grass
+    height: 0.5
+    color: {r: 0.5411765, g: 0.69803923, b: 0.29411766, a: 0}
+  - name: High grass
+    height: 0.7
+    color: {r: 0.4666667, g: 0.6117647, b: 0.2392157, a: 0}
+  - name: Mountain
+    height: 0.9
+    color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 0}
+  - name: Snow
+    height: 1
+    color: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &698558496
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,9 +585,182 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   biomes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1310180920}
+  - {fileID: 557799559}
+  - {fileID: 321821411}
+  - {fileID: 259231001}
+--- !u!1 &869123740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 869123741}
+  - component: {fileID: 869123742}
+  m_Layer: 0
+  m_Name: HeightMask / Lake
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &869123741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869123740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 321821410}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &869123742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869123740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskType: 3
+  noiseSettings:
+    minWorldHeight: -1
+    maxWorldHeight: 0.44
+    minMaskHeight: 0.6
+    maxMaskHeight: 1
+    maskSettings:
+      heightCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      noiseScale: 100
+      octaves: 4
+      persistance: 0
+      lacunarity: 0
+      offset: {x: 0, y: 0}
+  borderSettings:
+    xDistFromBorder: 0.2
+    yDistFromBorder: 0.2
+    minWorldHeight: -1
+    maxWorldHeight: 0.35
+  absoluteSettings:
+    minWorldHeight: 0
+    maxWorldHeight: 0
+  picksSettings:
+    brushSize: 2
+    maxIterations: 5000
+    detectPicksCount: 0.15
+    minStopHeight: 0
+    maxStopHeight: 0.4
+    maxWorldHeight: 0.23
+    minWorldHeight: 0
+--- !u!1 &927982677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 927982679}
+  - component: {fileID: 927982678}
+  m_Layer: 0
+  m_Name: HeightMask / Sea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &927982678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927982677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskType: 2
+  noiseSettings:
+    minWorldHeight: 0
+    maxWorldHeight: 0
+    minMaskHeight: 0
+    maxMaskHeight: 0
+    maskSettings:
+      heightCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      noiseScale: 0
+      octaves: 0
+      persistance: 0
+      lacunarity: 0
+      offset: {x: 0, y: 0}
+  borderSettings:
+    xDistFromBorder: 0.2
+    yDistFromBorder: 0.2
+    minWorldHeight: -1
+    maxWorldHeight: 0.35
+  absoluteSettings:
+    minWorldHeight: 0
+    maxWorldHeight: 0
+  picksSettings:
+    brushSize: 0
+    maxIterations: 0
+    detectPicksCount: 0
+    minStopHeight: 0
+    maxStopHeight: 0
+    maxWorldHeight: 0
+    minWorldHeight: 0
+--- !u!4 &927982679
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927982677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 259231002}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1042230691
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +788,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1322675692}
+  - {fileID: 488692830}
   m_Father: {fileID: 1912494303358366796}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -349,6 +883,83 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1084769366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1084769367}
+  - component: {fileID: 1084769368}
+  m_Layer: 0
+  m_Name: Overworld / Mountain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1084769367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084769366}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 557799558}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1084769368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084769366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskType: 3
+  noiseSettings:
+    minWorldHeight: 0
+    maxWorldHeight: 0
+    minMaskHeight: 0
+    maxMaskHeight: 0
+    maskSettings:
+      heightCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      noiseScale: 0
+      octaves: 0
+      persistance: 0
+      lacunarity: 0
+      offset: {x: 0, y: 0}
+  borderSettings:
+    xDistFromBorder: 0
+    yDistFromBorder: 0
+    minWorldHeight: 0
+    maxWorldHeight: 0
+  absoluteSettings:
+    minWorldHeight: 0
+    maxWorldHeight: 0
+  picksSettings:
+    brushSize: 4
+    maxIterations: 5000
+    detectPicksCount: 0.15
+    minStopHeight: 0.6
+    maxStopHeight: 1
+    maxWorldHeight: 1
+    minWorldHeight: 0.83
 --- !u!1 &1157338661
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +1053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayType: 3
   smoothIterations: 1
---- !u!1 &1322675691
+--- !u!1 &1310180918
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -450,105 +1061,100 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1322675692}
-  - component: {fileID: 1322675693}
+  - component: {fileID: 1310180919}
+  - component: {fileID: 1310180920}
   m_Layer: 0
-  m_Name: Overworld
+  m_Name: Overworld / Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1322675692
+--- !u!4 &1310180919
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322675691}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 1310180918}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1042230692}
+  m_Children:
+  - {fileID: 1518376765}
+  m_Father: {fileID: 488692830}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1322675693
+--- !u!114 &1310180920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322675691}
+  m_GameObject: {fileID: 1310180918}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Overworld / Plains
+  name: Overworld
   mapColor: {r: 0.33161268, g: 0.8679245, b: 0.54701537, a: 0}
   index: 1
-  absolute: 1
-  spawnOnAllBiomes: 0
+  spawnOnAllBiomes: 1
   spawnOnBiomes: []
   anySpawnHeight: 0
   minSpawnHeight: 0
   maxSpawnHeight: 1
-  minMaskHeight: 0
-  maxMaskHeight: 0
-  copyBiomeMask: 0
-  biomeMaskParent: {fileID: 0}
-  maskSettings:
-    heightCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    noiseScale: 0
-    octaves: 0
-    persistance: 0
-    lacunarity: 0
-    offset: {x: 0, y: 0}
-  isEvaluteHeight: 0
+  heightMaskPatterns:
+  - {fileID: 1518376766}
+  isEvaluteHeight: 1
   evaluteHeight:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
+      inSlope: 1.2054183
+      outSlope: 1.2054183
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
+      time: 0.26678807
+      value: 0.32159123
+      inSlope: 1.1027092
+      outSlope: 1.1027092
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.29692993
+      value: 0.3517331
+      inSlope: 0.8175316
+      outSlope: 0.8175316
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.62058836
+      value: 0.55727667
+      inSlope: 0.6284941
+      outSlope: 0.6284941
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9918213
+      value: 0.70957947
+      inSlope: 0.03627644
+      outSlope: 0.03627644
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19416201
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -556,16 +1162,16 @@ MonoBehaviour:
   overrideColors: 0
   colorRegions:
   - name: Deep water
-    height: 0.05
+    height: 0.08
     color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
   - name: Water
     height: 0.2
     color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
   - name: Sand
-    height: 0.25
+    height: 0
     color: {r: 0.98676056, g: 1, b: 0.7311321, a: 0}
   - name: Low grass
-    height: 0.3
+    height: 0.4
     color: {r: 0.60784316, g: 0.7843138, b: 0.3372549, a: 0}
   - name: Grass
     height: 0.5
@@ -574,7 +1180,7 @@ MonoBehaviour:
     height: 0.7
     color: {r: 0.4666667, g: 0.6117647, b: 0.2392157, a: 0}
   - name: Mountain
-    height: 0.85
+    height: 0.9
     color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 0}
   - name: Snow
     height: 1
@@ -758,6 +1364,101 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1518376764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1518376765}
+  - component: {fileID: 1518376766}
+  m_Layer: 0
+  m_Name: HeightMask / Land
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1518376765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518376764}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1310180919}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1518376766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518376764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskType: 0
+  noiseSettings:
+    minWorldHeight: -1
+    maxWorldHeight: 1
+    minMaskHeight: 0
+    maxMaskHeight: 1
+    maskSettings:
+      heightCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      noiseScale: 100
+      octaves: 1
+      persistance: 0
+      lacunarity: 0
+      offset: {x: 0, y: 0}
+  borderSettings:
+    xDistFromBorder: 0.1
+    yDistFromBorder: 0.1
+    minWorldHeight: -1
+    maxWorldHeight: 0.3
+  absoluteSettings:
+    minWorldHeight: -1
+    maxWorldHeight: 1
+  picksSettings:
+    brushSize: 0
+    maxIterations: 0
+    detectPicksCount: 0
+    minStopHeight: 0
+    maxStopHeight: 0
+    maxWorldHeight: 0
+    minWorldHeight: 0
 --- !u!1 &1784873495
 GameObject:
   m_ObjectHideFlags: 0

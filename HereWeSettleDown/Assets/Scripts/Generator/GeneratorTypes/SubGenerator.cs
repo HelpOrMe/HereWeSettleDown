@@ -44,18 +44,27 @@ namespace Generator
     }
 
     [AttributeUsage(AttributeTargets.Class)]
-    public class WorldGenerator : Attribute
+    public class CustomGenerator : Attribute
     {
         public GeneratorRegData data;
 
-        public WorldGenerator(int priority = 0, bool useOwnThread = false, bool useOwnPRNG = false, params string[] requireValues)
+        public CustomGenerator(int priority = 0, bool useOwnThread = false, params string[] requireValues)
         {
             data = new GeneratorRegData()
             {
                 priority = priority,
                 useThread = useOwnThread,
-                useOwnPRNG = useOwnPRNG,
                 requireValues = requireValues
+            };
+        }
+
+        public CustomGenerator(int priority = 0, bool useOwnThread = false, params Type[] requiredCompletedGenerators)
+        {
+            data = new GeneratorRegData()
+            {
+                priority = priority,
+                useThread = useOwnThread,
+                requiredCompletedGenerators = requiredCompletedGenerators
             };
         }
     }
@@ -64,8 +73,8 @@ namespace Generator
     {
         public int priority;
         public bool useThread;
-        public bool useOwnPRNG;
         public string[] requireValues;
+        public Type[] requiredCompletedGenerators;
     }
 }
 
