@@ -15,6 +15,8 @@ ModelImporter:
     100018: aple.004
     100020: aple.005
     100022: Plane
+    100024: aple.006
+    100026: aple.007
     400000: //RootNode
     400002: Camera
     400004: Cube
@@ -27,6 +29,8 @@ ModelImporter:
     400018: aple.004
     400020: aple.005
     400022: Plane
+    400024: aple.006
+    400026: aple.007
     2000000: Camera
     2100000: Material
     2100002: No Name
@@ -41,6 +45,8 @@ ModelImporter:
     2300012: aple.004
     2300014: aple.005
     2300016: Plane
+    2300018: aple.006
+    2300020: aple.007
     3300000: Cube
     3300002: Cube.001
     3300004: aple
@@ -50,6 +56,8 @@ ModelImporter:
     3300012: aple.004
     3300014: aple.005
     3300016: Plane
+    3300018: aple.006
+    3300020: aple.007
     4300000: Cube
     4300002: Cube.001
     4300004: Plane
@@ -59,6 +67,8 @@ ModelImporter:
     4300012: aple.003
     4300014: aple.004
     4300016: aple.005
+    4300018: aple.006
+    4300020: aple.007
     10800000: Light
   externalObjects: {}
   materials:
