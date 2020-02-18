@@ -3,7 +3,7 @@ using World.MeshSystem;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(7, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "heightMap", "colorMap")]
+    [WorldGenerator(7, true, true, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "modHeightMap", "colorMap")]
     public class MeshGenerator : SubGenerator
     {
         public Vector2Int triangleRangeXScale;
@@ -22,7 +22,7 @@ namespace Generator.Custom
             int width = GetValue<int>("mapWidth");
             int height = GetValue<int>("mapHeight");
 
-            float[,] heightMap = GetValue<float[,]>("heightMap");
+            float[,] heightMap = GetValue<float[,]>("modHeightMap");
             Vector3[,] offsetMap = GenerateOffset(width, height);
 
             int chunkWidth = GetValue<int>("chunkWidth");
@@ -64,7 +64,7 @@ namespace Generator.Custom
             {
                 for (int y = 0; y < height; y++)
                 {
-                    offset[x, y] = new Vector3(x, 0, y) + new Vector3(Noise.prng.Next(triangleRangeXScale.x, triangleRangeXScale.y) / 100f, 0, Noise.prng.Next(triangleRangeYScale.x, triangleRangeYScale.y) / 100f);
+                    offset[x, y] = new Vector3(x, 0, y) + new Vector3(ownPrng.Next(triangleRangeXScale.x, triangleRangeXScale.y) / 100f, 0, ownPrng.Next(triangleRangeYScale.x, triangleRangeYScale.y) / 100f);
                 }
             }
 

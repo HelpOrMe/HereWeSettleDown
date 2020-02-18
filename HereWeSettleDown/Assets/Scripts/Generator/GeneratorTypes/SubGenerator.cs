@@ -7,37 +7,13 @@ namespace Generator
     public class SubGenerator : MonoBehaviour
     {
         public static Dictionary<string, object> values = new Dictionary<string, object>();
-        private GeneratorRegData regData;
-
-        public GeneratorRegData _registrate()
-        {
-            OnRegistrate();
-
-            object[] attributes = GetType().GetCustomAttributes(typeof(WorldGenerator), false);
-            if (attributes.Length > 0)
-            {
-                WorldGenerator gen = (WorldGenerator)attributes[0];
-                regData = gen.data;
-            }
-            else
-            {
-                regData = new GeneratorRegData()
-                {
-                    priority = 0,
-                    requireValues = new string[] { "Nothing" }
-                };
-            }
-
-            return regData;
-        }
+        public System.Random ownPrng;
 
         public virtual void OnRegistrate() { }
-
         public virtual void OnGenerate() { }
 
         protected void GenerationCompleted()
         {
-            Debug.Log(GetType().Name + " completed!");
             MasterGenerator.SetGeneratorState(this, true);
         }
 
@@ -72,11 +48,13 @@ namespace Generator
     {
         public GeneratorRegData data;
 
-        public WorldGenerator(int priority = 0, params string[] requireValues)
+        public WorldGenerator(int priority = 0, bool useOwnThread = false, bool useOwnPRNG = false, params string[] requireValues)
         {
             data = new GeneratorRegData()
             {
                 priority = priority,
+                useThread = useOwnThread,
+                useOwnPRNG = useOwnPRNG,
                 requireValues = requireValues
             };
         }
@@ -85,6 +63,8 @@ namespace Generator
     public struct GeneratorRegData
     {
         public int priority;
+        public bool useThread;
+        public bool useOwnPRNG;
         public string[] requireValues;
     }
 }

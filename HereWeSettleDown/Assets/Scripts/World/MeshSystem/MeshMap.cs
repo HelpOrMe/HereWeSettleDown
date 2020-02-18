@@ -56,7 +56,7 @@ namespace World.MeshSystem
                     Chunk targetChunk = ChunkMap.chunkMap[chunkX, chunkY];
                     if (!editedChunks.ContainsKey(targetChunk))
                         editedChunks[targetChunk] = new List<Vector2Int>();
-                    editedChunks[targetChunk].Add(new Vector2Int(x % (chunkWidth - 2), y % (chunkHeight - 2)));
+                    editedChunks[targetChunk].Add(new Vector2Int(x % (chunkWidth - 1), y % (chunkHeight - 1)));
                 }
             }
         }
@@ -67,7 +67,6 @@ namespace World.MeshSystem
             {
                 foreach (Vector2Int editedQuad in editedChunks[chunk])
                 {
-                    Debug.Log(editedQuad);
                     chunk.meshData.UpdateQuadValues(editedQuad.x, editedQuad.y);
                 }
                 chunk.DrawMesh();
