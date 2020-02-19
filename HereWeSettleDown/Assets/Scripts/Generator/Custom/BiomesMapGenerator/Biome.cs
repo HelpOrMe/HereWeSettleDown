@@ -8,20 +8,14 @@ namespace Generator.Custom
         public Color mapColor;
         public int index;
 
-        public bool absolute;
-
         public bool spawnOnAllBiomes;
         public Biome[] spawnOnBiomes;
 
         public bool anySpawnHeight;
-        [Range(0, 1)] public float minSpawnHeight;
-        [Range(0, 1)] public float maxSpawnHeight;
+        [Range(-1, 1)] public float minSpawnHeight;
+        [Range(-1, 1)] public float maxSpawnHeight;
 
-        [Range(0, 1)] public float minMaskHeight;
-        [Range(0, 1)] public float maxMaskHeight;
-        public bool copyBiomeMask;
-        public Biome biomeMaskParent;
-        public GenerationSettings maskSettings;
+        public HeightMaskPattern heightMaskPattern;
 
         public bool isEvaluteHeight;
         public AnimationCurve evaluteHeight;
@@ -29,12 +23,9 @@ namespace Generator.Custom
         public bool overrideColors;
         public BiomeColorRegion[] colorRegions;
 
-        public GenerationSettings GetBiomeMask()
+        public int[,] GetBiomeMask(System.Random prng, float[,] heightMap)
         {
-            if (copyBiomeMask)
-                return biomeMaskParent.GetBiomeMask();
-            else
-                return maskSettings;
+            return heightMaskPattern.GetMask(prng, heightMap);
         }
     }
 

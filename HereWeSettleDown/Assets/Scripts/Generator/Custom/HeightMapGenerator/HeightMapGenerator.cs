@@ -2,7 +2,7 @@
 
 namespace Generator.Custom
 {
-    [WorldGenerator(10, true, true, "mapWidth", "mapHeight", "mapGenerationSettings")]
+    [CustomGenerator(10, true, "mapWidth", "mapHeight", "mapGenerationSettings")]
     public class HeightMapGenerator : SubGenerator
     {
         public bool UseFalloffMap;

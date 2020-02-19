@@ -14,40 +14,17 @@ namespace Generator.Custom._Editor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("index"));
             EditorGUILayout.Space();
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("absolute"));
-            if (!biome.absolute)
+            if (!biome.spawnOnAllBiomes)
+                EditorGUILayout.Space();
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("spawnOnAllBiomes"));
+            if (!biome.spawnOnAllBiomes)
             {
-                if (!biome.spawnOnAllBiomes)
-                    EditorGUILayout.Space();
-
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("spawnOnAllBiomes"));
-                if (!biome.spawnOnAllBiomes)
-                {
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("spawnOnBiomes"), true);
-                    EditorGUILayout.Space();
-                }
-
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("anySpawnHeight"));
-                if (!biome.anySpawnHeight)
-                {
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("minSpawnHeight"));
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("maxSpawnHeight"));
-                    EditorGUILayout.Space();
-                }
-
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("minMaskHeight"));
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("maxMaskHeight"));
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("copyBiomeMask"));
-                if (biome.copyBiomeMask)
-                {
-                    EditorGUILayout.HelpBox("Don't loop biome masks!", MessageType.Info);
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("biomeMaskParent"));
-                }
-                else
-                {
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("maskSettings"), true);
-                }
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("spawnOnBiomes"), true);
+                EditorGUILayout.Space();
             }
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("heightMaskPatterns"), true);
             EditorGUILayout.Space();
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("isEvaluteHeight"));
@@ -59,6 +36,11 @@ namespace Generator.Custom._Editor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("colorRegions"), true);
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        public void Field(string name, bool child = false)
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(name), child);
         }
     }
 }

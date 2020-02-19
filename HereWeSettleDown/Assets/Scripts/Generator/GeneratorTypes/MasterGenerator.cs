@@ -15,11 +15,14 @@ namespace Generator
         public static bool GeneratorsRegistered { get; private set; }
         public static bool GenerationEnd { get; private set; }
 
-        protected SubGenerator[] registratedGenerators;
-        protected Dictionary<SubGenerator, GeneratorRegData> generatorsRegData = new Dictionary<SubGenerator, GeneratorRegData>();
-        protected Dictionary<int, List<SubGenerator>> generatorsPriority = new Dictionary<int, List<SubGenerator>>();
-        protected static Dictionary<SubGenerator, bool> generatorStates = new Dictionary<SubGenerator, bool>();
-        protected Dictionary<SubGenerator, Thread> generatorThreads = new Dictionary<SubGenerator, Thread>();
+        private SubGenerator[] registratedGenerators;
+        private Dictionary<SubGenerator, GeneratorRegData> generatorsRegData = new Dictionary<SubGenerator, GeneratorRegData>();
+        private Dictionary<int, List<SubGenerator>> generatorsPriority = new Dictionary<int, List<SubGenerator>>();
+        private Dictionary<SubGenerator, Thread> generatorThreads = new Dictionary<SubGenerator, Thread>();
+
+        private static Dictionary<SubGenerator, bool> generatorStates = new Dictionary<SubGenerator, bool>();
+        private static Dictionary<string, bool> generatorStringStates = new Dictionary<string, bool>();
+
 
         protected float generationStartedAt;
         protected float generationEndedAt;
@@ -53,6 +56,7 @@ namespace Generator
 
                     // Add generator to state dictionary
                     generatorStates[gen] = false;
+                    generatorStringStates[gen.GetType().FullName] = false;
 
                     // Add SubGenerator prng
                     gen.ownPrng = new System.Random(mainPrng.Next(int.MinValue, int.MaxValue));
@@ -64,21 +68,13 @@ namespace Generator
 
         public GeneratorRegData GetGeneratorData(SubGenerator generator)
         {
-            GeneratorRegData regData;
+            GeneratorRegData regData = new GeneratorRegData();
 
-            object[] attributes = generator.GetType().GetCustomAttributes(typeof(WorldGenerator), false);
+            object[] attributes = generator.GetType().GetCustomAttributes(typeof(CustomGenerator), false);
             if (attributes.Length > 0)
             {
-                WorldGenerator genAttr = (WorldGenerator)attributes[0];
+                CustomGenerator genAttr = (CustomGenerator)attributes[0];
                 regData = genAttr.data;
-            }
-            else
-            {
-                regData = new GeneratorRegData()
-                {
-                    priority = 0,
-                    requireValues = new string[] { "Nothing" }
-                };
             }
 
             return regData;
@@ -110,7 +106,7 @@ namespace Generator
 
         private IEnumerator ActivateGenerator(SubGenerator generator, GeneratorRegData regData)
         {
-            yield return new WaitUntil(() => CheckDataValues(regData.requireValues));
+            yield return new WaitUntil(() => CheckDataValues(regData));
             if (regData.useThread)
             {
                 // Create own thread to SubGenerator
@@ -132,15 +128,30 @@ namespace Generator
             }
         }
 
-        private bool CheckDataValues(string[] requireValues)
+        private bool CheckDataValues(GeneratorRegData data)
         {
-            if (requireValues.Contains("Nothing"))
-                return true;
+            if (data.requireValues == null && data.requiredCompletedGenerators == null)
+                return false;
 
-            foreach (string requireValue in requireValues)
+            if (data.requireValues != null)
             {
-                if (!SubGenerator.values.ContainsKey(requireValue))
-                    return false;
+                if (data.requireValues.Contains("Nothing"))
+                    return true;
+
+                foreach (string requireValue in data.requireValues)
+                {
+                    if (!SubGenerator.values.ContainsKey(requireValue))
+                        return false;
+                }
+            }
+           
+            if (data.requiredCompletedGenerators != null)
+            {
+                foreach (Type requireGenerator in data.requiredCompletedGenerators)
+                {
+                    if (!generatorStringStates[requireGenerator.FullName])
+                        return false;
+                }
             }
 
             return true;
@@ -153,8 +164,8 @@ namespace Generator
                 if (generatorStates.ContainsKey(generator))
                 {
                     generatorStates[generator] = state;
+                    generatorStringStates[generator.GetType().FullName] = state;
                     if (state)
-                        // You cannot take the name of an object not through the main thread. (c) Unity
                         Debug.Log(generator.GetType().Name + " generation completed."); 
                 }
             }

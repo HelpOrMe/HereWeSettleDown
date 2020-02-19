@@ -3,11 +3,10 @@ using World.MeshSystem;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(7, true, true, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "modHeightMap", "colorMap")]
+    [CustomGenerator(7, true, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "modHeightMap", "colorMap")]
     public class MeshGenerator : SubGenerator
     {
-        public Vector2Int triangleRangeXScale;
-        public Vector2Int triangleRangeYScale;
+        public Vector2Int triangleRangeScale;
         public int verticesHeightScale;
         public AnimationCurve verticesCurve;
 
@@ -46,11 +45,11 @@ namespace Generator.Custom
 
             // Create all chunksMeshes
             ChunkMeshData[,] chunkMeshDataMap = new ChunkMeshData[chunkXCount, chunkYCount];
-            for (int cX = 0; cX < chunkXCount; cX++)
+            for (int x = 0; x < chunkXCount; x++)
             {
-                for (int cY = 0; cY < chunkYCount; cY++)
+                for (int y = 0; y < chunkYCount; y++)
                 {
-                    chunkMeshDataMap[cX, cY] = new ChunkMeshData(chunkWidth - 1, chunkHeight - 1, cX, cY);
+                    chunkMeshDataMap[x, y] = new ChunkMeshData(chunkWidth - 1, chunkHeight - 1, x, y);
                 }
             }
 
@@ -64,7 +63,7 @@ namespace Generator.Custom
             {
                 for (int y = 0; y < height; y++)
                 {
-                    offset[x, y] = new Vector3(x, 0, y) + new Vector3(ownPrng.Next(triangleRangeXScale.x, triangleRangeXScale.y) / 100f, 0, ownPrng.Next(triangleRangeYScale.x, triangleRangeYScale.y) / 100f);
+                    offset[x, y] = new Vector3(x, 0, y) + new Vector3(ownPrng.Next(triangleRangeScale.x, triangleRangeScale.y) / 100f, 0, ownPrng.Next(triangleRangeScale.x, triangleRangeScale.y) / 100f);
                 }
             }
 

@@ -4,61 +4,52 @@ using World.MeshSystem;
 
 namespace Generator.Custom
 {
-    [WorldGenerator(8, true, false, "modHeightMap", "biomes", "biomeMasks", "globalBiomeMask")]
+    [CustomGenerator(8, true, "modHeightMap", "biomes", "biomeMasks", "globalBiomeMask")]
     public class ColorMapGenerator : SubGenerator
     {
         public DisplayType displayType;
         [Range(0, 3)] 
         public int smoothIterations;
 
-        private Color[] colorMap;
-
         public override void OnGenerate()
         {
-            GenerateSimpleColorMap();
-            GenerateColorPackMap();
+            GenerateColorPackMap(GenerateSimpleColorMap());
             GenerationCompleted();
         }
 
-        public void GenerateSimpleColorMap()
+        public Color[] GenerateSimpleColorMap()
         {
             float[,] heightMap = GetValue<float[,]>("modHeightMap");
+            Biome[] biomes = GetValue<Biome[]>("biomes");
 
-            if (DisplayType.GameView == displayType)
+            BiomeMask[] biomeMasks = GetValue<BiomeMask[]>("biomeMasks");
+            int[,] globalBiomeMask = GetValue<int[,]>("globalBiomeMask");
+
+            Color[] colorMap = null;
+
+            switch (displayType)
             {
-                Biome[] biomes = GetValue<Biome[]>("biomes");
-                BiomeMask[] biomeMasks = GetValue<BiomeMask[]>("biomeMasks");
+                case (DisplayType.GameView):
+                    colorMap = ColorMapFromColorRegions(heightMap, biomeMasks);
+                    break;
 
-                colorMap = ColorMapFromColorRegions(heightMap, biomeMasks, biomes);
+                case (DisplayType.Falloff):
+                    if (TryGetValue("falloffMap", out float[,] falloffMap))
+                        colorMap = ColorMapFromHeightMap(falloffMap);
+                    break;
+
+                case (DisplayType.Biomes):
+                    colorMap = ColorMapFromBiomes(globalBiomeMask, biomes);
+                    break;
             }
 
-            else if (DisplayType.Falloff == displayType)
-            {
-                if (TryGetValue("falloffMap", out float[,] falloffMap))
-                {
-                    colorMap = ColorMapFromHeightMap(falloffMap);
-                }
-                else
-                {
-                    colorMap = ColorMapFromHeightMap(heightMap);
-                }
-            }
-
-            else if (DisplayType.Biomes == displayType)
-            {
-                int[,] globalBiomeMask = GetValue<int[,]>("globalBiomeMask");
-                Biome[] biomes = GetValue<Biome[]>("biomes");
-
-                colorMap = ColorMapFromBiomes(globalBiomeMask, biomes);
-            }
-
-            else // Noise
-            {
+            if (colorMap == null)
                 colorMap = ColorMapFromHeightMap(heightMap);
-            }
+
+            return colorMap;
         }
 
-        public void GenerateColorPackMap()
+        public void GenerateColorPackMap(Color[] colorMap)
         {
             int width = GetValue<int>("mapWidth");
             int height = GetValue<int>("mapHeight");
@@ -182,14 +173,8 @@ namespace Generator.Custom
             return colorMap;
         }
 
-        public Color[] ColorMapFromColorRegions(float[,] heightMap, BiomeMask[] biomeMasks, Biome[] biomes)
+        public Color[] ColorMapFromColorRegions(float[,] heightMap, BiomeMask[] biomeMasks)
         {
-            // Set dicitionary with index to colors
-            Dictionary<int, BiomeColorRegion[]> indexToColorRegions = new Dictionary<int, BiomeColorRegion[]>();
-            for (int i = 0; i < biomes.Length; i++)
-                if (!indexToColorRegions.ContainsKey(biomes[i].index))
-                    indexToColorRegions.Add(biomes[i].index, biomes[i].colorRegions);
-
             // Create color map
             int width = heightMap.GetLength(0);
             int height = heightMap.GetLength(1);
@@ -199,13 +184,13 @@ namespace Generator.Custom
             {
                 for (int y = 0; y < height; y++)
                 {
-                    for (int i = 0; i < biomeMasks.Length; i ++)
+                    for (int i = 0; i < biomeMasks.Length; i++)
                     {
-                        if (indexToColorRegions.ContainsKey(biomeMasks[i].mask[x, y]))
+                        if (biomeMasks[i].mask[x, y] == 1)
                         {
-                            if (biomes[i].overrideColors || colorMap[y * width + x] == default)
+                            if (biomeMasks[i].biome.overrideColors || colorMap[y * width + x] == default)
                             {
-                                foreach (BiomeColorRegion colorRegion in indexToColorRegions[biomeMasks[i].mask[x, y]])
+                                foreach (BiomeColorRegion colorRegion in biomeMasks[i].biome.colorRegions)
                                 {
                                     if (heightMap[x, y] <= colorRegion.height)
                                     {
@@ -227,7 +212,7 @@ namespace Generator.Custom
             int width = globalBiomeMask.GetLength(0);
             int height = globalBiomeMask.GetLength(1);
 
-            // Set dicitionary with index to colors
+            // Set dicitionary with index to color
             Dictionary<int, Color> indToColor = new Dictionary<int, Color>();
             for (int i = 0; i < biomes.Length; i++)
                 if (!indToColor.ContainsKey(biomes[i].index))
