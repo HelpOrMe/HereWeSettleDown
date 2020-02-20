@@ -15,7 +15,6 @@ namespace World.Chunks
         {
             this.meshData = meshData;
 
-            meshData.connectedChunk = this;
             CreateChunkObject(terrain, parent);
             DrawMesh();
             UpdateMeshCollider();
@@ -32,9 +31,9 @@ namespace World.Chunks
         void UpdateMeshCollider()
         {
             MeshCollider collider = chunkObject.GetComponent<MeshCollider>();
-            if (collider)
-                Object.Destroy(collider);
-            collider = chunkObject.AddComponent<MeshCollider>();
+            if (!collider)
+                collider = chunkObject.AddComponent<MeshCollider>();
+
             if (meshFilter)
             {
                 collider.sharedMesh = meshFilter.sharedMesh;

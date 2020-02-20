@@ -5,7 +5,7 @@ using World.Chunks;
 
 namespace World.Generator.ColorMap
 {
-    [CustomGenerator(8, true, "biomedHeightMap", "biomes", "biomeMasks", "globalBiomeMask")]
+    [CustomGenerator(true, "biomedHeightMap", "biomes", "biomeMasks", "globalBiomeMask")]
     public class ColorMapGenerator : SubGenerator
     {
         public DisplayType displayType;
@@ -17,15 +17,14 @@ namespace World.Generator.ColorMap
             GenerationCompleted();
         }
 
-        private Color[] GenerateSimpleColorMap()
+        private Color[,] GenerateSimpleColorMap()
         {
             float[,] heightMap = GetValue<float[,]>("biomedHeightMap");
             Biome[] biomes = GetValue<Biome[]>("biomes");
-
             BiomeMask[] biomeMasks = GetValue<BiomeMask[]>("biomeMasks");
             int[,] globalBiomeMask = GetValue<int[,]>("globalBiomeMask");
 
-            Color[] colorMap = null;
+            Color[,] colorMap = null;
 
             switch (displayType)
             {
@@ -49,7 +48,7 @@ namespace World.Generator.ColorMap
             return colorMap;
         }
 
-        private void GenerateColorPackMap(Color[] colorMap)
+        private void GenerateColorPackMap(Color[,] colorMap)
         {
             int width = GetValue<int>("mapWidth");
             int height = GetValue<int>("mapHeight");
@@ -61,7 +60,7 @@ namespace World.Generator.ColorMap
             values["colorMap"] = convertedColorMap;
         }
 
-        private ColorPack[,] ConvertColorMap(int width, int height, Color[] _colors)
+        private ColorPack[,] ConvertColorMap(int width, int height, Color[,] _colors)
         {
             ColorPack[,] colorMap = EmptyColorMap(width - 1, height - 1);
 
@@ -69,7 +68,7 @@ namespace World.Generator.ColorMap
             {
                 for (int y = 0; y < height; y ++)
                 {
-                    Color targetColor = _colors[width * y + x];
+                    Color targetColor = _colors[x, y];
 
                     // Color main quad
                     if (x < width - 1 && y < height - 1)
@@ -156,47 +155,45 @@ namespace World.Generator.ColorMap
             return colorMap;
         }
 
-        private Color[] ColorMapFromHeightMap(float[,] heightMap)
+        private Color[,] ColorMapFromHeightMap(float[,] heightMap)
         {
             int width = heightMap.GetLength(0);
             int height = heightMap.GetLength(1);
 
-            Color[] colorMap = new Color[width * height];
+            Color[,] colorMap = new Color[width, height];
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    colorMap[y * width + x] = Color.Lerp(Color.black, Color.white, heightMap[x, y]);
+                    colorMap[x, y] = Color.Lerp(Color.black, Color.white, heightMap[x, y]);
                 }
             }
 
             return colorMap;
         }
 
-        private Color[] ColorMapFromColorRegions(float[,] heightMap, BiomeMask[] biomeMasks)
+        private Color[,] ColorMapFromColorRegions(float[,] heightMap, BiomeMask[] biomeMasks)
         {
             int width = heightMap.GetLength(0);
             int height = heightMap.GetLength(1);
 
-            Color[] colorMap = new Color[width * height];
+            Color[,] colorMap = new Color[width, height];
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
                     for (int i = 0; i < biomeMasks.Length; i++)
                     {
-                        int colorIndex = y * width + x;
-
                         if (biomeMasks[i].mask[x, y] > 0)
                         {
                             if (biomeMasks[i].biome.OverrideColors ||
-                            colorMap[colorIndex] == default)
+                            colorMap[x, y] == default)
                             {
                                 foreach (BiomeColorRegion colorRegion in biomeMasks[i].biome.colorRegions)
                                 {
                                     if (heightMap[x, y] <= colorRegion.height)
                                     {
-                                        colorMap[colorIndex] = colorRegion.color;
+                                        colorMap[x, y] = colorRegion.color;
                                         break;
                                     }
                                 }
@@ -210,7 +207,7 @@ namespace World.Generator.ColorMap
             return colorMap;
         }
 
-        private Color[] ColorMapFromBiomes(int[,] globalBiomeMask, Biome[] biomes)
+        private Color[,] ColorMapFromBiomes(int[,] globalBiomeMask, Biome[] biomes)
         {
             int width = globalBiomeMask.GetLength(0);
             int height = globalBiomeMask.GetLength(1);
@@ -222,13 +219,13 @@ namespace World.Generator.ColorMap
                     indToColor.Add(biomes[i].index, biomes[i].mapColor);
 
             // Create color map
-            Color[] colorMap = new Color[width * height];
+            Color[,] colorMap = new Color[width, height];
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
                     if (indToColor.ContainsKey(globalBiomeMask[x, y]))
-                        colorMap[y * width + x] = indToColor[globalBiomeMask[x, y]];
+                        colorMap[x, y] = indToColor[globalBiomeMask[x, y]];
                 }
             }
 

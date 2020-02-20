@@ -17,7 +17,6 @@ namespace World.Generator
 
         private SubGenerator[] registratedGenerators;
         private readonly Dictionary<SubGenerator, GeneratorRegData> generatorsRegData = new Dictionary<SubGenerator, GeneratorRegData>();
-        private readonly Dictionary<int, List<SubGenerator>> generatorsPriority = new Dictionary<int, List<SubGenerator>>();
         private readonly Dictionary<SubGenerator, Thread> generatorThreads = new Dictionary<SubGenerator, Thread>();
 
         private readonly static Dictionary<SubGenerator, bool> generatorStates = new Dictionary<SubGenerator, bool>();
@@ -48,11 +47,6 @@ namespace World.Generator
                     GeneratorRegData data = GetGeneratorData(gen);
                     generatorsRegData[gen] = data;
 
-                    // Add generator to priority dictionary
-                    if (!generatorsPriority.ContainsKey(data.priority))
-                        generatorsPriority[data.priority] = new List<SubGenerator>();
-                    generatorsPriority[data.priority].Add(gen);
-
                     // Add generator to state dictionary
                     generatorStates[gen] = false;
                     generatorStringStates[gen.GetType().FullName] = false;
@@ -82,7 +76,6 @@ namespace World.Generator
         public void ClearRegistratedGenerators()
         {
             generatorsRegData.Clear();
-            generatorsPriority.Clear();
             generatorStates.Clear();
             GeneratorsRegistered = false;
         }
@@ -91,15 +84,9 @@ namespace World.Generator
         {
             generationStartedAt = Time.time;
 
-            int[] keys = generatorsPriority.Keys.ToArray();
-            Array.Sort(keys);
-
-            foreach (int priority in keys)
+            foreach (SubGenerator gen in registratedGenerators)
             {
-                foreach (SubGenerator gen in generatorsPriority[priority])
-                {
-                    StartCoroutine(ActivateGenerator(gen, generatorsRegData[gen]));
-                }
+                StartCoroutine(ActivateGenerator(gen, generatorsRegData[gen]));
             }
         }
 

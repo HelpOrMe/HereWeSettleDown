@@ -3,7 +3,7 @@ using World.Generator.Helper;
 
 namespace World.Generator.HeightMap
 {
-    [CustomGenerator(10, true, "mapWidth", "mapHeight")]
+    [CustomGenerator(true, "mapWidth", "mapHeight")]
     public class HeightMapGenerator : SubGenerator
     {
         public bool UseFalloffMap;

@@ -5,7 +5,7 @@ using World.Generator.Chunks;
 
 namespace World.Generator.Flora
 {
-    [CustomGenerator(8, false, typeof(ChunkGenerator))]
+    [CustomGenerator(false, typeof(ChunkGenerator))]
     public class FloraGenerator : SubGenerator
     {
         public FloraType[] floraTypes;

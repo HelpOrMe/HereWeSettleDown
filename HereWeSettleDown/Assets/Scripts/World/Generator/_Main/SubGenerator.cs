@@ -48,21 +48,19 @@ namespace World.Generator
     {
         public GeneratorRegData data;
 
-        public CustomGenerator(int priority = 0, bool useOwnThread = false, params string[] requireValues)
+        public CustomGenerator(bool useOwnThread = false, params string[] requireValues)
         {
             data = new GeneratorRegData()
             {
-                priority = priority,
                 useThread = useOwnThread,
                 requireValues = requireValues
             };
         }
 
-        public CustomGenerator(int priority = 0, bool useOwnThread = false, params Type[] requiredCompletedGenerators)
+        public CustomGenerator(bool useOwnThread = false, params Type[] requiredCompletedGenerators)
         {
             data = new GeneratorRegData()
             {
-                priority = priority,
                 useThread = useOwnThread,
                 requiredCompletedGenerators = requiredCompletedGenerators
             };
@@ -71,7 +69,6 @@ namespace World.Generator
 
     public struct GeneratorRegData
     {
-        public int priority;
         public bool useThread;
         public string[] requireValues;
         public Type[] requiredCompletedGenerators;

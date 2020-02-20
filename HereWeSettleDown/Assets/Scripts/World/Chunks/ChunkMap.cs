@@ -4,7 +4,7 @@ namespace World.Chunks
 {
     public static class ChunkMap
     {
-        static SetOnce<int> chunkWidth = new SetOnce<int>();
+        static readonly SetOnce<int> chunkWidth = new SetOnce<int>();
         public static int ChunkWidth
         {
             get
@@ -17,7 +17,7 @@ namespace World.Chunks
             }
         }
         
-        static SetOnce<int> chunkHeight = new SetOnce<int>();
+        static readonly SetOnce<int> chunkHeight = new SetOnce<int>();
         public static int ChunkHeight
         {
             get
@@ -30,7 +30,7 @@ namespace World.Chunks
             }
         }
 
-        static SetOnce<float> worldChunkWidth = new SetOnce<float>();
+        static readonly SetOnce<float> worldChunkWidth = new SetOnce<float>();
         public static float WorldChunkWidth
         {
             get
@@ -43,7 +43,7 @@ namespace World.Chunks
             }
         }
 
-        static SetOnce<float> worldChunkHeight = new SetOnce<float>();
+        static readonly SetOnce<float> worldChunkHeight = new SetOnce<float>();
         public static float WorldChunkHeight
         {
             get

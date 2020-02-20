@@ -4,7 +4,7 @@ using World.Generator.Mesh;
 
 namespace World.Generator.Chunks
 {
-    [CustomGenerator(6, false, typeof(MeshGenerator))]
+    [CustomGenerator(false, typeof(MeshGenerator))]
     public class ChunkGenerator : SubGenerator
     {
         public int chunkWidth;

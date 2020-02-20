@@ -4,7 +4,6 @@ namespace World.Chunks
 {
     public class ChunkMeshData
     {
-        public Chunk connectedChunk;
         public Quad[,] quadMap;
 
         public int width;

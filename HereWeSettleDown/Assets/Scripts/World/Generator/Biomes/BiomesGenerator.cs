@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using World.Generator.Helper;
 using World.Generator.HeightMap;
+using World.Generator.Helper;
 
 namespace World.Generator.Biomes
 {
-    [CustomGenerator(9, true, typeof(HeightMapGenerator))]
+    [CustomGenerator(true, typeof(HeightMapGenerator))]
     public class BiomesGenerator : SubGenerator
     {
         public Biome[] biomes;
-        private readonly Dictionary<int, Biome> indToBiome = new Dictionary<int, Biome>();
 
         public override void OnRegistrate()
         {
@@ -19,18 +18,8 @@ namespace World.Generator.Biomes
 
         public override void OnGenerate()
         {
-            CreateIndexToBiomeDict();
             GenerateBiomes();
             GenerationCompleted();
-        }
-
-        private void CreateIndexToBiomeDict()
-        {
-            foreach (Biome biome in biomes)
-            {
-                if (!indToBiome.ContainsKey(biome.index))
-                    indToBiome[biome.index] = biome;
-            }
         }
 
         private void GenerateBiomes()
@@ -52,8 +41,8 @@ namespace World.Generator.Biomes
                 if (biome.heightMaskPattern == null)
                     continue;
 
-                float[,] biomeHeightMap = Noise.GenerateNoiseMap(ownPrng, width, height, biome.noiseSettings);
-                float[,] biomeMask = biome.heightMaskPattern.GetMask(ownPrng, biome.UseDefaultHeightMap ? heightMap : biomeHeightMap);
+                float[,] targetHeightMap = biome.UseDefaultHeightMap ? heightMap : Noise.GenerateNoiseMap(ownPrng, width, height, biome.noiseSettings);
+                float[,] biomeMask = biome.heightMaskPattern.GetMask(ownPrng, targetHeightMap);
 
                 for (int x = 0; x < width; x++)
                 {
@@ -65,16 +54,13 @@ namespace World.Generator.Biomes
                                 GetBiomesIndexes(biome.spawnOnBiomes).Contains(globalBiomesMask[x, y]))
                             {
                                 globalBiomesMask[x, y] = biome.index;
-                                if (biome.UseDefaultHeightMap)
-                                    biomedHeightMap[x, y] = biome.worldHeightCurve.Evaluate(heightMap[x, y]);
-                                else
-                                    biomedHeightMap[x, y] = Mathf.Lerp(biomedHeightMap[x, y], biomeHeightMap[x, y], biomeMask[x, y] * (1 + biome.power));
+                                float targetHeight = biome.UseDefaultHeightMap ? targetHeightMap[x, y] : biome.worldHeightCurve.Evaluate(heightMap[x, y]);
+                                biomedHeightMap[x, y] = Mathf.Lerp(biomedHeightMap[x, y], targetHeight, biomeMask[x, y] * (1 + biome.power));
                             }
                         }
                     }
                 }
                 biomeMasks[i] = new BiomeMask(biomeMask, biome);
-                Debug.Log(biome.GetType().Name + " generated.");
             }
 
             values["biomedHeightMap"] = biomedHeightMap;
