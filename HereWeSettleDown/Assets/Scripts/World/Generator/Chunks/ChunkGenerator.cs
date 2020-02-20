@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using World.Chunks;
-using World.Mesh;
+using World.Generator.Mesh;
 
 namespace World.Generator.Chunks
 {
-    [CustomGenerator(6, false, "mapWidth", "mapHeight", "chunkMeshDataMap")]
+    [CustomGenerator(6, false, typeof(MeshGenerator))]
     public class ChunkGenerator : SubGenerator
     {
         public int chunkWidth;
@@ -18,12 +18,12 @@ namespace World.Generator.Chunks
             values["chunkWidth"] = chunkWidth;
             values["chunkHeight"] = chunkHeight;
 
-            ChunkMap.chunkWidth = chunkWidth;
-            ChunkMap.chunkHeight = chunkHeight;
+            ChunkMap.ChunkWidth = chunkWidth;
+            ChunkMap.ChunkHeight = chunkHeight;
 
             Vector3 size = chunkTerrain.transform.localScale;
-            ChunkMap.realChunkWidth = chunkWidth * size.x;
-            ChunkMap.realChunkHeight = chunkHeight * size.y;
+            ChunkMap.WorldChunkWidth = chunkWidth * size.x;
+            ChunkMap.WorldChunkHeight = chunkHeight * size.y;
         }
 
         public override void OnGenerate()
@@ -47,7 +47,7 @@ namespace World.Generator.Chunks
                 }
             }
 
-            ChunkMap.Set(chunkMap);
+            ChunkMap.chunkMap = chunkMap;
         }
     }
 }

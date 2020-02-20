@@ -1,9 +1,10 @@
 ﻿using UnityEditor;
+using _Editor;
 
 namespace World.Generator.HeightMap._Editor
 {
     [CustomEditor(typeof(HeightMaskPattern))]
-    public class HeightMaskPatternEditor : Editor
+    public class HeightMaskPatternEditor : AdvancedEditor
     {
         public override void OnInspectorGUI()
         {
@@ -22,15 +23,10 @@ namespace World.Generator.HeightMap._Editor
                     Field("picksSettings", true); break;
             }
 
-            Field("appendMasksPattern", true);
-            Field("subtractMasksPattern", true);
+            Field("appendMasksPatterns", true);
+            Field("subtractMasksPatterns", true);
 
             serializedObject.ApplyModifiedProperties();
-        }
-
-        public void Field(string name, bool child = false)
-        {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(name), child);
         }
     }
 }

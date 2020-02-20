@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using World.Mesh;
 
 namespace World.Chunks
 {
@@ -16,7 +15,7 @@ namespace World.Chunks
         {
             this.meshData = meshData;
 
-            meshData.SetConnectChunk(this);
+            meshData.connectedChunk = this;
             CreateChunkObject(terrain, parent);
             DrawMesh();
             UpdateMeshCollider();
@@ -27,8 +26,6 @@ namespace World.Chunks
         {
             chunkObject = Object.Instantiate(terrain, parent);
             chunkObject.name = "Chunk" + meshData.chunkX + " " + meshData.chunkY;
-
-            Vector3 scale = chunkObject.transform.localScale;
             meshFilter = chunkObject.GetComponent<MeshFilter>();
         }
 

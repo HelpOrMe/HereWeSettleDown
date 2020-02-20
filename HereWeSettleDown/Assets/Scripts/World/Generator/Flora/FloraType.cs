@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using World.Generator.HeightMap;
 
 namespace World.Generator.Flora
 {

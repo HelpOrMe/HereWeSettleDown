@@ -116,14 +116,14 @@ namespace World.Generator.Helper
     }
 
     [System.Serializable]
-    public struct NoiseSettings
+    public class NoiseSettings
     {
-        public AnimationCurve heightCurve;
-        public float noiseScale;
-        public Vector2 offset;
+        public AnimationCurve heightCurve = AnimationCurve.Linear(0, 0, 1, 1);
+        public float noiseScale = 25;
+        public Vector2 offset = Vector2.zero;
 
-        public int octaves;
-        [Range(0f, 1f)] public float persistance;
-        public float lacunarity;
+        public int octaves = 4;
+        [Range(0f, 1f)] public float persistance = 0.5f;
+        public float lacunarity = 2;
     }
 }

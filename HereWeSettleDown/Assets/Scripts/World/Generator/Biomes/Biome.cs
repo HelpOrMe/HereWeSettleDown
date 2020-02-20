@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using World.Generator.HeightMap;
+using World.Generator.Helper;
 
 namespace World.Generator.Biomes
 {
@@ -7,25 +9,17 @@ namespace World.Generator.Biomes
         public Color mapColor;
         public int index;
 
-        public bool spawnOnAllBiomes;
+        public bool SpawnOnAllBiomes;
         public Biome[] spawnOnBiomes;
 
-        public bool anySpawnHeight;
-        [Range(-1, 1)] public float minSpawnHeight;
-        [Range(-1, 1)] public float maxSpawnHeight;
-
+        public bool UseDefaultHeightMap;
+        public NoiseSettings noiseSettings;
+        public AnimationCurve worldHeightCurve;
         public HeightMaskPattern heightMaskPattern;
+        public float power;
 
-        public bool isEvaluteHeight;
-        public AnimationCurve evaluteHeight;
-
-        public bool overrideColors;
+        public bool OverrideColors;
         public BiomeColorRegion[] colorRegions;
-
-        public int[,] GetBiomeMask(System.Random prng, float[,] heightMap)
-        {
-            return heightMaskPattern.GetMask(prng, heightMap);
-        }
     }
 
     [System.Serializable]

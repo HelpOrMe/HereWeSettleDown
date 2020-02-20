@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
 using World.Generator.Helper;
 
 namespace World.Generator.HeightMap
@@ -8,111 +7,84 @@ namespace World.Generator.HeightMap
     public class HeightMaskPattern : MonoBehaviour
     {
         public HeightMaskPatternType maskType;
+
         public NoiseMaskPatternSettings noiseSettings;
         public BorderMaskPatternSettings borderSettings;
-        public AbsoluteMaskPatternSettings absoluteSettings;
         public PicksMaskPatternSettings picksSettings;
+        public AbsoluteMaskPatternSettings absoluteSettings;
 
-        public HeightMaskPattern[] appendMasksPattern;
-        public HeightMaskPattern[] subtractMasksPattern;
+        public HeightMaskPattern[] appendMasksPatterns;
+        public HeightMaskPattern[] subtractMasksPatterns;
 
-        private Vector2Int[] crossPositions = new Vector2Int[] { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
+        private readonly float[,] generatedMask;
+
+        private readonly Vector2Int[] crossPositions = new Vector2Int[] { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
+
+        public float[,] GetExistsMask(System.Random prng, float[,] heightMap)
+        {
+            return generatedMask == null ? GetMask(prng, heightMap) : generatedMask;
+        }
 
         public float[,] GetMask(System.Random prng, float[,] heightMap)
         {
-            float[,] mask;
+            if (prng == null || heightMap == null)
+                return null;
 
+            float[,] generatedMask;
             switch (maskType)
             {
                 case (HeightMaskPatternType.Noise):
-                    mask = GetNoiseMask(prng, heightMap); 
+                    generatedMask = GetNoiseMask(prng, heightMap); 
                     break;
                 case (HeightMaskPatternType.Border):
-                    mask = GetBorderMask(heightMap); 
+                    generatedMask = GetBorderMask(heightMap); 
                     break;
                 case (HeightMaskPatternType.Picks):
-                    mask = GetPicksMask(prng, heightMap); 
+                    generatedMask = GetPicksMask(prng, heightMap); 
                     break;
                 default:
-                    mask = GetAbsoluteMask(heightMap);
+                    generatedMask = GetAbsoluteMask(heightMap);
                     break;
             }
 
-            if (appendMasksPattern != null)
-                mask = AppendMasks(mask, prng, heightMap);
-            if (subtractMasksPattern != null)
-                mask = SubtractMasks(mask, prng, heightMap);
+            if (generatedMask != null)
+            {
+                if (appendMasksPatterns != null)
+                {
+                    foreach (HeightMaskPattern secMaskPattern in appendMasksPatterns)
+                    {
+                        float[,] secMask = secMaskPattern.GetExistsMask(prng, heightMap);
+                        if (secMask != null)
+                            generatedMask = AppendMasks(generatedMask, secMask);
+                    }
+                }
+
+                if (subtractMasksPatterns != null)
+                {
+                    foreach (HeightMaskPattern secMaskPattern in subtractMasksPatterns)
+                    {
+                        float[,] secMask = secMaskPattern.GetExistsMask(prng, heightMap);
+                        if (secMask != null)
+                            generatedMask = SubtractMasks(generatedMask, secMask);
+                    }
+                }
+            }
             
-            return mask;
+            return generatedMask;
         }
 
-        private float[,] AppendMasks(float[,] mask, System.Random prng, float[,] heightMap)
+        public float EvaluteHeight(int x, int y, float value)
         {
-            int width = mask.GetLength(0);
-            int height = mask.GetLength(1);
-
-            float[][,] appendMasks = new float[appendMasksPattern.Length][,];
-            for (int i = 0; i < appendMasks.Length; i++)
-                appendMasks[i] = appendMasksPattern[i].GetMask(prng, heightMap);
-
-            for (int x = 0; x < width; x++)
+            if (generatedMask != null)
             {
-                for (int y = 0; y < height; y++)
+                if (x >= 0 && x < generatedMask.GetLength(0) &&
+                    y >= 0 && y < generatedMask.GetLength(1))
                 {
-                    for (int i = 0; i < appendMasks.Length; i ++)
-                    {
-                        if (appendMasks[i][x, y] == 1)
-                            mask[x, y] = 1;
-                    }
+                    return (generatedMask[x, y] + value) / 2;
                 }
             }
 
-            return mask;
-        }
-
-        private float[,] SubtractMasks(float[,] mask, System.Random prng, float[,] heightMap)
-        {
-            int width = mask.GetLength(0);
-            int height = mask.GetLength(1);
-
-            float[][,] subtractMasks = new float[subtractMasksPattern.Length][,];
-            for (int i = 0; i < subtractMasks.Length; i++)
-                subtractMasks[i] = subtractMasksPattern[i].GetMask(prng, heightMap);
-
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    for (int i = 0; i < subtractMasks.Length; i++)
-                    {
-                        if (subtractMasks[i][x, y] == 1)
-                            mask[x, y] = 0;
-                    }
-                }
-            }
-
-            return mask;
-        }
-
-        private float[,] GetAbsoluteMask(float[,] heightMap)
-        {
-            int width = heightMap.GetLength(0);
-            int height = heightMap.GetLength(1);
-
-            float[,] mask = new float[width, height];
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    if (absoluteSettings.minWorldHeight < heightMap[x, y] &&
-                        absoluteSettings.maxWorldHeight > heightMap[x, y])
-                    {
-                        mask[x, y] = (heightMap[x,y] - absoluteSettings.minWorldHeight) / (absoluteSettings.maxWorldHeight - absoluteSettings.minWorldHeight);
-                    }
-                }
-            }
-
-            return mask;
+            return value;
         }
 
         private float[,] GetNoiseMask(System.Random prng, float[,] heightMap)
@@ -120,9 +92,9 @@ namespace World.Generator.HeightMap
             int width = heightMap.GetLength(0);
             int height = heightMap.GetLength(1);
 
-            int[,] mask = new int[width, height];
+            float[,] mask = new float[width, height];
 
-            float[,] biomeHeightMask = Noise.GenerateNoiseMap(prng, width, height, noiseSettings.maskSettings);
+            float[,] biomeHeightMask = Noise.GenerateNoiseMap(prng, width, height, noiseSettings.noiseSettings);
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -133,7 +105,7 @@ namespace World.Generator.HeightMap
                         if (noiseSettings.minWorldHeight < heightMap[x, y] &&
                             noiseSettings.maxWorldHeight > heightMap[x, y])
                         {
-                            mask[x, y] = 1;
+                            mask[x, y] = GetFadeValue(heightMap[x, y], noiseSettings);
                         }
                     }
                 }
@@ -147,7 +119,7 @@ namespace World.Generator.HeightMap
             int width = heightMap.GetLength(0);
             int height = heightMap.GetLength(1);
 
-            int[,] mask = new int[width, height];
+            float[,] mask = new float[width, height];
 
             int xDist = Mathf.RoundToInt(width * borderSettings.xDistFromBorder);
             int yDist = Mathf.RoundToInt(height * borderSettings.yDistFromBorder);
@@ -162,7 +134,7 @@ namespace World.Generator.HeightMap
                         if (borderSettings.minWorldHeight < heightMap[x, y] &&
                             borderSettings.maxWorldHeight > heightMap[x, y])
                         {
-                            mask[x, y] = 1;
+                            mask[x, y] = GetFadeValue(heightMap[x, y], borderSettings);
                         }
                     }
                 }
@@ -181,8 +153,8 @@ namespace World.Generator.HeightMap
             {
                 for (int y = 0; y < height; y++)
                 {
-                    if (picksSettings.minWorldHeight < heightMap[x, y] &&
-                        picksSettings.maxWorldHeight > heightMap[x, y])
+                    if (picksSettings.minFindPicksHeight < heightMap[x, y] &&
+                        picksSettings.maxFindPicksHeight > heightMap[x, y])
                     {
                         picks.Add(new Vector2Int(x, y));
                     }
@@ -197,7 +169,8 @@ namespace World.Generator.HeightMap
                 picks.RemoveAt(ind);
             }
 
-            int[,] mask = new int[width, height];
+            float[,] mask = new float[width, height];
+            Debug.Log(selectedPicks.Count);
             foreach (Vector2Int pick in selectedPicks)
             {
                 mask = SelectPicks(heightMap, mask, pick.x, pick.y, picksSettings.maxIterations);
@@ -209,11 +182,11 @@ namespace World.Generator.HeightMap
         private float[,] SelectPicks(float[,] heightMap, float[,] mask, int x, int y, int maxIterCount)
         {
             maxIterCount--;
-            mask[x, y] = 1;
+            mask[x, y] = GetFadeValue(heightMap[x, y], picksSettings);
 
             if (maxIterCount > 0 && 
-                heightMap[x, y] > picksSettings.minStopHeight && 
-                heightMap[x, y] < picksSettings.maxStopHeight)
+                heightMap[x, y] > picksSettings.minWorldHeight && 
+                heightMap[x, y] < picksSettings.maxWorldHeight)
             {
                 for (int i = 0; i < crossPositions.Length; i++)
                 {
@@ -224,7 +197,9 @@ namespace World.Generator.HeightMap
                         nY >= 0 && nY < heightMap.GetLength(1))
                     {
                         if (mask[nX, nY] == 0)
+                        {
                             mask = SelectPicks(heightMap, mask, nX, nY, maxIterCount);
+                        }
                     }
                 }
             }
@@ -241,64 +216,129 @@ namespace World.Generator.HeightMap
                         if (px >= 0 && px < heightMap.GetLength(0) &&
                             py >= 0 && py < heightMap.GetLength(1))
                         {
-                            mask[px, py] = 1;
+                            mask[px, py] = GetFadeValue(heightMap[x, y], picksSettings);
                         }
                     }
                 }
             }
             return mask;
         }
+
+        private float[,] GetAbsoluteMask(float[,] heightMap)
+        {
+            int width = heightMap.GetLength(0);
+            int height = heightMap.GetLength(1);
+
+            float[,] mask = new float[width, height];
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (absoluteSettings.minWorldHeight < heightMap[x, y] &&
+                        absoluteSettings.maxWorldHeight > heightMap[x, y])
+                    {
+                        mask[x, y] = GetFadeValue(heightMap[x, y], absoluteSettings);
+                    }
+                }
+            }
+
+            return mask;
+        }
+
+        private float GetFadeValue(float value, MaskPatternSettings settings)
+        {
+            return (value - settings.minWorldHeight) / (settings.maxWorldHeight - settings.minWorldHeight);
+        }
+
+        public static float[,] AppendMasks(float[,] mainMask, float[,] secMask)
+        {
+            if (!EqualMasksSize(mainMask, secMask))
+                return mainMask;
+
+            int width = mainMask.GetLength(0);
+            int height = mainMask.GetLength(1);
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    mainMask[x, y] = (mainMask[x, y] + secMask[x, y]) / 2;
+                }
+            }
+
+            return mainMask;
+        }
+
+        public static float[,] SubtractMasks(float[,] mainMask, float[,] secMask)
+        {
+            if (!EqualMasksSize(mainMask, secMask))
+                return mainMask;
+
+            int width = mainMask.GetLength(0);
+            int height = mainMask.GetLength(1);
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    mainMask[x, y] = Mathf.Abs(mainMask[x, y] - secMask[x, y]) / 2;
+                }
+            }
+
+            return mainMask;
+        }
+
+        public static bool EqualMasksSize(float[,] firstMask, float[,] secondMask)
+        {
+            return (firstMask.GetLength(0) == secondMask.GetLength(0) &&
+                    firstMask.GetLength(1) == secondMask.GetLength(1));
+        }
     }
 
     public enum HeightMaskPatternType
     {
-        Absolute,
         Noise,
         Border,
-        Picks
+        Picks,
+        Absolute
+    }
+
+    public class MaskPatternSettings
+    {
+        [Range(-1, 1)] public float minWorldHeight = 0;
+        [Range(-1, 1)] public float maxWorldHeight = 1;
     }
 
     [System.Serializable]
-    public struct AbsoluteMaskPatternSettings
+    public class NoiseMaskPatternSettings : MaskPatternSettings
     {
-        [Range(-1, 1)] public float minWorldHeight;
-        [Range(-1, 1)] public float maxWorldHeight;
+        [Range(0, 1)] public float minMaskHeight = 0;
+        [Range(0, 1)] public float maxMaskHeight = 1;
+
+        public NoiseSettings noiseSettings;
     }
 
     [System.Serializable]
-    public struct NoiseMaskPatternSettings
+    public class BorderMaskPatternSettings : MaskPatternSettings
     {
-        [Range(-1, 1)] public float minWorldHeight;
-        [Range(-1, 1)] public float maxWorldHeight;
-
-        [Range(0, 1)] public float minMaskHeight;
-        [Range(0, 1)] public float maxMaskHeight;
-
-        public NoiseSettings maskSettings;
+        [Range(0, 1)] public float xDistFromBorder = 0.25f;
+        [Range(0, 1)] public float yDistFromBorder = 0.25f;
     }
 
     [System.Serializable]
-    public struct BorderMaskPatternSettings
+    public class PicksMaskPatternSettings : MaskPatternSettings
     {
-        [Range(0, 1)] public float xDistFromBorder;
-        [Range(0, 1)] public float yDistFromBorder;
+        public int brushSize = 2;
+        public int maxIterations = 5000;
+        [Range(0, 1)] public float detectPicksCount = 0.5f;
 
-        [Range(-1, 1)] public float minWorldHeight;
-        [Range(-1, 1)] public float maxWorldHeight;
+        [Range(0, 1)] public float minFindPicksHeight = 0.9f;
+        [Range(0, 1)] public float maxFindPicksHeight = 1;
     }
 
     [System.Serializable]
-    public struct PicksMaskPatternSettings
+    public class AbsoluteMaskPatternSettings : MaskPatternSettings
     {
-        public int brushSize;
 
-        public int maxIterations;
-        [Range(0, 1)] public float detectPicksCount;
-
-        [Range(0, 1)] public float minStopHeight;
-        [Range(0, 1)] public float maxStopHeight;
-
-        [Range(-1, 1)] public float maxWorldHeight;
-        [Range(-1, 1)] public float minWorldHeight;
     }
 }

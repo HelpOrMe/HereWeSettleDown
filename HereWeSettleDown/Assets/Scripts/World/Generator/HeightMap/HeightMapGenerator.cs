@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
+using World.Generator.Helper;
 
 namespace World.Generator.HeightMap
 {
-    [CustomGenerator(10, true, "mapWidth", "mapHeight", "mapNoiseSettings")]
+    [CustomGenerator(10, true, "mapWidth", "mapHeight")]
     public class HeightMapGenerator : SubGenerator
     {
-        public NoiseSettings heightMapSettings;
-
         public bool UseFalloffMap;
         public AnimationCurve falloffMapCurve;
+        public NoiseSettings heightMapSettings;
 
         public override void OnGenerate()
         {
@@ -22,14 +22,14 @@ namespace World.Generator.HeightMap
             GenerationCompleted();
         }
 
-        public void GenerateFalloffMap(int width, int height)
+        private void GenerateFalloffMap(int width, int height)
         {
             values["falloffMap"] = Noise.GenerateFalloffMap(width, height);
         }
 
-        public void GenerateHeightMap(int mapWidth, int mapHeight)
+        private void GenerateHeightMap(int mapWidth, int mapHeight)
         {
-            float[,] heightMap = Noise.GenerateNoiseMap(ownPrng, mapWidth, mapHeight, );
+            float[,] heightMap = Noise.GenerateNoiseMap(ownPrng, mapWidth, mapHeight, heightMapSettings);
 
             // Use falloff map offset
             if (TryGetValue("falloffMap", out float[,] falloffMap))

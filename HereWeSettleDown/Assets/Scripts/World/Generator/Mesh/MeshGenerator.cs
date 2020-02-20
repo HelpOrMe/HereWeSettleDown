@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
-using World.MeshSystem;
+using World.Chunks;
 
 namespace World.Generator.Mesh
 {
-    [CustomGenerator(7, true, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "modHeightMap", "colorMap")]
+    [CustomGenerator(7, true, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "biomedHeightMap", "colorMap")]
     public class MeshGenerator : SubGenerator
     {
         public Vector2Int triangleRangeScale;
         public int verticesHeightScale;
-        public AnimationCurve verticesCurve;
+        public AnimationCurve verticesHeightCurve;
 
         public override void OnGenerate()
         {
@@ -21,7 +21,7 @@ namespace World.Generator.Mesh
             int width = GetValue<int>("mapWidth");
             int height = GetValue<int>("mapHeight");
 
-            float[,] heightMap = GetValue<float[,]>("modHeightMap");
+            float[,] heightMap = GetValue<float[,]>("biomedHeightMap");
             Vector3[,] offsetMap = GenerateOffset(width, height);
 
             int chunkWidth = GetValue<int>("chunkWidth");
@@ -40,8 +40,8 @@ namespace World.Generator.Mesh
                 }
             }
 
-            MeshMap.SetVerticesMap(verticesMap);
-            MeshMap.SetColorMap(GetValue<ColorPack[,]>("colorMap"));
+            ChunkMeshMap.verticesMap = verticesMap;
+            ChunkMeshMap.colorMap = GetValue<ColorPack[,]>("colorMap");
 
             // Create all chunksMeshes
             ChunkMeshData[,] chunkMeshDataMap = new ChunkMeshData[chunkXCount, chunkYCount];
@@ -72,7 +72,7 @@ namespace World.Generator.Mesh
 
         private float EvaluteVerticesHeight(float height)
         {
-            return verticesCurve.Evaluate(height) * verticesHeightScale;
+            return verticesHeightCurve.Evaluate(height) * verticesHeightScale;
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using World.Chunks;
 
-namespace World.Mesh
+namespace World.Chunks
 {
     public class ChunkMeshData
     {
-        public Chunk connectedChunk { get; private set; }
+        public Chunk connectedChunk;
         public Quad[,] quadMap;
 
         public int width;
@@ -42,12 +41,6 @@ namespace World.Mesh
 
             SetDefaultTriangles();
             SetQuadMap();
-        }
-
-        public void SetConnectChunk(Chunk chunk)
-        {
-            connectedChunk = chunk;
-            //...
         }
 
         public void SetDefaultTriangles()
@@ -119,23 +112,23 @@ namespace World.Mesh
         public Vector3 GetVert(int index)
         {
             Vector2Int targetVert = ChunkMeshData.verticesPositionPattern[index];
-            return MeshMap.verticesMap[x + targetVert.x, y + targetVert.y];
+            return ChunkMeshMap.verticesMap[x + targetVert.x, y + targetVert.y];
         }
 
         public void SetVert(int index, Vector3 newPos)
         {
             Vector2Int targetVert = ChunkMeshData.verticesPositionPattern[index];
-            MeshMap.verticesMap[x + targetVert.x, y + targetVert.y] = newPos;
+            ChunkMeshMap.verticesMap[x + targetVert.x, y + targetVert.y] = newPos;
         }
 
         public Color GetColor(int index)
         {
-            return MeshMap.colorMap[x, y][index];
+            return ChunkMeshMap.colorMap[x, y][index];
         }
 
         public void SetColor(int index, Color newColor)
         {
-            MeshMap.colorMap[x, y][index] = newColor;
+            ChunkMeshMap.colorMap[x, y][index] = newColor;
         }
     }
 
