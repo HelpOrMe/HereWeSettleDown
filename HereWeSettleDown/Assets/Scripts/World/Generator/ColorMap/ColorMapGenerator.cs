@@ -60,7 +60,7 @@ namespace World.Generator.ColorMap
             values["colorMap"] = convertedColorMap;
         }
 
-        private ColorPack[,] ConvertColorMap(int width, int height, Color[,] _colors)
+        private ColorPack[,] ConvertColorMap(int width, int height, Color[,] colors)
         {
             ColorPack[,] colorMap = EmptyColorMap(width - 1, height - 1);
 
@@ -68,7 +68,7 @@ namespace World.Generator.ColorMap
             {
                 for (int y = 0; y < height; y ++)
                 {
-                    Color targetColor = _colors[x, y];
+                    Color targetColor = colors[x, y];
 
                     // Color main quad
                     if (x < width - 1 && y < height - 1)

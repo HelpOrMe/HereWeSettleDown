@@ -1,4 +1,5 @@
-﻿using CustomVariables;
+﻿using UnityEngine;
+using CustomVariables;
 
 namespace World.Chunks
 {
@@ -30,32 +31,48 @@ namespace World.Chunks
             }
         }
 
-        static readonly SetOnce<float> worldChunkWidth = new SetOnce<float>();
+        static readonly SetOnce<Vector3> chunkScale = new SetOnce<Vector3>();
+        public static Vector3 ChunkScale
+        {
+            get
+            {
+                return chunkScale;
+            }
+            set
+            {
+                chunkScale.Value = value;
+            }
+        }
+
         public static float WorldChunkWidth
         {
             get
             {
-                return worldChunkWidth;
-            }
-            set
-            {
-                worldChunkWidth.Value = value;
+                return chunkWidth * chunkScale.Value.x;
             }
         }
-
-        static readonly SetOnce<float> worldChunkHeight = new SetOnce<float>();
         public static float WorldChunkHeight
         {
             get
             {
-                return worldChunkHeight;
-            }
-            set
-            {
-                worldChunkHeight.Value = value;
+                return chunkHeight * chunkScale.Value.z;
             }
         }
 
         public static Chunk[,] chunkMap;
+
+        public static Chunk GetChunk(Vector2Int mapPosition)
+        {
+            return chunkMap[
+                Mathf.RoundToInt(mapPosition.x / chunkWidth),
+                Mathf.RoundToInt(mapPosition.y / chunkHeight)];
+        }
+
+        public static Chunk GetChunk(int mapX, int mapY)
+        {
+            return chunkMap[
+                Mathf.RoundToInt(mapX / chunkWidth),
+                Mathf.RoundToInt(mapY / chunkHeight)];
+        }
     }
 }

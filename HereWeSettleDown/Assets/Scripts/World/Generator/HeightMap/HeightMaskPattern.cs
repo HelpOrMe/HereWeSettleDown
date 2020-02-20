@@ -16,7 +16,7 @@ namespace World.Generator.HeightMap
         public HeightMaskPattern[] appendMasksPatterns;
         public HeightMaskPattern[] subtractMasksPatterns;
 
-        private readonly float[,] generatedMask;
+        private float[,] generatedMask;
 
         private readonly Vector2Int[] crossPositions = new Vector2Int[] { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
 
@@ -30,7 +30,6 @@ namespace World.Generator.HeightMap
             if (prng == null || heightMap == null)
                 return null;
 
-            float[,] generatedMask;
             switch (maskType)
             {
                 case (HeightMaskPatternType.Noise):
@@ -169,8 +168,9 @@ namespace World.Generator.HeightMap
                 picks.RemoveAt(ind);
             }
 
+            Debug.Log("Pick count " + selectedPicks.Count);
+
             float[,] mask = new float[width, height];
-            Debug.Log(selectedPicks.Count);
             foreach (Vector2Int pick in selectedPicks)
             {
                 mask = SelectPicks(heightMap, mask, pick.x, pick.y, picksSettings.maxIterations);

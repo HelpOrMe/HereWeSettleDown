@@ -4,14 +4,14 @@ namespace World.Chunks
 {
     public class Chunk
     {
-        public GameObject chunkObject;
+        public ChunkObject chunkObject;
         public ChunkMeshData meshData;
 
         public bool visible { get; private set; }
 
         MeshFilter meshFilter;
 
-        public Chunk(GameObject terrain, Transform parent, bool visible, ChunkMeshData meshData)
+        public Chunk(ChunkObject terrain, Transform parent, bool visible, ChunkMeshData meshData)
         {
             this.meshData = meshData;
 
@@ -21,7 +21,7 @@ namespace World.Chunks
             SetVisible(visible);
         }
 
-        void CreateChunkObject(GameObject terrain, Transform parent)
+        void CreateChunkObject(ChunkObject terrain, Transform parent)
         {
             chunkObject = Object.Instantiate(terrain, parent);
             chunkObject.name = "Chunk" + meshData.chunkX + " " + meshData.chunkY;
@@ -32,7 +32,7 @@ namespace World.Chunks
         {
             MeshCollider collider = chunkObject.GetComponent<MeshCollider>();
             if (!collider)
-                collider = chunkObject.AddComponent<MeshCollider>();
+                collider = chunkObject.gameObject.AddComponent<MeshCollider>();
 
             if (meshFilter)
             {
@@ -49,7 +49,7 @@ namespace World.Chunks
         public void SetVisible(bool state)
         {
             if (chunkObject)
-                chunkObject.SetActive(state);
+                chunkObject.gameObject.SetActive(state);
             visible = state;
         }
     }

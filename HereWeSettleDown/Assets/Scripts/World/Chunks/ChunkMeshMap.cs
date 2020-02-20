@@ -32,10 +32,7 @@ namespace World.Chunks
 
         public static void SetEditedPosition(int x, int y)
         {
-            int chunkX = x / ChunkMap.ChunkWidth;
-            int chunkY = y / ChunkMap.ChunkHeight;
-            
-            Chunk targetChunk = ChunkMap.chunkMap[chunkX, chunkY];
+            Chunk targetChunk = ChunkMap.GetChunk(x, y);
             if (!editedChunks.ContainsKey(targetChunk))
                 editedChunks[targetChunk] = new List<Vector2Int>();
             editedChunks[targetChunk].Add(new Vector2Int(x % (ChunkMap.ChunkWidth - 1), y % (ChunkMap.ChunkHeight - 1)));
@@ -52,6 +49,25 @@ namespace World.Chunks
                 chunk.DrawMesh();
             }
             editedChunks.Clear();
+        }
+
+        public static Vector3 GetNearVertexPos(Vector3 worldPosition)
+        {
+            Vector2Int vertPosition = TranslatePosition(worldPosition);
+            return verticesMap[vertPosition.x, vertPosition.y];
+        }
+
+        public static ColorPack GetNearColor(Vector3 worldPosition)
+        {
+            Vector2Int vertPosition = TranslatePosition(worldPosition);
+            return colorMap[vertPosition.x, vertPosition.y];
+        }
+
+        public static Vector2Int TranslatePosition(Vector3 worldPosition)
+        {
+            return new Vector2Int(
+                Mathf.Clamp(Mathf.RoundToInt(worldPosition.x / ChunkMap.ChunkScale.x), 0, verticesMap.GetLength(0) - 1),
+                 Mathf.Clamp(Mathf.RoundToInt(worldPosition.z / ChunkMap.ChunkScale.z), 0, verticesMap.GetLength(1) - 1));
         }
     }
 }

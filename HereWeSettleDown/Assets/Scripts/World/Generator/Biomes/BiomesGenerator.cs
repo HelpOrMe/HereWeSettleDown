@@ -35,13 +35,13 @@ namespace World.Generator.Biomes
 
             for (int i = 0; i < biomes.Length; i++)
             {
-                biomes[i].index = i;
+                biomes[i].index = i + 1;
                 Biome biome = biomes[i];
 
                 if (biome.heightMaskPattern == null)
                     continue;
 
-                float[,] targetHeightMap = biome.UseDefaultHeightMap ? heightMap : Noise.GenerateNoiseMap(ownPrng, width, height, biome.noiseSettings);
+                float[,] targetHeightMap = biome.UseDefaultHeightMap ? biomedHeightMap : Noise.GenerateNoiseMap(ownPrng, width, height, biome.noiseSettings);
                 float[,] biomeMask = biome.heightMaskPattern.GetMask(ownPrng, targetHeightMap);
 
                 for (int x = 0; x < width; x++)
@@ -54,7 +54,7 @@ namespace World.Generator.Biomes
                                 GetBiomesIndexes(biome.spawnOnBiomes).Contains(globalBiomesMask[x, y]))
                             {
                                 globalBiomesMask[x, y] = biome.index;
-                                float targetHeight = biome.UseDefaultHeightMap ? targetHeightMap[x, y] : biome.worldHeightCurve.Evaluate(heightMap[x, y]);
+                                float targetHeight = biome.UseDefaultHeightMap ? biome.worldHeightCurve.Evaluate(targetHeightMap[x, y]) : targetHeightMap[x, y];
                                 biomedHeightMap[x, y] = Mathf.Lerp(biomedHeightMap[x, y], targetHeight, biomeMask[x, y] * (1 + biome.power));
                             }
                         }

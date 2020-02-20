@@ -11,7 +11,7 @@ namespace World.Generator.Chunks
         public int chunkHeight;
 
         public bool HideAllChunksOnGenerate;
-        public GameObject chunkTerrain;
+        public ChunkObject chunkTerrain;
 
         public override void OnRegistrate()
         {
@@ -20,10 +20,7 @@ namespace World.Generator.Chunks
 
             ChunkMap.ChunkWidth = chunkWidth;
             ChunkMap.ChunkHeight = chunkHeight;
-
-            Vector3 size = chunkTerrain.transform.localScale;
-            ChunkMap.WorldChunkWidth = chunkWidth * size.x;
-            ChunkMap.WorldChunkHeight = chunkHeight * size.y;
+            ChunkMap.ChunkScale = chunkTerrain.transform.localScale;
         }
 
         public override void OnGenerate()

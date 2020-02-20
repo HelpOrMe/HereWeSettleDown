@@ -18,6 +18,7 @@ namespace World.Generator.Biomes
         public HeightMaskPattern heightMaskPattern;
         public float power;
 
+        public bool SmoothColors;
         public bool OverrideColors;
         public BiomeColorRegion[] colorRegions;
     }

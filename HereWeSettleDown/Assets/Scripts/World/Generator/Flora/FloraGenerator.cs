@@ -8,11 +8,11 @@ namespace World.Generator.Flora
     [CustomGenerator(false, typeof(ChunkGenerator))]
     public class FloraGenerator : SubGenerator
     {
-        public FloraType[] floraTypes;
+        public FloraGenerationSettings[] floraGenSettings;
 
         public override void OnRegistrate()
         {
-            values["floraTypes"] = floraTypes;
+            values["floraGenSettings"] = floraGenSettings;
         }
 
         public override void OnGenerate()
@@ -23,22 +23,7 @@ namespace World.Generator.Flora
 
         public void GenerateFloraMasks()
         {
-            for (int i = 0; i < floraTypes.Length; i ++)
-            {
-
-            }
-        }
-    }
-
-    public struct ObjectsFloraMask
-    {
-        public int[,] mask;
-        public FloraType floraType;
-
-        public ObjectsFloraMask(int[,] mask, FloraType floraType)
-        {
-            this.mask = mask;
-            this.floraType = floraType;
+            
         }
     }
 }
