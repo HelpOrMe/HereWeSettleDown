@@ -3,12 +3,11 @@ using World.Chunks;
 
 namespace World.Generator.Mesh
 {
-    [CustomGenerator(true, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "biomedHeightMap", "colorMap")]
+    [CustomGenerator(true, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "heightMap", "colorMap")]
     public class MeshGenerator : SubGenerator
     {
         public Vector2Int triangleRangeScale;
         public int verticesHeightScale;
-        public AnimationCurve verticesHeightCurve;
 
         public override void OnGenerate()
         {
@@ -21,7 +20,7 @@ namespace World.Generator.Mesh
             int width = GetValue<int>("mapWidth");
             int height = GetValue<int>("mapHeight");
 
-            float[,] heightMap = GetValue<float[,]>("biomedHeightMap");
+            float[,] heightMap = GetValue<float[,]>("heightMap");
             Vector3[,] offsetMap = GenerateOffset(width, height);
 
             int chunkWidth = GetValue<int>("chunkWidth");
@@ -36,7 +35,7 @@ namespace World.Generator.Mesh
             {
                 for (int y = 0; y < height; y++)
                 {
-                    verticesMap[x, y] = offsetMap[x, y] + Vector3.up * EvaluteVerticesHeight(heightMap[x, y]);
+                    verticesMap[x, y] = offsetMap[x, y] + Vector3.up * heightMap[x, y] * verticesHeightScale;
                 }
             }
 
@@ -63,16 +62,14 @@ namespace World.Generator.Mesh
             {
                 for (int y = 0; y < height; y++)
                 {
-                    offset[x, y] = new Vector3(x, 0, y) + new Vector3(ownPrng.Next(triangleRangeScale.x, triangleRangeScale.y) / 100f, 0, ownPrng.Next(triangleRangeScale.x, triangleRangeScale.y) / 100f);
+                    offset[x, y] = new Vector3(x, 0, y) + new Vector3(
+                        ownPrng.Next(triangleRangeScale.x, triangleRangeScale.y) / 100f, 
+                        0, 
+                        ownPrng.Next(triangleRangeScale.x, triangleRangeScale.y) / 100f);
                 }
             }
 
             return offset;
-        }
-
-        private float EvaluteVerticesHeight(float height)
-        {
-            return verticesHeightCurve.Evaluate(height) * verticesHeightScale;
         }
     }
 }

@@ -104,7 +104,7 @@ namespace World.Generator.HeightMap
                         if (noiseSettings.minWorldHeight < heightMap[x, y] &&
                             noiseSettings.maxWorldHeight > heightMap[x, y])
                         {
-                            mask[x, y] = GetFadeValue(heightMap[x, y], noiseSettings);
+                            mask[x, y] = GetNoiseFadeValue(biomeHeightMask[x, y], noiseSettings.minMaskHeight, noiseSettings.maxMaskHeight, noiseSettings.ReverseMask);
                         }
                     }
                 }
@@ -123,19 +123,47 @@ namespace World.Generator.HeightMap
             int xDist = Mathf.RoundToInt(width * borderSettings.xDistFromBorder);
             int yDist = Mathf.RoundToInt(height * borderSettings.yDistFromBorder);
 
-            for (int x = 0; x < width; x++)
+            // Left side
+            for (int x = 0; x < xDist; x ++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    if ((x < xDist || x > width - xDist) ||
-                        (y < yDist || y > height - yDist))
-                    {
-                        if (borderSettings.minWorldHeight < heightMap[x, y] &&
-                            borderSettings.maxWorldHeight > heightMap[x, y])
-                        {
-                            mask[x, y] = GetFadeValue(heightMap[x, y], borderSettings);
-                        }
-                    }
+                    float fadeValue = (xDist - (x % (width / 2))) / (float)xDist;
+                    if (mask[x, y] < fadeValue)
+                        mask[x, y] = fadeValue;
+                }
+            }
+
+            // Down side
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < yDist; y++)
+                {
+                    float fadeValue = (yDist - (y % (height / 2))) / (float)yDist;
+                    if (mask[x, y] < fadeValue)
+                        mask[x, y] = fadeValue;
+                }
+            }
+
+            // Right side
+            for (int x = width - xDist; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    float fadeValue = ((x % ((width - xDist) / 2))) / (float)xDist;
+                    if (mask[x, y] < fadeValue)
+                        mask[x, y] = fadeValue;
+                }
+            }
+
+            // Up side
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = height - yDist; y < height; y++)
+                {
+                    float fadeValue = ((y % ((height - yDist) / 2))) / (float)yDist;
+                    if (mask[x, y] < fadeValue)
+                        mask[x, y] = fadeValue;
                 }
             }
 
@@ -182,7 +210,7 @@ namespace World.Generator.HeightMap
         private float[,] SelectPicks(float[,] heightMap, float[,] mask, int x, int y, int maxIterCount)
         {
             maxIterCount--;
-            mask[x, y] = GetFadeValue(heightMap[x, y], picksSettings);
+            mask[x, y] = GetNoiseFadeValue(heightMap[x, y], picksSettings);
 
             if (maxIterCount > 0 && 
                 heightMap[x, y] > picksSettings.minWorldHeight && 
@@ -216,7 +244,7 @@ namespace World.Generator.HeightMap
                         if (px >= 0 && px < heightMap.GetLength(0) &&
                             py >= 0 && py < heightMap.GetLength(1))
                         {
-                            mask[px, py] = GetFadeValue(heightMap[x, y], picksSettings);
+                            mask[px, py] = GetNoiseFadeValue(heightMap[x, y], picksSettings);
                         }
                     }
                 }
@@ -237,7 +265,7 @@ namespace World.Generator.HeightMap
                     if (absoluteSettings.minWorldHeight < heightMap[x, y] &&
                         absoluteSettings.maxWorldHeight > heightMap[x, y])
                     {
-                        mask[x, y] = GetFadeValue(heightMap[x, y], absoluteSettings);
+                        mask[x, y] = GetNoiseFadeValue(heightMap[x, y], absoluteSettings);
                     }
                 }
             }
@@ -245,9 +273,15 @@ namespace World.Generator.HeightMap
             return mask;
         }
 
-        private float GetFadeValue(float value, MaskPatternSettings settings)
+        private float GetNoiseFadeValue(float value, MaskPatternSettings settings)
         {
-            return (value - settings.minWorldHeight) / (settings.maxWorldHeight - settings.minWorldHeight);
+            return GetNoiseFadeValue(value, settings.minWorldHeight, settings.maxWorldHeight, settings.ReverseMask);
+        }
+
+        private float GetNoiseFadeValue(float value, float minHeight, float maxHeight, bool reverse)
+        {
+            float fadeValue = (value - minHeight) / (maxHeight - minHeight);
+            return reverse ? 1 - fadeValue : fadeValue;
         }
 
         public static float[,] AppendMasks(float[,] mainMask, float[,] secMask)
@@ -305,6 +339,7 @@ namespace World.Generator.HeightMap
 
     public class MaskPatternSettings
     {
+        public bool ReverseMask = false;
         [Range(-1, 1)] public float minWorldHeight = 0;
         [Range(-1, 1)] public float maxWorldHeight = 1;
     }

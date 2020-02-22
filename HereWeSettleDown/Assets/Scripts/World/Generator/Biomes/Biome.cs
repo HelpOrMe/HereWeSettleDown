@@ -1,26 +1,19 @@
 ﻿using UnityEngine;
-using World.Generator.HeightMap;
-using World.Generator.Helper;
 
 namespace World.Generator.Biomes
 {
-    public class Biome : MonoBehaviour
+    public abstract class Biome : MonoBehaviour
     {
-        public Color mapColor;
         public int index;
-
-        public bool SpawnOnAllBiomes;
-        public Biome[] spawnOnBiomes;
-
-        public bool UseDefaultHeightMap;
-        public NoiseSettings noiseSettings;
-        public AnimationCurve worldHeightCurve;
-        public HeightMaskPattern heightMaskPattern;
+        public Color mapColor;
         public float power;
-
-        public bool SmoothColors;
+        
         public bool OverrideColors;
         public BiomeColorRegion[] colorRegions;
+
+        public abstract bool GetNewHeightMap(System.Random prng, Biome[] biomes, ref float[,] heightMap, ref int[,] globalBiomeMask);
+
+        public abstract float[,] GetBiomeMask();
     }
 
     [System.Serializable]
@@ -31,3 +24,4 @@ namespace World.Generator.Biomes
         public Color color;
     }
 }
+
