@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using World.Chunks;
+using World.Map;
 
 namespace World.Generator.Mesh
 {
-    [CustomGenerator(true, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "heightMap", "colorMap")]
+    [CustomGenerator(true, "mapWidth", "mapHeight", "chunkWidth", "chunkHeight", "heightMap"/*, "colorMap"*/)]
     public class MeshGenerator : SubGenerator
     {
         public Vector2Int triangleRangeScale;
@@ -39,8 +39,8 @@ namespace World.Generator.Mesh
                 }
             }
 
-            ChunkMeshMap.verticesMap = verticesMap;
-            ChunkMeshMap.colorMap = GetValue<ColorPack[,]>("colorMap");
+            WorldMeshMap.verticesMap = new VerticesMap(verticesMap);
+            WorldMeshMap.colorMap = new ColorMap(new ColorPack[width, height]); //GetValue<ColorPack[,]>("colorMap");
 
             // Create all chunksMeshes
             ChunkMeshData[,] chunkMeshDataMap = new ChunkMeshData[chunkXCount, chunkYCount];

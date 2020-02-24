@@ -10,7 +10,7 @@ Material:
   m_Name: Water
   m_Shader: {fileID: 4800000, guid: 9f040d322d700e9498f2c5063e55aa81, type: 3}
   m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 0
+  m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -63,7 +63,7 @@ Material:
     m_Floats:
     - Vector1_2CA4B66C: 0.07
     - Vector1_A53E7CFE: 7
-    - Vector1_B75C0D94: 42.29
+    - Vector1_B75C0D94: 8.37
     - _AlphaClip: 0
     - _Blend: 0
     - _BlendOp: 0

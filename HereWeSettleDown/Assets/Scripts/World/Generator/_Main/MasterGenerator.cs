@@ -63,10 +63,10 @@ namespace World.Generator
         {
             GeneratorRegData regData = new GeneratorRegData();
 
-            object[] attributes = generator.GetType().GetCustomAttributes(typeof(CustomGenerator), false);
+            object[] attributes = generator.GetType().GetCustomAttributes(typeof(CustomGeneratorAttribute), false);
             if (attributes.Length > 0)
             {
-                CustomGenerator genAttr = (CustomGenerator)attributes[0];
+                CustomGeneratorAttribute genAttr = (CustomGeneratorAttribute)attributes[0];
                 regData = genAttr.data;
             }
 

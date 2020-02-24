@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.2464749, g: 0.2823448, b: 0.34570262, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -155,6 +155,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   maskType: 2
   noiseSettings:
     ReverseMask: 0
@@ -164,10 +170,8 @@ MonoBehaviour:
     maxMaskHeight: 0
     noiseSettings:
       heightCurve:
-        serializedVersion: 2
         m_Curve:
-        - serializedVersion: 3
-          time: 0
+        - time: 0
           value: 0
           inSlope: 0
           outSlope: 1
@@ -175,8 +179,7 @@ MonoBehaviour:
           weightedMode: 0
           inWeight: 0
           outWeight: 0
-        - serializedVersion: 3
-          time: 1
+        - time: 1
           value: 1
           inSlope: 1
           outSlope: 0
@@ -213,36 +216,75 @@ MonoBehaviour:
     maxWorldHeight: 0
   appendMasksPatterns: []
   subtractMasksPatterns: []
---- !u!1 &180628458
-GameObject:
+--- !u!1001 &60198729
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 180628459}
-  m_Layer: 0
-  m_Name: ChunkMap
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &180628459
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180628458}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5613.1924
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 226.30582
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6080.9214
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764359690, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359417027764457066, guid: 7870bcba98fd7214eb8cfa6fa327cb49,
+        type: 3}
+      propertyPath: m_Name
+      value: Collectors HutUP
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7870bcba98fd7214eb8cfa6fa327cb49, type: 3}
 --- !u!1 &327461187
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,35 +329,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   index: 4
-  mapColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0}
+  mapColor:
+    r: 0.3679245
+    g: 0.3679245
+    b: 0.3679245
+    a: 0
   power: 0.5
   OverrideColors: 0
   colorRegions:
   - name: Deep water
     height: 0
-    color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
+    color:
+      r: 0.3443396
+      g: 0.6413482
+      b: 1
+      a: 0
   - name: Water
     height: 0
-    color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.7490196
+      b: 1
+      a: 0
   - name: Sand
     height: 0
-    color: {r: 0.98676056, g: 1, b: 0.7311321, a: 0}
+    color:
+      r: 0.98676056
+      g: 1
+      b: 0.7311321
+      a: 0
   - name: Low grass
     height: 0.4
-    color: {r: 0.60784316, g: 0.78431374, b: 0.3372549, a: 0}
+    color:
+      r: 0.60784316
+      g: 0.78431374
+      b: 0.3372549
+      a: 0
   - name: Grass
     height: 0.5
-    color: {r: 0.5411765, g: 0.69803923, b: 0.29411766, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.69803923
+      b: 0.29411766
+      a: 0
   - name: High grass
     height: 0.7
-    color: {r: 0.4666667, g: 0.6117647, b: 0.2392157, a: 0}
+    color:
+      r: 0.4666667
+      g: 0.6117647
+      b: 0.2392157
+      a: 0
   - name: Mountain
     height: 0.9
-    color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 0}
+    color:
+      r: 0.5294118
+      g: 0.5294118
+      b: 0.5294118
+      a: 0
   - name: Snow
     height: 1
-    color: {r: 1, g: 1, b: 1, a: 0}
+    color:
+      r: 1
+      g: 1
+      b: 1
+      a: 0
   SpawnOnAllBiomes: 0
   spawnOnBiomes:
   - {fileID: 1588147556}
@@ -325,10 +409,8 @@ MonoBehaviour:
   UseDefaultHeightMap: 0
   noiseSettings:
     heightCurve:
-      serializedVersion: 2
       m_Curve:
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 0
         inSlope: 0.9793968
         outSlope: 0.9793968
@@ -336,8 +418,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
+      - time: 1
         value: 0.9793968
         inSlope: 0.9793968
         outSlope: 0.9793968
@@ -354,10 +435,8 @@ MonoBehaviour:
     lacunarity: 2
     offset: {x: 0, y: 0}
   worldHeightCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0
+    - time: 0
       value: 0
       inSlope: 1
       outSlope: 1
@@ -365,8 +444,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    - serializedVersion: 3
-      time: 1
+    - time: 1
       value: 1
       inSlope: 1
       outSlope: 1
@@ -422,35 +500,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   index: 3
-  mapColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 0}
+  mapColor:
+    r: 0.49056602
+    g: 0.49056602
+    b: 0.49056602
+    a: 0
   power: 0.7
   OverrideColors: 0
   colorRegions:
   - name: Deep water
     height: 0
-    color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
+    color:
+      r: 0.3443396
+      g: 0.6413482
+      b: 1
+      a: 0
   - name: Water
     height: 0
-    color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.7490196
+      b: 1
+      a: 0
   - name: Sand
     height: 0
-    color: {r: 0.98676056, g: 1, b: 0.7311321, a: 0}
+    color:
+      r: 0.98676056
+      g: 1
+      b: 0.7311321
+      a: 0
   - name: Low grass
     height: 0.4
-    color: {r: 0.60784316, g: 0.78431374, b: 0.3372549, a: 0}
+    color:
+      r: 0.60784316
+      g: 0.78431374
+      b: 0.3372549
+      a: 0
   - name: Grass
     height: 0.5
-    color: {r: 0.5411765, g: 0.69803923, b: 0.29411766, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.69803923
+      b: 0.29411766
+      a: 0
   - name: High grass
     height: 0.7
-    color: {r: 0.4666667, g: 0.6117647, b: 0.2392157, a: 0}
+    color:
+      r: 0.4666667
+      g: 0.6117647
+      b: 0.2392157
+      a: 0
   - name: Mountain
     height: 0.9
-    color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 0}
+    color:
+      r: 0.5294118
+      g: 0.5294118
+      b: 0.5294118
+      a: 0
   - name: Snow
     height: 1
-    color: {r: 1, g: 1, b: 1, a: 0}
+    color:
+      r: 1
+      g: 1
+      b: 1
+      a: 0
   SpawnOnAllBiomes: 0
   spawnOnBiomes:
   - {fileID: 1588147556}
@@ -459,10 +579,8 @@ MonoBehaviour:
   UseDefaultHeightMap: 0
   noiseSettings:
     heightCurve:
-      serializedVersion: 2
       m_Curve:
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 0
         inSlope: 1
         outSlope: 1
@@ -470,8 +588,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 1
+      - time: 1
         value: 1
         inSlope: 1
         outSlope: 1
@@ -488,10 +605,8 @@ MonoBehaviour:
     lacunarity: 2
     offset: {x: 0, y: 0}
   worldHeightCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
@@ -499,8 +614,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    - serializedVersion: 3
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -592,6 +706,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   maskType: 0
   noiseSettings:
     ReverseMask: 0
@@ -601,10 +721,8 @@ MonoBehaviour:
     maxMaskHeight: 1
     noiseSettings:
       heightCurve:
-        serializedVersion: 2
         m_Curve:
-        - serializedVersion: 3
-          time: 0
+        - time: 0
           value: 0
           inSlope: 0
           outSlope: 1
@@ -612,8 +730,7 @@ MonoBehaviour:
           weightedMode: 0
           inWeight: 0
           outWeight: 0
-        - serializedVersion: 3
-          time: 1
+        - time: 1
           value: 1
           inSlope: 1
           outSlope: 0
@@ -679,6 +796,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   maskType: 1
   noiseSettings:
     ReverseMask: 0
@@ -688,10 +811,8 @@ MonoBehaviour:
     maxMaskHeight: 0
     noiseSettings:
       heightCurve:
-        serializedVersion: 2
         m_Curve:
-        - serializedVersion: 3
-          time: 0
+        - time: 0
           value: 0
           inSlope: 0
           outSlope: 1
@@ -699,8 +820,7 @@ MonoBehaviour:
           weightedMode: 0
           inWeight: 0
           outWeight: 0
-        - serializedVersion: 3
-          time: 1
+        - time: 1
           value: 1
           inSlope: 1
           outSlope: 0
@@ -751,104 +871,6 @@ Transform:
   m_Father: {fileID: 760518447}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &698558496
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 698558497}
-  - component: {fileID: 698558498}
-  m_Layer: 0
-  m_Name: HeightMapGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &698558497
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698558496}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1036845559}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &698558498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698558496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58109be832185b042939258193bc5d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseFalloffMap: 1
-  falloffMapCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.29665756
-      value: 0.045654297
-      inSlope: 1.3568721
-      outSlope: 1.3568721
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1.3568721
-      outSlope: 1.3568721
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  heightMapSettings:
-    heightCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    noiseScale: 25
-    octaves: 8
-    persistance: 0.5
-    lacunarity: 2
-    offset: {x: 0, y: 0}
 --- !u!1 &760518445
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,27 +900,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   index: 6
-  mapColor: {r: 0.15686187, g: 0.3970451, b: 0.4433962, a: 0}
+  mapColor:
+    r: 0.15686187
+    g: 0.3970451
+    b: 0.4433962
+    a: 0
   power: 0.3
   OverrideColors: 1
   colorRegions:
   - name: Deep water
     height: 0.12
-    color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
+    color:
+      r: 0.3443396
+      g: 0.6413482
+      b: 1
+      a: 0
   - name: Water
     height: 0.15
-    color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.7490196
+      b: 1
+      a: 0
   SpawnOnAllBiomes: 1
   spawnOnBiomes:
   - {fileID: 0}
   UseDefaultHeightMap: 1
   noiseSettings:
     heightCurve:
-      serializedVersion: 2
       m_Curve:
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 0
         inSlope: 0
         outSlope: 1
@@ -906,8 +944,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 1
+      - time: 1
         value: 1
         inSlope: 1
         outSlope: 0
@@ -924,10 +961,8 @@ MonoBehaviour:
     lacunarity: 2
     offset: {x: 0, y: 0}
   worldHeightCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0
+    - time: 0
       value: 0
       inSlope: -0.00031695724
       outSlope: -0.00031695724
@@ -935,8 +970,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
+    - time: 1
       value: -0.00031695724
       inSlope: -0.00031695724
       outSlope: -0.00031695724
@@ -1007,20 +1041,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   index: 5
-  mapColor: {r: 0.21960783, g: 0.58431375, b: 0.44174895, a: 0}
+  mapColor:
+    r: 0.21960783
+    g: 0.58431375
+    b: 0.44174895
+    a: 0
   power: 0
   OverrideColors: 1
   colorRegions:
   - name: Deep water
     height: 0.35
-    color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
+    color:
+      r: 0.3443396
+      g: 0.6413482
+      b: 1
+      a: 0
   - name: Water
     height: 0.41
-    color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.7490196
+      b: 1
+      a: 0
   - name: Sand
     height: 0.5
-    color: {r: 0.98676056, g: 1, b: 0.7311321, a: 0}
+    color:
+      r: 0.98676056
+      g: 1
+      b: 0.7311321
+      a: 0
   SpawnOnAllBiomes: 0
   spawnOnBiomes:
   - {fileID: 1588147556}
@@ -1031,10 +1087,8 @@ MonoBehaviour:
   UseDefaultHeightMap: 1
   noiseSettings:
     heightCurve:
-      serializedVersion: 2
       m_Curve:
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 0
         inSlope: 0
         outSlope: 0
@@ -1042,8 +1096,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 1
+      - time: 1
         value: 0.49619675
         inSlope: 1
         outSlope: 1
@@ -1060,10 +1113,8 @@ MonoBehaviour:
     lacunarity: 2
     offset: {x: 0, y: 0}
   worldHeightCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0
+    - time: 0
       value: 0
       inSlope: -0.007103443
       outSlope: -0.007103443
@@ -1071,8 +1122,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
+    - time: 1
       value: -0.007103443
       inSlope: -0.007103443
       outSlope: -0.007103443
@@ -1127,6 +1177,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   maskType: 3
   noiseSettings:
     ReverseMask: 0
@@ -1136,10 +1192,8 @@ MonoBehaviour:
     maxMaskHeight: 1
     noiseSettings:
       heightCurve:
-        serializedVersion: 2
         m_Curve:
-        - serializedVersion: 3
-          time: 0
+        - time: 0
           value: 0
           inSlope: 0
           outSlope: 1
@@ -1147,8 +1201,7 @@ MonoBehaviour:
           weightedMode: 0
           inWeight: 0
           outWeight: 0
-        - serializedVersion: 3
-          time: 1
+        - time: 1
           value: 1
           inSlope: 1
           outSlope: 0
@@ -1201,7 +1254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &849417386
 Transform:
   m_ObjectHideFlags: 0
@@ -1214,7 +1267,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1036845559}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &849417387
 MonoBehaviour:
@@ -1226,6 +1279,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74befc941ba24b3448aecb13d98213ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
   biomes:
@@ -1280,44 +1339,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   index: 3
-  mapColor: {r: 0.6367924, g: 1, b: 0.7810073, a: 0}
+  mapColor:
+    r: 0.6367924
+    g: 1
+    b: 0.7810073
+    a: 0
   power: 0
   OverrideColors: 0
   colorRegions:
   - name: Deep water
     height: 0
-    color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
+    color:
+      r: 0.3443396
+      g: 0.6413482
+      b: 1
+      a: 0
   - name: Water
     height: 0
-    color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.7490196
+      b: 1
+      a: 0
   - name: Sand
     height: 0
-    color: {r: 0.98676056, g: 1, b: 0.7311321, a: 0}
+    color:
+      r: 0.98676056
+      g: 1
+      b: 0.7311321
+      a: 0
   - name: Low grass
     height: 0.4
-    color: {r: 0.60784316, g: 0.7843138, b: 0.3372549, a: 0}
+    color:
+      r: 0.60784316
+      g: 0.7843138
+      b: 0.3372549
+      a: 0
   - name: Grass
     height: 0.5
-    color: {r: 0.5411765, g: 0.69803923, b: 0.29411766, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.69803923
+      b: 0.29411766
+      a: 0
   - name: High grass
     height: 0.7
-    color: {r: 0.4666667, g: 0.6117647, b: 0.2392157, a: 0}
+    color:
+      r: 0.4666667
+      g: 0.6117647
+      b: 0.2392157
+      a: 0
   - name: Mountain
     height: 0.9
-    color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 0}
+    color:
+      r: 0.5294118
+      g: 0.5294118
+      b: 0.5294118
+      a: 0
   - name: Snow
     height: 1
-    color: {r: 1, g: 1, b: 1, a: 0}
+    color:
+      r: 1
+      g: 1
+      b: 1
+      a: 0
   SpawnOnAllBiomes: 1
   spawnOnBiomes: []
   UseDefaultHeightMap: 1
   noiseSettings:
     heightCurve:
-      serializedVersion: 2
       m_Curve:
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 0
         inSlope: 0
         outSlope: 1
@@ -1325,8 +1424,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 1
+      - time: 1
         value: 1
         inSlope: 1
         outSlope: 0
@@ -1343,10 +1441,8 @@ MonoBehaviour:
     lacunarity: 2
     offset: {x: 0, y: 0}
   worldHeightCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0.19968414
       outSlope: 0.19968414
@@ -1354,8 +1450,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
+    - time: 1
       value: 0.19968414
       inSlope: 0.19968414
       outSlope: 0.19968414
@@ -1367,6 +1462,75 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   heightMaskPattern: {fileID: 502684075}
+--- !u!1001 &881635853
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5595.994
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 265.2951
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6040.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037185918, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468947512037213534, guid: 353b824640afa9b4b89f5635de79829c,
+        type: 3}
+      propertyPath: m_Name
+      value: LumberjackHut
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 353b824640afa9b4b89f5635de79829c, type: 3}
 --- !u!1 &889208796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1410,8 +1574,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ed8a4662800fb4987c49e4127743ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   index: 0
-  mapColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0}
+  mapColor:
+    r: 0.3207547
+    g: 0.3207547
+    b: 0.3207547
+    a: 0
   power: 0
   OverrideColors: 0
   colorRegions: []
@@ -1430,6 +1604,36 @@ MonoBehaviour:
   maxWorldHeight: 0
   minPicksCount: 1
   maxPicksCount: 4
+--- !u!1 &907398477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 907398478}
+  m_Layer: 0
+  m_Name: '-------Other--------'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &907398478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907398477}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1036845558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,8 +1661,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 698558497}
   - {fileID: 849417386}
+  - {fileID: 1055198810}
   - {fileID: 1184115085}
   - {fileID: 1324067149}
   - {fileID: 1157338662}
@@ -1480,7 +1684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1042230692
 Transform:
   m_ObjectHideFlags: 0
@@ -1497,6 +1701,52 @@ Transform:
   m_Father: {fileID: 1912494303358366796}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1055198809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1055198810}
+  - component: {fileID: 1055198811}
+  m_Layer: 0
+  m_Name: HeightMapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1055198810
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055198809}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1036845559}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1055198811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055198809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fed69742d51ab844b3a207bc983985d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000, guid: a678d2478cb4a184dbbc4c3ff51117b0, type: 2}
+  requester: {fileID: 114609040444999266, guid: a678d2478cb4a184dbbc4c3ff51117b0,
+    type: 2}
 --- !u!1 &1065009226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,7 +1836,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1147620702
 GameObject:
@@ -1632,45 +1882,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   index: 2
-  mapColor: {r: 0.11992703, g: 0.5188679, b: 0.27792338, a: 0}
+  mapColor:
+    r: 0.11992703
+    g: 0.5188679
+    b: 0.27792338
+    a: 0
   power: 0.05
   OverrideColors: 1
   colorRegions:
   - name: Deep water
     height: 0
-    color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
+    color:
+      r: 0.3443396
+      g: 0.6413482
+      b: 1
+      a: 0
   - name: Water
     height: 0
-    color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.7490196
+      b: 1
+      a: 0
   - name: Sand
     height: 0
-    color: {r: 0.98676056, g: 1, b: 0.7311321, a: 0}
+    color:
+      r: 0.98676056
+      g: 1
+      b: 0.7311321
+      a: 0
   - name: Low grass
     height: 0.4
-    color: {r: 0.60784316, g: 0.78431374, b: 0.3372549, a: 0}
+    color:
+      r: 0.60784316
+      g: 0.78431374
+      b: 0.3372549
+      a: 0
   - name: Grass
     height: 0.5
-    color: {r: 0.5411765, g: 0.69803923, b: 0.29411766, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.69803923
+      b: 0.29411766
+      a: 0
   - name: High grass
     height: 0.7
-    color: {r: 0.43189183, g: 0.5660378, b: 0.22160912, a: 0}
+    color:
+      r: 0.43189183
+      g: 0.5660378
+      b: 0.22160912
+      a: 0
   - name: Mountain
     height: 0.9
-    color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 0}
+    color:
+      r: 0.5294118
+      g: 0.5294118
+      b: 0.5294118
+      a: 0
   - name: Snow
     height: 1
-    color: {r: 1, g: 1, b: 1, a: 0}
+    color:
+      r: 1
+      g: 1
+      b: 1
+      a: 0
   SpawnOnAllBiomes: 0
   spawnOnBiomes:
   - {fileID: 1588147556}
   UseDefaultHeightMap: 0
   noiseSettings:
     heightCurve:
-      serializedVersion: 2
       m_Curve:
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 0
         inSlope: 0.79968417
         outSlope: 0.79968417
@@ -1678,8 +1968,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.15548775
+      - time: 0.15548775
         value: 0.124341086
         inSlope: 1.1754599
         outSlope: 1.1754599
@@ -1687,8 +1976,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.3998108
+      - time: 0.3998108
         value: 0.5033437
         inSlope: 1.0206122
         outSlope: 1.0206122
@@ -1696,8 +1984,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
+      - time: 1
         value: 0.7974296
         inSlope: 0.06048947
         outSlope: 0.06048947
@@ -1714,10 +2001,8 @@ MonoBehaviour:
     lacunarity: 2
     offset: {x: 0, y: 0}
   worldHeightCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0
+    - time: 0
       value: 0
       inSlope: 1.0943413
       outSlope: 1.0943413
@@ -1725,8 +2010,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
+    - time: 1
       value: 1.0943413
       inSlope: 1.0943413
       outSlope: 1.0943413
@@ -1738,6 +2022,75 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   heightMaskPattern: {fileID: 834374594}
+--- !u!1001 &1155256079
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5604.105
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 225.12198
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6084.8604
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.000000007450581
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021662538, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692117518021954410, guid: 11d3ea1e694794f41b8b971be2447b70,
+        type: 3}
+      propertyPath: m_Name
+      value: Collectors Hut
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 11d3ea1e694794f41b8b971be2447b70, type: 3}
 --- !u!1 &1157338661
 GameObject:
   m_ObjectHideFlags: 0
@@ -1829,6 +2182,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   maskType: 0
   noiseSettings:
     ReverseMask: 0
@@ -1838,10 +2197,8 @@ MonoBehaviour:
     maxMaskHeight: 1
     noiseSettings:
       heightCurve:
-        serializedVersion: 2
         m_Curve:
-        - serializedVersion: 3
-          time: 0
+        - time: 0
           value: 0.49926758
           inSlope: 0.5007324
           outSlope: 0.5007324
@@ -1849,8 +2206,7 @@ MonoBehaviour:
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
+        - time: 1
           value: 1
           inSlope: 0.5007324
           outSlope: 0.5007324
@@ -1903,7 +2259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1184115085
 Transform:
   m_ObjectHideFlags: 0
@@ -1928,6 +2284,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a688c5b09821c224cbc4a2136a5e3782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
   displayType: 3
@@ -1977,57 +2339,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triangleRangeScale: {x: 40, y: 80}
   verticesHeightScale: 15
-  verticesHeightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.6448838
-      value: 0.15955952
-      inSlope: 0.6888668
-      outSlope: 0.6888668
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.38253006
-    - serializedVersion: 3
-      time: 0.83991694
-      value: 0.5397658
-      inSlope: 0.33503103
-      outSlope: 0.33503103
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.55094594
-    - serializedVersion: 3
-      time: 0.9536006
-      value: 0.88942873
-      inSlope: 1.2841297
-      outSlope: 1.2841297
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 1
-    - serializedVersion: 3
-      time: 0.96850586
-      value: 1.0235863
-      inSlope: 7.4552507
-      outSlope: 7.4552507
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.4030195
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1375147036
 GameObject:
   m_ObjectHideFlags: 0
@@ -2154,44 +2465,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39543bc6e555f040891d949c74a5550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   index: 0
-  mapColor: {r: 0.33161268, g: 0.8679245, b: 0.54701537, a: 0}
+  mapColor:
+    r: 0.33161268
+    g: 0.8679245
+    b: 0.54701537
+    a: 0
   power: 0.05
   OverrideColors: 0
   colorRegions:
   - name: Deep water
     height: 0
-    color: {r: 0.3443396, g: 0.6413482, b: 1, a: 0}
+    color:
+      r: 0.3443396
+      g: 0.6413482
+      b: 1
+      a: 0
   - name: Water
     height: 0
-    color: {r: 0.5411765, g: 0.7490196, b: 1, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.7490196
+      b: 1
+      a: 0
   - name: Sand
     height: 0
-    color: {r: 0.98676056, g: 1, b: 0.7311321, a: 0}
+    color:
+      r: 0.98676056
+      g: 1
+      b: 0.7311321
+      a: 0
   - name: Low grass
     height: 0.4
-    color: {r: 0.60784316, g: 0.7843138, b: 0.3372549, a: 0}
+    color:
+      r: 0.60784316
+      g: 0.7843138
+      b: 0.3372549
+      a: 0
   - name: Grass
     height: 0.5
-    color: {r: 0.5411765, g: 0.69803923, b: 0.29411766, a: 0}
+    color:
+      r: 0.5411765
+      g: 0.69803923
+      b: 0.29411766
+      a: 0
   - name: High grass
     height: 0.7
-    color: {r: 0.4666667, g: 0.6117647, b: 0.2392157, a: 0}
+    color:
+      r: 0.4666667
+      g: 0.6117647
+      b: 0.2392157
+      a: 0
   - name: Mountain
     height: 0.9
-    color: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 0}
+    color:
+      r: 0.5294118
+      g: 0.5294118
+      b: 0.5294118
+      a: 0
   - name: Snow
     height: 1
-    color: {r: 1, g: 1, b: 1, a: 0}
+    color:
+      r: 1
+      g: 1
+      b: 1
+      a: 0
   SpawnOnAllBiomes: 1
   spawnOnBiomes: []
   UseDefaultHeightMap: 1
   noiseSettings:
     heightCurve:
-      serializedVersion: 2
       m_Curve:
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 0
         inSlope: 0
         outSlope: 1
@@ -2199,8 +2550,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 1
+      - time: 1
         value: 1
         inSlope: 1
         outSlope: 0
@@ -2217,10 +2567,8 @@ MonoBehaviour:
     lacunarity: 2
     offset: {x: 0, y: 0}
   worldHeightCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0
+    - time: 0
       value: 0.016052246
       inSlope: 1.1452498
       outSlope: 1.1452498
@@ -2228,8 +2576,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.26678807
+    - time: 0.26678807
       value: 0.32159123
       inSlope: 1.0726249
       outSlope: 1.0726249
@@ -2237,8 +2584,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.29692993
+    - time: 0.29692993
       value: 0.3517331
       inSlope: 0.8175316
       outSlope: 0.8175316
@@ -2246,8 +2592,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.62058836
+    - time: 0.62058836
       value: 0.55727667
       inSlope: 0.6284941
       outSlope: 0.6284941
@@ -2255,8 +2600,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.9918213
+    - time: 0.9918213
       value: 0.6494293
       inSlope: 0.03627644
       outSlope: 0.03627644
@@ -2311,6 +2655,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   maskType: 2
   noiseSettings:
     ReverseMask: 0
@@ -2320,10 +2670,8 @@ MonoBehaviour:
     maxMaskHeight: 0
     noiseSettings:
       heightCurve:
-        serializedVersion: 2
         m_Curve:
-        - serializedVersion: 3
-          time: 0
+        - time: 0
           value: 0
           inSlope: 0
           outSlope: 1
@@ -2331,8 +2679,7 @@ MonoBehaviour:
           weightedMode: 0
           inWeight: 0
           outWeight: 0
-        - serializedVersion: 3
-          time: 1
+        - time: 1
           value: 1
           inSlope: 1
           outSlope: 0
@@ -2412,6 +2759,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c1dfa4a13056a4f8f831b6ae85f277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   maskType: 3
   noiseSettings:
     ReverseMask: 0
@@ -2421,10 +2774,8 @@ MonoBehaviour:
     maxMaskHeight: 1
     noiseSettings:
       heightCurve:
-        serializedVersion: 2
         m_Curve:
-        - serializedVersion: 3
-          time: 0
+        - time: 0
           value: 0
           inSlope: 0
           outSlope: 1
@@ -2432,8 +2783,7 @@ MonoBehaviour:
           weightedMode: 0
           inWeight: 0
           outWeight: 0
-        - serializedVersion: 3
-          time: 1
+        - time: 1
           value: 1
           inSlope: 1
           outSlope: 0
@@ -2513,7 +2863,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1861170407
 GameObject:
@@ -2582,7 +2932,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1912494303358366786
 GameObject:
@@ -2630,5 +2980,5 @@ Transform:
   - {fileID: 1042230692}
   - {fileID: 1036845559}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

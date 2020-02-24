@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using World.Generator.Global;
+using World.Generator;
 using World.Generator.Chunks;
 
 namespace _Editor.Inspector

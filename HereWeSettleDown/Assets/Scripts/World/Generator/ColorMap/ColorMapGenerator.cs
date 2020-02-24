@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using UnityEngine;
 using World.Generator.Biomes;
 using World.Chunks;
@@ -233,4 +233,4 @@ namespace World.Generator.ColorMap
             GameView
         }
     }
-}
+}*/
