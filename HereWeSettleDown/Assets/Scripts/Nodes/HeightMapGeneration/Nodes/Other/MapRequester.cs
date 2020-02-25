@@ -7,6 +7,12 @@ namespace Nodes.HeightMapGeneration.Other
     {
         [Input(ShowBackingValue.Unconnected, ConnectionType.Override)] public HeightMap heightMap;
 
+        protected override void Init()
+        {
+            var gph = (HeightMapGenerationGraph)graph;
+            gph.requester = this;
+        }
+
         public HeightMap GetHeightMap()
         {
             return GetInputValue<HeightMap>("heightMap");

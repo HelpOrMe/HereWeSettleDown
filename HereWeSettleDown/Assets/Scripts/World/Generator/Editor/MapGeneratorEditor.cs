@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using World.Generator;
 using World.Generator.Chunks;
 
-namespace _Editor.Inspector
+namespace World.Generator
 {
     [CustomEditor(typeof(MapGenerator), true)]
     public class MapGeneratorEditor : Editor

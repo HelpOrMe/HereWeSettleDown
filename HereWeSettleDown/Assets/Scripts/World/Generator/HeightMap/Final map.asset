@@ -1,0 +1,2326 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: befc5e7523c67c341b79640f993fcc10, type: 3}
+  m_Name: Final map
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 114529689417093656}
+  - {fileID: 114751197886375528}
+  - {fileID: 114138733906969764}
+  - {fileID: 114564258069750334}
+  - {fileID: 114605817874440828}
+  - {fileID: 114181510310754400}
+  - {fileID: 114805615709050518}
+  - {fileID: 114460938194516348}
+  - {fileID: 114098888555375908}
+  - {fileID: 114790888927155784}
+  - {fileID: 114496803372396444}
+  - {fileID: 114864196721580890}
+  - {fileID: 114818902727017290}
+  - {fileID: 114120131025029214}
+  - {fileID: 114675382308150328}
+  - {fileID: 114471971618720612}
+  - {fileID: 114706875623236534}
+  - {fileID: 114150064268335680}
+  - {fileID: 114384168331974292}
+  - {fileID: 114099600452250466}
+  - {fileID: 114535221103668918}
+  - {fileID: 114271004850590146}
+  - {fileID: 114274719447402076}
+  - {fileID: 114423401151462272}
+  - {fileID: 114247386592782484}
+  - {fileID: 114455031496701856}
+  - {fileID: 114088469760111084}
+  - {fileID: 114090404721221438}
+  - {fileID: 114808575639625596}
+  - {fileID: 114238852576263280}
+  - {fileID: 114878034311536528}
+  - {fileID: 114855752224253848}
+  - {fileID: 114756860833633416}
+  - {fileID: 114255967702035210}
+  - {fileID: 114063861041141352}
+  - {fileID: 114467399237749048}
+  - {fileID: 114084144876685462}
+  - {fileID: 114713648168501656}
+  - {fileID: 114937573824446368}
+  - {fileID: 114335357308962838}
+  - {fileID: 114125968811591116}
+  - {fileID: 114795357471509246}
+  - {fileID: 114856785429046544}
+  - {fileID: 114207825221767808}
+  - {fileID: 114314751211827094}
+  - {fileID: 114874598204548752}
+  - {fileID: 114801593730631218}
+  - {fileID: 114397904310882318}
+  - {fileID: 114206347952721202}
+  - {fileID: 114045803734146666}
+  - {fileID: 114301501081172150}
+  - {fileID: 114693433355389326}
+  - {fileID: 114253968121880600}
+  - {fileID: 114427997885740874}
+  - {fileID: 114022700592969688}
+  editorSeed: 1
+  mapWidth: 512
+  mapHeight: 512
+  requester: {fileID: 114150064268335680}
+--- !u!114 &114022700592969688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbf73a8e5089354cabaaced316aa29b, type: 3}
+  m_Name: Math
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1704, y: 744}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114022700592969688}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114301501081172150}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114022700592969688}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114255967702035210}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114022700592969688}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114751197886375528}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  function: 0
+--- !u!114 &114045803734146666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adaeeb3f280508647863c1e466bb0f05, type: 3}
+  m_Name: Math Num
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -680, y: 888}
+  ports:
+    keys:
+    - firstMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114045803734146666}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114874598204548752}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114045803734146666}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114878034311536528}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  num: 10
+  function: 2
+--- !u!114 &114063861041141352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adaeeb3f280508647863c1e466bb0f05, type: 3}
+  m_Name: Math Num
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1592, y: -344}
+  ports:
+    keys:
+    - firstMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114063861041141352}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114238852576263280}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114063861041141352}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114255967702035210}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  num: 8
+  function: 2
+--- !u!114 &114084144876685462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 792, y: -648}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114084144876685462}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114467399237749048}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114088469760111084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1032, y: -648}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114088469760111084}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114937573824446368}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114090404721221438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1544, y: 24}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114090404721221438}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114255967702035210}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114098888555375908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec6caa05c7d622f4a9174ab1e9d9f910, type: 3}
+  m_Name: Accidental Noise Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -936, y: -2312}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114098888555375908}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114460938194516348}
+        reroutePoints: []
+      - fieldName: firstMap
+        node: {fileID: 114818902727017290}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  fractalType: 2
+  basisType: 2
+  interpType: 3
+  scale: 1.5
+  octaves: 4
+  frequency: 2
+  lacunarity: 2
+--- !u!114 &114099600452250466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec6caa05c7d622f4a9174ab1e9d9f910, type: 3}
+  m_Name: Accidental Noise Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1592, y: 872}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114099600452250466}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114535221103668918}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  fractalType: 1
+  basisType: 3
+  interpType: 2
+  scale: 12
+  octaves: 1
+  frequency: 1
+  lacunarity: 2
+--- !u!114 &114120131025029214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -312, y: -2120}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114120131025029214}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114706875623236534}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114125968811591116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477e65e08256e2e44840c3ec9ff90264, type: 3}
+  m_Name: Lerp
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1304, y: -776}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114125968811591116}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114937573824446368}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114125968811591116}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114335357308962838}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114125968811591116}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114795357471509246}
+        reroutePoints: []
+      - fieldName: firstMap
+        node: {fileID: 114238852576263280}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  time: 0.5
+--- !u!114 &114138733906969764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Final map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1928, y: 1464}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114138733906969764}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114751197886375528}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114150064268335680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc531a989c0d4f4baea6c93fb23f597, type: 3}
+  m_Name: Map Requester
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 2104, y: 1320}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114150064268335680}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114751197886375528}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &114181510310754400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477e65e08256e2e44840c3ec9ff90264, type: 3}
+  m_Name: Lerp
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1464, y: 1224}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114181510310754400}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114605817874440828}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114181510310754400}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114529689417093656}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114181510310754400}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114751197886375528}
+        reroutePoints: []
+      - fieldName: heightMap
+        node: {fileID: 114805615709050518}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  time: 0.6
+--- !u!114 &114206347952721202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbf73a8e5089354cabaaced316aa29b, type: 3}
+  m_Name: Math
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -72, y: 824}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114206347952721202}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114206347952721202}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114878034311536528}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114206347952721202}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  function: 0
+--- !u!114 &114207825221767808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a530213f4761943806791684d551be, type: 3}
+  m_Name: Flat Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 744, y: -328}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114207825221767808}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114856785429046544}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &114238852576263280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbf73a8e5089354cabaaced316aa29b, type: 3}
+  m_Name: Math
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1320, y: -344}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114238852576263280}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114125968811591116}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114238852576263280}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114856785429046544}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114238852576263280}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114063861041141352}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  function: 1
+--- !u!114 &114247386592782484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477e65e08256e2e44840c3ec9ff90264, type: 3}
+  m_Name: Lerp
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -792, y: 616}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114247386592782484}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114274719447402076}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114247386592782484}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114423401151462272}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114247386592782484}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114878034311536528}
+        reroutePoints: []
+      - fieldName: heightMap
+        node: {fileID: 114756860833633416}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  time: 0.3
+--- !u!114 &114253968121880600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414bbc488b5c3a54297255ed7b5c462c, type: 3}
+  m_Name: Noise Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 936, y: 712}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114253968121880600}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114301501081172150}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  scale: 75
+  octaves: 3
+  persistance: 0.5
+  lacunarity: 2
+--- !u!114 &114255967702035210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 481befeedefdfc44b9933aada421090c, type: 3}
+  m_Name: Clamp
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1432, y: -168}
+  ports:
+    keys:
+    - heightMap
+    - outMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114255967702035210}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114063861041141352}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114255967702035210}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114090404721221438}
+        reroutePoints: []
+      - fieldName: secondMap
+        node: {fileID: 114022700592969688}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  minValue: 0
+  maxValue: 100
+--- !u!114 &114271004850590146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1272, y: 1080}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114271004850590146}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114535221103668918}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114274719447402076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414bbc488b5c3a54297255ed7b5c462c, type: 3}
+  m_Name: Noise Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1048, y: 488}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114274719447402076}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114247386592782484}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  scale: 100
+  octaves: 4
+  persistance: 0.5
+  lacunarity: 2
+--- !u!114 &114301501081172150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477e65e08256e2e44840c3ec9ff90264, type: 3}
+  m_Name: Lerp
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1192, y: 600}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114301501081172150}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114693433355389326}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114301501081172150}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114253968121880600}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114301501081172150}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114427997885740874}
+        reroutePoints: []
+      - fieldName: firstMap
+        node: {fileID: 114022700592969688}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  time: 0.5
+--- !u!114 &114314751211827094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1016, y: -88}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114314751211827094}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114856785429046544}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114335357308962838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a530213f4761943806791684d551be, type: 3}
+  m_Name: Flat Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1288, y: -888}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114335357308962838}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114125968811591116}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &114384168331974292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adaeeb3f280508647863c1e466bb0f05, type: 3}
+  m_Name: Math Num
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -952, y: -1832}
+  ports:
+    keys:
+    - firstMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114384168331974292}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114471971618720612}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114384168331974292}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114706875623236534}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  num: 1.2
+  function: 2
+--- !u!114 &114397904310882318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -984, y: 1128}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114397904310882318}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114874598204548752}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114423401151462272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a530213f4761943806791684d551be, type: 3}
+  m_Name: Flat Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1064, y: 680}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114423401151462272}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114247386592782484}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &114427997885740874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Final map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1192, y: 744}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114427997885740874}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114301501081172150}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114455031496701856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414bbc488b5c3a54297255ed7b5c462c, type: 3}
+  m_Name: Noise Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 760, y: -984}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114455031496701856}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114713648168501656}
+        reroutePoints: []
+      - fieldName: firstMap
+        node: {fileID: 114937573824446368}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  scale: 100
+  octaves: 4
+  persistance: 0.5
+  lacunarity: 2
+--- !u!114 &114460938194516348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -664, y: -2328}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114460938194516348}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114098888555375908}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114467399237749048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414bbc488b5c3a54297255ed7b5c462c, type: 3}
+  m_Name: Noise Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 760, y: -824}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114467399237749048}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114084144876685462}
+        reroutePoints: []
+      - fieldName: secondMap
+        node: {fileID: 114937573824446368}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  scale: 90
+  octaves: 4
+  persistance: 0.5
+  lacunarity: 2
+--- !u!114 &114471971618720612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b606d7af8b0ba044b0f101bd34225ec, type: 3}
+  m_Name: Border Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1240, y: -1816}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114471971618720612}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114384168331974292}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  xDistPercent: 0.3
+  yDistPercent: 0.3
+--- !u!114 &114496803372396444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adaeeb3f280508647863c1e466bb0f05, type: 3}
+  m_Name: Math Num
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -488, y: -1656}
+  ports:
+    keys:
+    - firstMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114496803372396444}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114790888927155784}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114496803372396444}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  num: 3
+  function: 2
+--- !u!114 &114529689417093656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b606d7af8b0ba044b0f101bd34225ec, type: 3}
+  m_Name: Border Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1208, y: 1288}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114529689417093656}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114181510310754400}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  xDistPercent: 0.4
+  yDistPercent: 0.4
+--- !u!114 &114535221103668918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 481befeedefdfc44b9933aada421090c, type: 3}
+  m_Name: Clamp
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1272, y: 888}
+  ports:
+    keys:
+    - heightMap
+    - outMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114535221103668918}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114099600452250466}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114535221103668918}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114271004850590146}
+        reroutePoints: []
+      - fieldName: firstMap
+        node: {fileID: 114874598204548752}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  minValue: 0
+  maxValue: 1
+--- !u!114 &114564258069750334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a530213f4761943806791684d551be, type: 3}
+  m_Name: Flat Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 968, y: 1112}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114564258069750334}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114605817874440828}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &114605817874440828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 481befeedefdfc44b9933aada421090c, type: 3}
+  m_Name: Clamp
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1208, y: 1112}
+  ports:
+    keys:
+    - heightMap
+    - outMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114605817874440828}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114564258069750334}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114605817874440828}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114181510310754400}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  minValue: 0
+  maxValue: 1
+--- !u!114 &114675382308150328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adaeeb3f280508647863c1e466bb0f05, type: 3}
+  m_Name: Math Num
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1240, y: -2008}
+  ports:
+    keys:
+    - firstMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114675382308150328}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114864196721580890}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114675382308150328}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114818902727017290}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  num: 1.5
+  function: 2
+--- !u!114 &114693433355389326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a530213f4761943806791684d551be, type: 3}
+  m_Name: Flat Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 936, y: 600}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114693433355389326}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114301501081172150}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &114706875623236534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbf73a8e5089354cabaaced316aa29b, type: 3}
+  m_Name: Math
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -632, y: -1864}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114706875623236534}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114818902727017290}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114706875623236534}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114384168331974292}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114706875623236534}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114790888927155784}
+        reroutePoints: []
+      - fieldName: heightMap
+        node: {fileID: 114120131025029214}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  function: 1
+--- !u!114 &114713648168501656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1032, y: -1128}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114713648168501656}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114455031496701856}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114751197886375528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbf73a8e5089354cabaaced316aa29b, type: 3}
+  m_Name: Math
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1768, y: 1288}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114751197886375528}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114022700592969688}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114751197886375528}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114181510310754400}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114751197886375528}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114138733906969764}
+        reroutePoints: []
+      - fieldName: heightMap
+        node: {fileID: 114150064268335680}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  function: 1
+--- !u!114 &114756860833633416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -792, y: 344}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114756860833633416}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114247386592782484}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114790888927155784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 481befeedefdfc44b9933aada421090c, type: 3}
+  m_Name: Clamp
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -744, y: -1656}
+  ports:
+    keys:
+    - heightMap
+    - outMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114790888927155784}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114706875623236534}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114790888927155784}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114496803372396444}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  minValue: 0
+  maxValue: 100
+--- !u!114 &114795357471509246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1592, y: -952}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114795357471509246}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114125968811591116}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114801593730631218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a530213f4761943806791684d551be, type: 3}
+  m_Name: Flat Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -952, y: 1048}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114801593730631218}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114874598204548752}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &114805615709050518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1528, y: 1432}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114805615709050518}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114181510310754400}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114808575639625596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b606d7af8b0ba044b0f101bd34225ec, type: 3}
+  m_Name: Border Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 744, y: -264}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114808575639625596}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114856785429046544}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  xDistPercent: 0.4
+  yDistPercent: 0.4
+--- !u!114 &114818902727017290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbf73a8e5089354cabaaced316aa29b, type: 3}
+  m_Name: Math
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -952, y: -1976}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114818902727017290}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114098888555375908}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114818902727017290}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114675382308150328}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114818902727017290}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114706875623236534}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  function: 1
+--- !u!114 &114855752224253848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c2e3103e1066c469888bc5a2982770, type: 3}
+  m_Name: Map Visualizer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -360, y: 1000}
+  ports:
+    keys:
+    - heightMap
+    values:
+    - _fieldName: heightMap
+      _node: {fileID: 114855752224253848}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114878034311536528}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  texture: {fileID: 0}
+--- !u!114 &114856785429046544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477e65e08256e2e44840c3ec9ff90264, type: 3}
+  m_Name: Lerp
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1016, y: -296}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114856785429046544}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114207825221767808}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114856785429046544}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114808575639625596}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114856785429046544}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: secondMap
+        node: {fileID: 114238852576263280}
+        reroutePoints: []
+      - fieldName: heightMap
+        node: {fileID: 114314751211827094}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  time: 0.75
+--- !u!114 &114864196721580890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b606d7af8b0ba044b0f101bd34225ec, type: 3}
+  m_Name: Border Map
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1240, y: -2152}
+  ports:
+    keys:
+    - outMap
+    values:
+    - _fieldName: outMap
+      _node: {fileID: 114864196721580890}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: firstMap
+        node: {fileID: 114675382308150328}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  xDistPercent: 0.4
+  yDistPercent: 0.4
+--- !u!114 &114874598204548752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477e65e08256e2e44840c3ec9ff90264, type: 3}
+  m_Name: Lerp
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -936, y: 888}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114874598204548752}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114535221103668918}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114874598204548752}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114801593730631218}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114874598204548752}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114397904310882318}
+        reroutePoints: []
+      - fieldName: firstMap
+        node: {fileID: 114045803734146666}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  time: 0.95
+--- !u!114 &114878034311536528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbf73a8e5089354cabaaced316aa29b, type: 3}
+  m_Name: Math
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -360, y: 824}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114878034311536528}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114247386592782484}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114878034311536528}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114045803734146666}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114878034311536528}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114855752224253848}
+        reroutePoints: []
+      - fieldName: secondMap
+        node: {fileID: 114206347952721202}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  function: 1
+--- !u!114 &114937573824446368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbf73a8e5089354cabaaced316aa29b, type: 3}
+  m_Name: Math
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1032, y: -824}
+  ports:
+    keys:
+    - firstMap
+    - secondMap
+    - outMap
+    values:
+    - _fieldName: firstMap
+      _node: {fileID: 114937573824446368}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114455031496701856}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondMap
+      _node: {fileID: 114937573824446368}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: outMap
+        node: {fileID: 114467399237749048}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outMap
+      _node: {fileID: 114937573824446368}
+      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: heightMap
+        node: {fileID: 114088469760111084}
+        reroutePoints: []
+      - fieldName: firstMap
+        node: {fileID: 114125968811591116}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  function: 1

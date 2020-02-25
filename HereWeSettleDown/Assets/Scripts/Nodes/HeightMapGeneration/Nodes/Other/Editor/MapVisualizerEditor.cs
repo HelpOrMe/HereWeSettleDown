@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using UnityEngine;
 using XNodeEditor;
 
 namespace Nodes.HeightMapGeneration.Other
@@ -6,6 +7,9 @@ namespace Nodes.HeightMapGeneration.Other
     [CustomNodeEditor(typeof(MapVisualizer))]
     public class MapVisualizerEditor : NodeEditor
     {
+        HeightMap heightMap;
+        bool theadStarted;
+
         private void SetTexture(HeightMap heightMap)
         {
             var node = (MapVisualizer)target;
@@ -21,20 +25,29 @@ namespace Nodes.HeightMapGeneration.Other
             node.texture.Apply();
         }
 
+        public void SetHeightMap()
+        {
+            var node = (MapVisualizer)target;
+            heightMap = node.GetInputValue<HeightMap>("heightMap");
+        }
+
         public override void OnBodyGUI()
         {
             base.OnBodyGUI();
-
             var node = (MapVisualizer)target;
+            
             if (GUILayout.Button("Update preview"))
             {
-                HeightMap heightMap = node.GetInputValue<HeightMap>("heightMap");
+                heightMap = node.GetInputValue<HeightMap>("heightMap");
+
                 if (heightMap != null)
                 {
                     SetTexture(heightMap);
+                    theadStarted = false;
                 }
             }
 
+            // Draw texture
             GUIStyle style = new GUIStyle();
             style.fixedHeight = 175;
             try { GUILayout.Label(new GUIContent(node.texture), style); }

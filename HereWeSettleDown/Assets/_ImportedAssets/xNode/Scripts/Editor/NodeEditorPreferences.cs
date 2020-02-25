@@ -34,6 +34,7 @@ namespace XNodeEditor {
             public bool autoSave = true;
             public bool zoomToMouse = true;
             public bool portTooltips = true;
+            public bool showPortValue = true;
             [SerializeField] private string typeColorsData = "";
             [NonSerialized] public Dictionary<string, Color> typeColors = new Dictionary<string, Color>();
             public NoodleType noodleType = NoodleType.Curve;
@@ -149,6 +150,9 @@ namespace XNodeEditor {
             settings.highlightColor = EditorGUILayout.ColorField("Selection", settings.highlightColor);
             settings.noodleType = (NoodleType) EditorGUILayout.EnumPopup("Noodle type", (Enum) settings.noodleType);
             settings.portTooltips = EditorGUILayout.Toggle("Port Tooltips", settings.portTooltips);
+            if (settings.portTooltips)
+                settings.showPortValue = EditorGUILayout.Toggle("Show port value", settings.showPortValue);
+
             if (GUI.changed) {
                 SavePrefs(key, settings);
                 NodeEditorWindow.RepaintAll();

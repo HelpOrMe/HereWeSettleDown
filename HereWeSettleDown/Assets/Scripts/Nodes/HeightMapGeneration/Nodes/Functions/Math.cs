@@ -7,10 +7,9 @@ namespace Nodes.HeightMapGeneration.Functions
     {
         [Input] public HeightMap firstMap;
         [Input] public HeightMap secondMap;
-        public enum MathFunc { Add, Subtract, Multiply, Divide };
-        [Output] public HeightMap outMap;
-
         public MathFunc function;
+        [Output] public HeightMap outMap;
+        public enum MathFunc { Add, Subtract, Multiply, Divide };
 
         public HeightMap GetOutMap()
         {

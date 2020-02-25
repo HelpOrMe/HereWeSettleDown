@@ -433,10 +433,17 @@ namespace XNodeEditor {
                 Type type = hoveredPort.ValueType;
                 GUIContent content = new GUIContent();
                 content.text = type.PrettyName();
-                if (hoveredPort.IsOutput) {
+
+                // При наведении мышкой на порт для подключения, вызывается попытка получения значения порта
+                // для вывода подсказки, все бы ничего, но это вызывается +-100 раз/сек.
+                // Из-за этого сильно лагает все окно, не надо так.
+                // Сделал отдельную настройку для отображенния значения. (Preferences/ShowPortValue)
+
+                if (NodeEditorPreferences.GetSettings().showPortValue && hoveredPort.IsOutput) {
                     object obj = hoveredPort.node.GetValue(hoveredPort);
                     content.text += " = " + (obj != null ? obj.ToString() : "null");
                 }
+
                 Vector2 size = NodeEditorResources.styles.tooltip.CalcSize(content);
                 Rect rect = new Rect(Event.current.mousePosition - (size), size);
                 EditorGUI.LabelField(rect, content, NodeEditorResources.styles.tooltip);

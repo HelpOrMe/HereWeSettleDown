@@ -4,22 +4,23 @@ using World.Generator.Helper;
 
 namespace Nodes.HeightMapGeneration.Maps
 {
-    public class FalloffMap : Node
+    public class NoiseMap : Node
     {
-        public AnimationCurve heightCurve;
+        public float scale = 25;
+        public int octaves = 4;
+        public float persistance = 0.5f;
+        public float lacunarity = 2;
         [Output] public HeightMap outMap;
 
         public HeightMap GetOutMap()
         {
             var ghp = (HeightMapGenerationGraph)graph;
-            float[,] outMap = Noise.GenerateFalloffMap(ghp.mapWidth, ghp.mapHeight);
-            for (int x = 0; x < ghp.mapWidth; x++)
-            {
-                for (int y = 0; y < ghp.mapHeight; y++)
-                {
-                    outMap[x, y] = heightCurve.Evaluate(outMap[x, y]);
-                }
-            }
+            float[,] outMap = Noise.GenerateNoiseMap
+                (ghp.prng, ghp.mapWidth, ghp.mapHeight,
+                GetInputValue("scale", scale), GetInputValue("octaves", octaves),
+                GetInputValue("persistance", persistance), GetInputValue("lacunarity",
+                lacunarity), Vector2.zero);
+
             return new HeightMap(outMap);
         }
 

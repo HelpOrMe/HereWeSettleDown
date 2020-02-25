@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water
-  m_Shader: {fileID: 4800000, guid: 9f040d322d700e9498f2c5063e55aa81, type: 3}
-  m_ShaderKeywords: _EMISSION
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_ShaderKeywords: _SPECULAR_SETUP
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -63,7 +63,7 @@ Material:
     m_Floats:
     - Vector1_2CA4B66C: 0.07
     - Vector1_A53E7CFE: 7
-    - Vector1_B75C0D94: 8.37
+    - Vector1_B75C0D94: -376.26
     - _AlphaClip: 0
     - _Blend: 0
     - _BlendOp: 0
@@ -100,15 +100,15 @@ Material:
     - _UseMetallicMap: 0
     - _UseNormalMap: 0
     - _UseRoughnessMap: 0
-    - _WorkflowMode: 1
+    - _WorkflowMode: 0
     - _ZWrite: 1
     m_Colors:
-    - Color_8CF3D0AC: {r: 0, g: 0.15454365, b: 0.37892914, a: 0}
+    - Color_8CF3D0AC: {r: 0, g: 0.36033854, b: 0.8962264, a: 0}
     - Vector3_3123628E: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.6462264, g: 0.8694415, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
-    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
     - _UvOffset: {r: 0, g: 0, b: 0, a: 0}
     - _UvTiling: {r: 1, g: 1, b: 0, a: 0}
