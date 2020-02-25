@@ -1,9 +1,33 @@
 ﻿using UnityEngine;
+using AccidentalNoise;
 
 namespace World.Generator.Helper
 {
     public static class Noise
     {
+        public static float[,] GenerateNoiseMap(System.Random prng, int mapWidth, int mapHeight, AccidentalNoiseSettings settings)
+        {
+            ModuleBase moduleBase = settings.GetFractal(prng.Next(int.MinValue, int.MaxValue));
+            SMappingRanges ranges = new SMappingRanges();
+
+            float[,] noiseMap = new float[mapWidth, mapHeight];
+            for (int x = 0; x < mapWidth; x++)
+            {
+                for (int y = 0; y < mapHeight; y++)
+                {
+                    double p = x / (double)mapWidth;
+                    double q = y / (double)mapHeight;
+
+                    double nx = ranges.mapx0 + p * (ranges.mapx1 - ranges.mapx0);
+                    double ny = ranges.mapy0 + q * (ranges.mapy1 - ranges.mapy0);
+
+                    noiseMap[x, y] = (float)moduleBase.Get(nx * settings.scale, ny * settings.scale);
+                }
+            }
+
+            return noiseMap;
+        }
+
         public static float[,] GenerateNoiseMap(System.Random prng, int mapWidth, int mapHeight, NoiseSettings settings)
         {
             float[,] heightMap = GenerateNoiseMap(prng, mapWidth, mapHeight, settings.noiseScale, settings.octaves, settings.persistance, settings.lacunarity, settings.offset);
@@ -118,12 +142,33 @@ namespace World.Generator.Helper
     [System.Serializable]
     public class NoiseSettings
     {
-        public AnimationCurve heightCurve = AnimationCurve.Linear(0, 0, 1, 1);
-        public float noiseScale = 25;
-        public Vector2 offset = Vector2.zero;
+        public AnimationCurve heightCurve = AnimationCurve.Linear(0, 0, 5, 5);
 
+        public float noiseScale = 25;
         public int octaves = 4;
         [Range(0f, 1f)] public float persistance = 0.5f;
         public float lacunarity = 2;
+
+        public Vector2 offset = Vector2.zero;
+    }
+
+    [System.Serializable]
+    public class AccidentalNoiseSettings
+    {
+        public FractalType fractalType = FractalType.FBM;
+        public BasisTypes basisType = BasisTypes.GRADIENT;
+        public InterpTypes interpType = InterpTypes.QUINTIC;
+
+        public float scale = 1;
+        public int octaves = 6;
+        public float frequency = 2f;
+        public float lacunarity = 2f;
+
+        public ModuleBase GetFractal(int seed)
+        {
+            Fractal ground_shape_fractal = new Fractal(fractalType, basisType, interpType, octaves, frequency, (uint)seed);
+            ground_shape_fractal.SetLacunarity(lacunarity);
+            return ground_shape_fractal as ModuleBase;
+        }
     }
 }

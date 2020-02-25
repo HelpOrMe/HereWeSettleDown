@@ -44,11 +44,11 @@ namespace World.Generator
     }
 
     [AttributeUsage(AttributeTargets.Class)]
-    public sealed class CustomGenerator : Attribute
+    public sealed class CustomGeneratorAttribute : Attribute
     {
         public GeneratorRegData data;
 
-        public CustomGenerator(bool useOwnThread = false, params string[] requireValues)
+        public CustomGeneratorAttribute(bool useOwnThread = false, params string[] requireValues)
         {
             data = new GeneratorRegData()
             {
@@ -57,7 +57,7 @@ namespace World.Generator
             };
         }
 
-        public CustomGenerator(bool useOwnThread = false, params Type[] requiredCompletedGenerators)
+        public CustomGeneratorAttribute(bool useOwnThread = false, params Type[] requiredCompletedGenerators)
         {
             data = new GeneratorRegData()
             {

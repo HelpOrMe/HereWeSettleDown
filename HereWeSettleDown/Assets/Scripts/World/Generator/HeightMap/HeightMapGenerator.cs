@@ -1,50 +1,20 @@
-﻿using UnityEngine;
-using World.Generator.Helper;
+﻿using Nodes.HeightMapGeneration;
+using Nodes.HeightMapGeneration.Other;
 
 namespace World.Generator.HeightMap
 {
     [CustomGenerator(true, "mapWidth", "mapHeight")]
     public class HeightMapGenerator : SubGenerator
     {
-        public bool UseFalloffMap;
-        public AnimationCurve falloffMapCurve;
-        public NoiseSettings heightMapSettings;
+        public HeightMapGenerationGraph graph;
+        public MapRequester requester;
 
         public override void OnGenerate()
         {
-            int mapWidth = GetValue<int>("mapWidth");
-            int mapHeight = GetValue<int>("mapHeight");
-
-            if (UseFalloffMap)
-                GenerateFalloffMap(mapWidth, mapHeight);
-
-            GenerateHeightMap(mapWidth, mapHeight);
+            graph.mapWidth = GetValue<int>("mapWidth");
+            graph.mapHeight = GetValue<int>("mapHeight");
+            values["heightMap"] = requester.GetHeightMap().map;
             GenerationCompleted();
-        }
-
-        private void GenerateFalloffMap(int width, int height)
-        {
-            values["falloffMap"] = Noise.GenerateFalloffMap(width, height);
-        }
-
-        private void GenerateHeightMap(int mapWidth, int mapHeight)
-        {
-            float[,] heightMap = Noise.GenerateNoiseMap(ownPrng, mapWidth, mapHeight, heightMapSettings);
-
-            // Use falloff map offset
-            if (TryGetValue("falloffMap", out float[,] falloffMap))
-            {
-                for (int x = 0; x < heightMap.GetLength(0); x++)
-                {
-                    for (int y = 0; y < heightMap.GetLength(1); y++)
-                    {
-                        heightMap[x, y] -= falloffMapCurve.Evaluate(falloffMap[x, y]);
-                    }
-                }
-            }
-            
-            values["heightMap"] = heightMap;
         }
     }
 }
-

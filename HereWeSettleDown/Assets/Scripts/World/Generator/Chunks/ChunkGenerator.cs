@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using World.Chunks;
 using World.Generator.Mesh;
+using World.Map;
 
 namespace World.Generator.Chunks
 {
@@ -18,18 +18,18 @@ namespace World.Generator.Chunks
             values["chunkWidth"] = chunkWidth;
             values["chunkHeight"] = chunkHeight;
 
-            ChunkMap.ChunkWidth = chunkWidth;
-            ChunkMap.ChunkHeight = chunkHeight;
-            ChunkMap.ChunkScale = chunkTerrain.transform.localScale;
+            WorldChunkMap.ChunkWidth = chunkWidth;
+            WorldChunkMap.ChunkHeight = chunkHeight;
+            WorldChunkMap.ChunkScale = chunkTerrain.transform.localScale;
         }
 
         public override void OnGenerate()
         {
-            GenerateChunkMap();
+            GenerateWorldChunkMap();
             GenerationCompleted();
         }
 
-        public void GenerateChunkMap()
+        public void GenerateWorldChunkMap()
         {
             int mapWidth = GetValue<int>("mapWidth");
             int mapHeight = GetValue<int>("mapHeight");
@@ -44,7 +44,7 @@ namespace World.Generator.Chunks
                 }
             }
 
-            ChunkMap.chunkMap = chunkMap;
+            WorldChunkMap.chunkMap = chunkMap;
         }
     }
 }
