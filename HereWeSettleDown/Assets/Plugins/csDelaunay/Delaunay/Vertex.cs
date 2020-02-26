@@ -102,7 +102,7 @@ namespace csDelaunay {
 				return null;
 			}
 
-			return Vertex.Create(intersectionX, intersectionY);
+			return Create(intersectionX, intersectionY);
 		}
 		#endregion
 	}

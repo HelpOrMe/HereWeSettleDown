@@ -22,7 +22,7 @@ namespace csDelaunay {
 				int tempIndex;
 				
 				if (returnValue == -1) {
-					if (s0.siteIndex > s1.SiteIndex) {
+					if (s0.SiteIndex > s1.SiteIndex) {
 						tempIndex = s0.SiteIndex;
 						s0.SiteIndex = s1.SiteIndex;
 						s1.SiteIndex = tempIndex;
@@ -49,7 +49,7 @@ namespace csDelaunay {
 			int tempIndex;
 
 			if (returnValue == -1) {
-				if (this.siteIndex > s1.SiteIndex) {
+				if (this.SiteIndex > s1.SiteIndex) {
 					tempIndex = this.SiteIndex;
 					this.SiteIndex = s1.SiteIndex;
 					s1.SiteIndex = tempIndex;
@@ -69,24 +69,19 @@ namespace csDelaunay {
 		private static bool CloseEnough(Vector2 p0, Vector2 p1) {
 			return (p0-p1).magnitude < EPSILON;
 		}
-		
-		private int siteIndex;
-		public int SiteIndex {get{return siteIndex;} set{siteIndex=value;}}
-		
-		private Vector2 coord;
+
+        public int SiteIndex { get; set; }
+
+        private Vector2 coord;
 		public Vector2 Coord {get{return coord;}set{coord=value;}}
 
 		public float x {get{return coord.x;}}
 		public float y {get{return coord.y;}}
 
-		private float weigth;
-		public float Weigth {get{return weigth;}}
-
-		// The edges that define this Site's Voronoi region:
-		private List<Edge> edges;
-		public List<Edge> Edges {get{return edges;}}
-		// which end of each edge hooks up with the previous edge in edges:
-		private List<LR> edgeOrientations;
+        public float Weigth { get; private set; }
+        public List<Edge> Edges { get; private set; }
+        // which end of each edge hooks up with the previous edge in edges:
+        private List<LR> edgeOrientations;
 		// ordered list of points that define the region clipped to bounds:
 		private List<Vector2> region;
 
@@ -96,16 +91,16 @@ namespace csDelaunay {
 
 		private Site Init(Vector2 p, int index, float weigth) {
 			coord = p;
-			siteIndex = index;
-			this.weigth = weigth;
-			edges = new List<Edge>();
+			SiteIndex = index;
+			this.Weigth = weigth;
+			Edges = new List<Edge>();
 			region = null;
 
 			return this;
 		}
 
 		public override string ToString() {
-			return "Site " + siteIndex + ": " + coord;
+			return "Site " + SiteIndex + ": " + coord;
 		}
 
 		private void Move(Vector2 p) {
@@ -119,9 +114,9 @@ namespace csDelaunay {
 		}
 
 		private void Clear() {
-			if (edges != null) {
-				edges.Clear();
-				edges = null;
+			if (Edges != null) {
+				Edges.Clear();
+				Edges = null;
 			}
 			if (edgeOrientations != null) {
 				edgeOrientations.Clear();
@@ -134,23 +129,23 @@ namespace csDelaunay {
 		}
 
 		public void AddEdge(Edge edge) {
-			edges.Add(edge);
+			Edges.Add(edge);
 		}
 
 		public Edge NearestEdge() {
-			edges.Sort(Edge.CompareSitesDistances);
-			return edges[0];
+			Edges.Sort(Edge.CompareSitesDistances);
+			return Edges[0];
 		}
 
 		public List<Site> NeighborSites() {
-			if (edges == null || edges.Count == 0) {
+			if (Edges == null || Edges.Count == 0) {
 				return new List<Site>();
 			}
 			if (edgeOrientations == null) {
 				ReorderEdges();
 			}
 			List<Site> list = new List<Site>();
-			foreach (Edge edge in edges) {
+			foreach (Edge edge in Edges) {
 				list.Add(NeighborSite(edge));
 			}
 			return list;
@@ -167,7 +162,7 @@ namespace csDelaunay {
 		}
 
 		public List<Vector2> Region(Rectf clippingBounds) {
-			if (edges == null || edges.Count == 0) {
+			if (Edges == null || Edges.Count == 0) {
 				return new List<Vector2>();
 			}
 			if (edgeOrientations == null) {
@@ -181,19 +176,19 @@ namespace csDelaunay {
 		}
 
 		private void ReorderEdges() {
-			EdgeReorderer reorderer = new EdgeReorderer(edges, typeof(Vertex));
-			edges = reorderer.Edges;
+			EdgeReorderer reorderer = new EdgeReorderer(Edges, typeof(Vertex));
+			Edges = reorderer.Edges;
 			edgeOrientations = reorderer.EdgeOrientations;
 			reorderer.Dispose();
 		}
 
 		private List<Vector2> ClipToBounds(Rectf bounds) {
 			List<Vector2> points = new List<Vector2>();
-			int n = edges.Count;
+			int n = Edges.Count;
 			int i = 0;
 			Edge edge;
 
-			while (i < n && !edges[i].Visible()) {
+			while (i < n && !Edges[i].Visible()) {
 				i++;
 			}
 
@@ -201,13 +196,13 @@ namespace csDelaunay {
 				// No edges visible
 				return new List<Vector2>();
 			}
-			edge = edges[i];
+			edge = Edges[i];
 			LR orientation = edgeOrientations[i];
 			points.Add(edge.ClippedEnds[orientation]);
 			points.Add(edge.ClippedEnds[LR.Other(orientation)]);
 
 			for (int j = i + 1; j < n; j++) {
-				edge = edges[j];
+				edge = Edges[j];
 				if (!edge.Visible()) {
 					continue;
 				}
@@ -221,7 +216,7 @@ namespace csDelaunay {
 
 		private void Connect(ref List<Vector2> points, int j, Rectf bounds, bool closingUp = false) {
 			Vector2 rightPoint = points[points.Count-1];
-			Edge newEdge = edges[j];
+			Edge newEdge = Edges[j];
 			LR newOrientation = edgeOrientations[j];
 
 			// The point that must be conected to rightPoint:
