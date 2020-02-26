@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 using XNodeEditor;
 
 namespace Nodes.HeightMapGeneration.Other
@@ -8,7 +7,6 @@ namespace Nodes.HeightMapGeneration.Other
     public class MapVisualizerEditor : NodeEditor
     {
         HeightMap heightMap;
-        bool theadStarted;
 
         private void SetTexture(HeightMap heightMap)
         {
@@ -43,7 +41,6 @@ namespace Nodes.HeightMapGeneration.Other
                 if (heightMap != null)
                 {
                     SetTexture(heightMap);
-                    theadStarted = false;
                 }
             }
 

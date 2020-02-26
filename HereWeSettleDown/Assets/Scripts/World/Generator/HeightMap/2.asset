@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: befc5e7523c67c341b79640f993fcc10, type: 3}
-  m_Name: Final map
+  m_Name: 2
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 114529689417093656}
@@ -96,10 +96,7 @@ MonoBehaviour:
       _node: {fileID: 114022700592969688}
       _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: outMap
-        node: {fileID: 114301501081172150}
-        reroutePoints: []
+      connections: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -108,10 +105,7 @@ MonoBehaviour:
       _node: {fileID: 114022700592969688}
       _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: outMap
-        node: {fileID: 114255967702035210}
-        reroutePoints: []
+      connections: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -120,10 +114,7 @@ MonoBehaviour:
       _node: {fileID: 114022700592969688}
       _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: firstMap
-        node: {fileID: 114751197886375528}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -554,7 +545,7 @@ MonoBehaviour:
   m_Name: Lerp
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1464, y: 1224}
+  position: {x: 1560, y: 1208}
   ports:
     keys:
     - firstMap
@@ -872,9 +863,6 @@ MonoBehaviour:
       - fieldName: heightMap
         node: {fileID: 114090404721221438}
         reroutePoints: []
-      - fieldName: secondMap
-        node: {fileID: 114022700592969688}
-        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -999,7 +987,7 @@ MonoBehaviour:
         node: {fileID: 114427997885740874}
         reroutePoints: []
       - fieldName: firstMap
-        node: {fileID: 114022700592969688}
+        node: {fileID: 114751197886375528}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -1730,7 +1718,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
-        node: {fileID: 114022700592969688}
+        node: {fileID: 114301501081172150}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
