@@ -5,9 +5,13 @@ using csDelaunay;
 public class VoronoiMap : MonoBehaviour
 {
     public int seed = 0;
-    public int width = 124;
-    public int height = 124;
     public int cellsCount = 124;
+
+    public int mapWidth = 124;
+    public int mapHeight = 124;
+
+    public int chunkWidth = 124 / 2;
+    public int chunkHeight = 124 / 2;
 
     public GameObject meshObject;
 
@@ -16,7 +20,6 @@ public class VoronoiMap : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log(5 / 3);
         prng = new System.Random(seed);
     }
 
@@ -24,6 +27,8 @@ public class VoronoiMap : MonoBehaviour
     {
         SetVoronoi();
         ShowVoronoi();
+        VoronoiMesh.CreateMesh(mapWidth, mapHeight, chunkWidth, chunkHeight);
+        VoronoiMesh.SetMesh(meshObject);
     }
 
     private void SetVoronoi()
@@ -31,28 +36,29 @@ public class VoronoiMap : MonoBehaviour
         List<Vector2> points = new List<Vector2>();
         for (int i = 0; i < cellsCount; i ++)
         {
-            points.Add(new Vector2(prng.Next(0, width), prng.Next(0, width)));
+            points.Add(new Vector2(prng.Next(0, mapWidth), prng.Next(0, mapHeight)));
         }
-        voronoi = new Voronoi(points, new Rectf(0, 0, width, height), 2, prng);
+        voronoi = new Voronoi(points, new Rectf(0, 0, mapWidth, mapHeight), 2, prng);
     }
 
     private void ShowVoronoi()
     {
         foreach (LineSegment line in voronoi.VoronoiDiagram())
         {
-            DrawLine(line.p0, line.p1, Color.white, 999);
+            Debug.Log(ScalePosition(line.p0) + " " + ScalePosition(line.p1));
+            DrawLine(ScalePosition(line.p0), ScalePosition(line.p1), Color.red, 999);
         }
 
         foreach (Vector2 point in voronoi.SiteCoords())
         {
             Color color = Random.ColorHSV();
             
-            DrawHLine(point, color);
-            foreach (Vector2 regionPoint in voronoi.Region(point))
+            DrawHLine(ScalePosition(point), color);
+            /*foreach (Vector2 regionPoint in voronoi.Region(point))
             {
-                DrawLine(regionPoint, point, color, 999);
-                DrawHLine(regionPoint, color);
-            }
+                DrawLine(ScalePosition(regionPoint), ScalePosition(point), color, 999);
+                DrawHLine(ScalePosition(regionPoint), color);
+            }*/
         }
     }
     
@@ -69,5 +75,10 @@ public class VoronoiMap : MonoBehaviour
     private Vector3 ToVector3(Vector2 p)
     {
         return new Vector3(p.x, 0, p.y);
+    }
+
+    private Vector2 ScalePosition(Vector2 p)
+    {
+        return new Vector2(Mathf.Round(p.x), Mathf.Round(p.y));
     }
 }
