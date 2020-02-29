@@ -19,8 +19,8 @@ namespace World.Map
         public Vector2Int GetMapViewerPosition()
         {
             Vector2Int viewerMapPosition = new Vector2Int(
-               Mathf.RoundToInt(viewer.position.x / WorldChunkMap.WorldChunkWidth),
-               Mathf.RoundToInt(viewer.position.z / WorldChunkMap.WorldChunkHeight));
+               Mathf.RoundToInt(viewer.position.x / WorldChunkMap.chunkWidth),
+               Mathf.RoundToInt(viewer.position.z / WorldChunkMap.chunkHeight));
             return viewerMapPosition;
         }
 
@@ -31,8 +31,8 @@ namespace World.Map
                 lastLoadedChunks[i].SetVisible(false);
             lastLoadedChunks.Clear();
 
-            int chunkVisibleDistanceX = Mathf.RoundToInt(maxViewDistance / WorldChunkMap.ChunkWidth);
-            int chunkVisibleDistanceY = Mathf.RoundToInt(maxViewDistance / WorldChunkMap.ChunkHeight);
+            int chunkVisibleDistanceX = Mathf.RoundToInt(maxViewDistance / WorldChunkMap.chunkWidth);
+            int chunkVisibleDistanceY = Mathf.RoundToInt(maxViewDistance / WorldChunkMap.chunkHeight);
 
             for (int xOffset = -chunkVisibleDistanceX; xOffset <= chunkVisibleDistanceX; xOffset++)
             {
@@ -46,8 +46,8 @@ namespace World.Map
 
         public void UpdateVisibleChunk(Vector2Int chunkPosition)
         {
-            if (chunkPosition.x >= 0 && chunkPosition.x < WorldChunkMap.mapWidth &&
-                chunkPosition.y >= 0 && chunkPosition.y < WorldChunkMap.mapHeight)
+            if (chunkPosition.x >= 0 && chunkPosition.x < WorldChunkMap.worldWidth &&
+                chunkPosition.y >= 0 && chunkPosition.y < WorldChunkMap.worldHeight)
             {
                 Chunk targetChunk = WorldChunkMap.chunkMap[chunkPosition.x, chunkPosition.y];
                 lastLoadedChunks.Add(targetChunk);

@@ -1,24 +1,21 @@
-﻿using UnityEngine;
-
-namespace World.Map
+﻿namespace World.Map
 {
     public class ColorMap
     {
-        public ColorPack[,] map;
-        public Color this[int x, int y, int i]
+        public ColorQuad[,] map;
+        public ColorQuad this[int x, int y]
         {
             get
             {
                 if (IsValid(x, y))
-                    return map[x, y][i];
-                return Color.black;
+                    return map[x, y];
+                return new ColorQuad(-1, -1);
             }
             set
             {
                 if (IsValid(x, y))
                 {
-                    map[x, y][i] = value;
-                    WorldMeshMap.SetEditedPosition(x, y);
+                    map[x, y] = value;
                 }
             }
         }
@@ -38,7 +35,7 @@ namespace World.Map
             }
         }
 
-        public ColorMap(ColorPack[,] map)
+        public ColorMap(ColorQuad[,] map)
         {
             this.map = map;
         }

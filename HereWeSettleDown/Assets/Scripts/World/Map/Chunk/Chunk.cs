@@ -5,13 +5,13 @@ namespace World.Map
     public class Chunk
     {
         public ChunkObject chunkObject;
-        public ChunkMeshData meshData;
+        public ChunkMesh meshData;
 
-        public bool visible { get; private set; }
+        public bool Visible { get; private set; }
 
         MeshFilter meshFilter;
 
-        public Chunk(ChunkObject terrain, Transform parent, bool visible, ChunkMeshData meshData)
+        public Chunk(ChunkObject terrain, Transform parent, bool visible, ChunkMesh meshData)
         {
             this.meshData = meshData;
 
@@ -19,6 +19,7 @@ namespace World.Map
             DrawMesh();
             UpdateMeshCollider();
             SetVisible(visible);
+            meshData.ConnectChunk(this);
         }
 
         void CreateChunkObject(ChunkObject terrain, Transform parent)
@@ -50,7 +51,7 @@ namespace World.Map
         {
             if (chunkObject)
                 chunkObject.gameObject.SetActive(state);
-            visible = state;
+            Visible = state;
         }
     }
 }

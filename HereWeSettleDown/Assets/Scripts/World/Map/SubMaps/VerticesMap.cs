@@ -18,24 +18,18 @@ namespace World.Map
                 if (IsValid(x, y))
                 {
                     map[x, y] = value;
-                    WorldMeshMap.SetEditedPosition(x, y);
+                    WorldMesh.SetEditedPosition(x, y);
                 }
             }
         }
 
         public int width
         {
-            get
-            {
-                return map.GetLength(0);
-            }
+            get { return map.GetLength(0); }
         }
         public int height
         {
-            get
-            {
-                return map.GetLength(1);
-            }
+            get { return map.GetLength(1); }
         }
 
         public VerticesMap(Vector3[,] map)

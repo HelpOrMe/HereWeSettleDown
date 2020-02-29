@@ -8,4 +8,3 @@ namespace World.Map
         public bool GetPlaceAccess(StructureObject structure, Vector3 position) => true;
     }
 }
-
