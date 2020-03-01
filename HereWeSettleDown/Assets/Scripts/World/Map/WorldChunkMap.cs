@@ -36,12 +36,28 @@ namespace World.Map
             if (WorldMesh.chunkMeshMap == null)
                 return;
 
+            ClearChunkMap();
+
             chunkMap = new Chunk[chunkXCount, chunkYCount];
             for (int x = 0; x < chunkXCount; x++)
             {
                 for (int y = 0; y < chunkYCount; y++)
                 {
                     chunkMap[x, y] = new Chunk(terrain, parent, visible, WorldMesh.chunkMeshMap[x, y]);
+                }
+            }
+        }
+
+        private static void ClearChunkMap()
+        {
+            if (chunkMap == null)
+                return;
+            
+            for (int x = 0; x < chunkXCount; x++)
+            {
+                for (int y = 0; y < chunkYCount; y++)
+                {
+                    Object.Destroy(chunkMap[x, y].chunkObject.gameObject);
                 }
             }
         }

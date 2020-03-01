@@ -2,7 +2,9 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using World.Generator.Helper;
 using World.Map;
+using Nodes.HeightMapGeneration;
 using csDelaunay;
 
 namespace World.Generator
@@ -21,6 +23,9 @@ namespace World.Generator
         public ChunkObject chunkObject;
 
         public static Voronoi voronoi;
+        public static Region[] regions;
+
+        public HeightMapGenerationGraph heightMapGraph;
         private System.Random prng;
 
         private void Awake()
@@ -35,8 +40,8 @@ namespace World.Generator
             WorldChunkMap.CreateChunks(chunkObject, transform, true);
 
             SetVoronoi();
-            //ShowVoronoi();
-            FillRegions();
+            CreateRegions();
+            ColorCoastline();
         }
 
         private void SetVoronoi()
@@ -86,17 +91,33 @@ namespace World.Generator
             }
         }
 
-        private void FillRegions()
+        private void CreateRegions()
         {
+            List<Region> regions = new List<Region>();
             foreach (Vector2 site in voronoi.SiteCoords())
             {
                 Vector2Int[] edges = ToVector2Int(voronoi.Region(site).ToArray());
                 Vector2Int[] bounds = GetBounds(edges);
                 
-                foreach (Vector2Int point in bounds)
-                    DrawHLine(point, Color.black);
+                regions.Add(new Region(bounds, edges, site));
+            }
+            MapGenerator.regions = regions.ToArray();
+        }
 
-                new Region(bounds, edges, site).Fill(Random.ColorHSV());
+        private void ColorCoastline()
+        {
+            heightMapGraph.mapWidth = worldWidth;
+            heightMapGraph.mapHeight = worldHeight;
+            heightMapGraph.setPrng = prng;
+
+            float[,] heightMap = heightMapGraph.requester.GetHeightMap().map;
+            foreach (Region region in regions)
+            {
+                Vector2Int site = new Vector2Int((int)region.site.x, (int)region.site.y);
+                if (heightMap[site.x, site.y] >= 1f)
+                    region.Fill(Color.yellow);
+                else
+                    region.Fill(new Color(0.27f, 0.64f, 0.75f));
             }
         }
 

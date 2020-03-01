@@ -48,15 +48,8 @@ namespace World.Generator
 
         public void Fill(Color color)
         {
-            foreach (Vector2Int leftPoint in ranges.Keys)
-            {
-                Vector3 lPoint = new Vector3(leftPoint.x, 0.1f, leftPoint.y);
-                Vector3 rPoint = new Vector3(ranges[leftPoint].x, 0.1f, ranges[leftPoint].y);
-
-                Debug.DrawLine(lPoint, rPoint, color, float.PositiveInfinity);
-            }
-            //DoForEachPosition((Vector2Int point) => WorldMesh.colorMap[point.x, point.y].ALL = color);
-            //WorldMesh.ConfirmChanges();
+            DoForEachPosition((Vector2Int point) => WorldMesh.colorMap[point.x, point.y].ALL = color);
+            WorldMesh.ConfirmChanges();
         }
 
         public void DoForEachPosition(Action<Vector2Int> action)
