@@ -8,31 +8,69 @@ namespace World.Generator
 {
     public class Region
     {
-        private Dictionary<Vector2Int, Vector2Int> ranges = new Dictionary<Vector2Int, Vector2Int>();
+        public readonly Dictionary<Vector2Int, Vector2Int> ranges = new Dictionary<Vector2Int, Vector2Int>();
+        public readonly List<Vector2Int> bounds = new List<Vector2Int>();
+        public readonly Vector2Int[] edges;
+        public readonly Vector2 site;
 
-        public Vector2Int[] bounds;
-        public Vector2Int[] edges;
-        public Vector2 site;
+        public bool isWater = false;
 
-        private readonly Vector2Int[] setColorPattern = new Vector2Int[] { Vector2Int.left, Vector2Int.up, Vector2Int.right, Vector2Int.down };
-
-        public Region(Vector2Int[] bounds, Vector2Int[] edges, Vector2 site)
+        public Region(Vector2Int[] edges, Vector2 site)
         {
-            this.bounds = bounds;
-            this.edges = edges;
             this.site = site;
+            this.edges = edges;
+
+            RecalculatBounds();
             RecalculateRanges();
+        }
+
+        public void RecalculatBounds()
+        {
+            bounds.Clear();
+            for (int i = 0; i < edges.Length; i++)
+            {
+                int j = (i + 1) % edges.Length;
+                Vector2Int[] connectedPoints = ConnectPointsByVertices(edges[i], edges[j]);
+                bounds.AddRange(connectedPoints);
+            }
+        }
+
+        private Vector2Int[] ConnectPointsByVertices(Vector2 point1, Vector2 point2)
+        {
+            List<Vector2Int> points = new List<Vector2Int>();
+
+            Vector2 offset = RoundPosition(point1 - point2);
+            for (float i = offset.magnitude; i > 0; i--)
+            {
+                Vector2 point = RoundPosition(Vector2.MoveTowards(point1, point2, i));
+                Vector2Int intPoint = ToVector2Int(point);
+
+                if (!points.Contains(intPoint))
+                    points.Add(intPoint);
+            }
+            points.Add(ToVector2Int(RoundPosition(point1)));
+            return points.ToArray();
+        }
+
+        private Vector2 RoundPosition(Vector2 p)
+        {
+            return new Vector2(Mathf.Round(p.x), Mathf.Round(p.y));
+        }
+
+        private Vector2Int ToVector2Int(Vector2 p)
+        {
+            return new Vector2Int((int)p.x, (int)p.y);
         }
 
         public void RecalculateRanges()
         {
             ranges.Clear();
-            
+
             Dictionary<int, List<int>> allPointsByY = new Dictionary<int, List<int>>();
             foreach (Vector2Int point in bounds)
             {
                 if (!allPointsByY.ContainsKey(point.y))
-                    allPointsByY.Add(point.y, new List<int>());    
+                    allPointsByY.Add(point.y, new List<int>());
                 allPointsByY[point.y].Add(point.x);
             }
 
