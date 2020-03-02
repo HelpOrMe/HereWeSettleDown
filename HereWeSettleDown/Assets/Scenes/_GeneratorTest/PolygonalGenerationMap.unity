@@ -307,9 +307,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
-  cellsCount: 96
-  worldWidth: 128
-  worldHeight: 128
+  cellsCount: 384
+  worldWidth: 512
+  worldHeight: 512
   chunkWidth: 64
   chunkHeight: 64
   chunkObject: {fileID: 7729945458796392413, guid: 0aa07fb1abbdb464fbe269bcd723415b,

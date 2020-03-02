@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using World.Map;
 
 namespace World.Generator
 {
     public class Region
-    {
-        public readonly Dictionary<Vector2Int, Vector2Int> ranges = new Dictionary<Vector2Int, Vector2Int>();
-        public readonly List<Vector2Int> bounds = new List<Vector2Int>();
+    {   
         public readonly Vector2Int[] edges;
         public readonly Vector2 site;
 
-        public bool isWater = false;
+        public readonly Dictionary<Vector2Int, Vector2Int> ranges = new Dictionary<Vector2Int, Vector2Int>();
+        public readonly List<Vector2Int> bounds = new List<Vector2Int>();
+
+        public readonly List<Region> neighbours = new List<Region>();
+
+        public readonly RegionType type;
 
         public Region(Vector2Int[] edges, Vector2 site)
         {
+            type = new RegionType();
+
             this.site = site;
             this.edges = edges;
 
@@ -52,16 +56,16 @@ namespace World.Generator
             return points.ToArray();
         }
 
-        private Vector2 RoundPosition(Vector2 p)
-        {
-            return new Vector2(Mathf.Round(p.x), Mathf.Round(p.y));
-        }
-
         private Vector2Int ToVector2Int(Vector2 p)
         {
             return new Vector2Int((int)p.x, (int)p.y);
         }
 
+        private Vector2 RoundPosition(Vector2 p)
+        {
+            return new Vector2(Mathf.Round(p.x), Mathf.Round(p.y));
+        }
+        
         public void RecalculateRanges()
         {
             ranges.Clear();
@@ -84,10 +88,13 @@ namespace World.Generator
             }
         }
 
-        public void Fill(Color color)
+        public void AddNeighbour(Region region)
         {
-            DoForEachPosition((Vector2Int point) => WorldMesh.colorMap[point.x, point.y].ALL = color);
-            WorldMesh.ConfirmChanges();
+            if (!neighbours.Contains(region))
+            {
+                neighbours.Add(region);
+                region.AddNeighbour(this);
+            }
         }
 
         public void DoForEachPosition(Action<Vector2Int> action)
@@ -102,6 +109,30 @@ namespace World.Generator
                     action.Invoke(new Vector2Int(x, leftPoint.y));
                 }
             }
+        }
+    }
+
+    public class RegionType
+    {
+        public bool isWater { get; private set; }
+        public bool isGround { get; private set; }
+        public bool isCoastline { get; private set; }
+
+        public void MarkAsWater()
+        {
+            isWater = true;
+            isGround = false;
+        }
+
+        public void MarkAsGround()
+        {
+            isGround = true;
+            isWater = false;
+        }
+
+        public void MarkAsCoastline()
+        {
+            isCoastline = true;
         }
     }
 }

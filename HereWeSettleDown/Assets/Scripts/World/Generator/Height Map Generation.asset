@@ -27,8 +27,8 @@ MonoBehaviour:
   - {fileID: 114509504227317030}
   - {fileID: 114622649341833310}
   editorSeed: 213
-  mapWidth: 128
-  mapHeight: 128
+  mapWidth: 512
+  mapHeight: 512
   requester: {fileID: 114128678640617636}
 --- !u!114 &114001386982141652
 MonoBehaviour:
@@ -98,7 +98,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  scale: 50
+  scale: 100
   octaves: 4
   persistance: 0.5
   lacunarity: 2
