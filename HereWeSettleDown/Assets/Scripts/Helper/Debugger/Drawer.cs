@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Debugger
+namespace Helper.Debugger
 {
     public static class Drawer
     {

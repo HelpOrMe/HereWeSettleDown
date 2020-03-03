@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-
 namespace World.Generator
 {
     [CustomEditor(typeof(MapGenerator), true)]

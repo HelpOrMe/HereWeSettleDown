@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace World.Helper
+namespace Helper.Scene
 {
     public static class ObjectFinder
     {

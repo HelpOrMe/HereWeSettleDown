@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using UnityEngine;
-using World.Helper;
+using Helper.Scene;
 
 namespace World.Generator
 {

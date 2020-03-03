@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using World.Map;
 using Nodes.HeightMapGeneration;
-using Debugger;
 using csDelaunay;
+using Helper.Threading;
+using Helper.Debugger;
 
 namespace World.Generator
 {
@@ -21,14 +22,17 @@ namespace World.Generator
         public int chunkHeight = 124 / 2;
 
         public ChunkObject chunkObject;
+        public HeightMapGenerationGraph heightMapGraph;
 
         public static Voronoi voronoi;
         public static Region[] regions;
 
-        public HeightMapGenerationGraph heightMapGraph;
-        private System.Random prng;
-
+        public static Region[] coastlineRegions;
         public static Dictionary<Vector2, Region> siteToRegion = new Dictionary<Vector2, Region>();
+
+        private float[,] waterMask;
+
+        private System.Random prng;
 
         private void Awake()
         {
@@ -37,16 +41,13 @@ namespace World.Generator
 
         public void GenerateMap()
         {
-            WorldMesh.CreateWorldMesh(worldWidth, worldHeight, chunkWidth, chunkHeight);
-            WorldChunkMap.CreateMap(worldWidth, worldHeight, chunkWidth, chunkHeight, chunkObject.transform.localScale);
-            WorldChunkMap.CreateChunks(chunkObject, transform, true);
+            Watcher.Watch(() => WorldMesh.CreateWorldMesh(worldWidth, worldHeight, chunkWidth, chunkHeight), "CreateWorldMesh");
+            Watcher.Watch(() => WorldChunkMap.CreateMap(worldWidth, worldHeight, chunkWidth, chunkHeight, chunkObject.transform.localScale), "CreateMap");
+            Watcher.Watch(() => WorldChunkMap.CreateChunks(chunkObject, transform, true), "CreateChunks");
 
-            SetVoronoi();
-            SetRegions();
-            SetWater();
-            SetCoastline();
-
-            DrawRegionColors();
+            AThread thread = new AThread(SetVoronoi, SetRegions, GenerateWaterMask, SetWater, SetCoastline, SetRegionHeights);
+            thread.Start();
+            thread.RunAfterThreadEnd(DrawRegionColors);
         }
 
         private void SetVoronoi()
@@ -81,17 +82,21 @@ namespace World.Generator
             MapGenerator.regions = regions.ToArray();
         }
 
-        private void SetWater()
+        private void GenerateWaterMask()
         {
             heightMapGraph.mapWidth = worldWidth;
             heightMapGraph.mapHeight = worldHeight;
             heightMapGraph.setPrng = prng;
 
-            float[,] heightMap = heightMapGraph.requester.GetHeightMap().map;
+            waterMask = heightMapGraph.requester.GetHeightMap().map;
+        }
+
+        private void SetWater()
+        {
             foreach (Region region in regions)
             {
                 Vector2Int site = new Vector2Int((int)region.site.x, (int)region.site.y);
-                if (heightMap[site.x, site.y] < 1) 
+                if (waterMask[site.x, site.y] < 1) 
                     region.type.MarkAsWater();
                 else 
                     region.type.MarkAsGround();
@@ -100,6 +105,7 @@ namespace World.Generator
 
         private void SetCoastline()
         {
+            List<Region> coastlineRegions = new List<Region>();
             foreach (Region region in regions)
             {
                 foreach (Region regionNeighbour in region.neighbours)
@@ -107,18 +113,22 @@ namespace World.Generator
                     if (region.type.isWater && regionNeighbour.type.isGround)
                     {
                         region.type.MarkAsCoastline();
+                        coastlineRegions.Add(region);
                         break;
                     }
                 }
             }
+            MapGenerator.coastlineRegions = coastlineRegions.ToArray();
         }
 
         private void SetRegionHeights()
         {
             foreach (Region region in regions)
             {
-                Vector2Int site = new Vector2Int((int)region.site.x, (int)region.site.y);
-                
+                float distance = 0;
+                for (int i = 0; i < coastlineRegions.Length; i++)
+                    distance += Vector2.Distance(region.site, coastlineRegions[i].site);
+                //Debug.Log(distance / coastlineRegions.Length);
             }
         }
 
