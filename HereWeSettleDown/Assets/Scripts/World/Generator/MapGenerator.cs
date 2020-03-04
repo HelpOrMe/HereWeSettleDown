@@ -1,6 +1,8 @@
 ﻿// Test
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using World.Map;
 using Nodes.HeightMapGeneration;
@@ -22,7 +24,8 @@ namespace World.Generator
         public int chunkHeight = 124 / 2;
 
         public ChunkObject chunkObject;
-        public HeightMapGenerationGraph heightMapGraph;
+        public HeightMapGenerationGraph waterMaskGraph;
+        public AnimationCurve mountainsCurve;
 
         public static Voronoi voronoi;
         public static Region[] regions;
@@ -31,6 +34,7 @@ namespace World.Generator
         public static Dictionary<Vector2, Region> siteToRegion = new Dictionary<Vector2, Region>();
 
         private float[,] waterMask;
+        private int maxDistIndex;
 
         private System.Random prng;
 
@@ -41,13 +45,14 @@ namespace World.Generator
 
         public void GenerateMap()
         {
+            Debug.ClearDeveloperConsole();
             Watcher.Watch(() => WorldMesh.CreateWorldMesh(worldWidth, worldHeight, chunkWidth, chunkHeight), "CreateWorldMesh");
             Watcher.Watch(() => WorldChunkMap.CreateMap(worldWidth, worldHeight, chunkWidth, chunkHeight, chunkObject.transform.localScale), "CreateMap");
             Watcher.Watch(() => WorldChunkMap.CreateChunks(chunkObject, transform, true), "CreateChunks");
 
-            AThread thread = new AThread(SetVoronoi, SetRegions, GenerateWaterMask, SetWater, SetCoastline, SetRegionHeights);
+            AThread thread = new AThread(SetVoronoi, SetRegions, GenerateWaterMask, SetWater, SetCoastline, SetRegionDistances);
             thread.Start();
-            thread.RunAfterThreadEnd(DrawRegionColors);
+            thread.RunAfterThreadEnd(() => Watcher.Watch(DrawRegionColors));
         }
 
         private void SetVoronoi()
@@ -84,11 +89,10 @@ namespace World.Generator
 
         private void GenerateWaterMask()
         {
-            heightMapGraph.mapWidth = worldWidth;
-            heightMapGraph.mapHeight = worldHeight;
-            heightMapGraph.setPrng = prng;
-
-            waterMask = heightMapGraph.requester.GetHeightMap().map;
+            waterMaskGraph.mapWidth = worldWidth;
+            waterMaskGraph.mapHeight = worldHeight;
+            waterMaskGraph.setPrng = prng;
+            waterMask = waterMaskGraph.requester.GetHeightMap().map;
         }
 
         private void SetWater()
@@ -121,15 +125,33 @@ namespace World.Generator
             MapGenerator.coastlineRegions = coastlineRegions.ToArray();
         }
 
-        private void SetRegionHeights()
+        private void SetRegionDistances()
         {
-            foreach (Region region in regions)
+            List<Region> regionsLayer = new List<Region>(coastlineRegions);
+            int layerHeight = 1;
+
+            while (true)
             {
-                float distance = 0;
-                for (int i = 0; i < coastlineRegions.Length; i++)
-                    distance += Vector2.Distance(region.site, coastlineRegions[i].site);
-                //Debug.Log(distance / coastlineRegions.Length);
+                layerHeight++;
+                List<Region> regionsLayerClone = new List<Region>(regionsLayer);
+                regionsLayer.Clear();
+
+                foreach (Region region in regionsLayerClone)
+                {
+                    foreach (Region nRegion in region.neighbours)
+                    {
+                        if (nRegion.type.DistIndexFromCoastline == null)
+                        {
+                            nRegion.type.DistIndexFromCoastline = layerHeight;
+                            regionsLayer.Add(nRegion);
+                        }
+                    }
+                }
+
+                if (regionsLayer.Count == 0)
+                    break;
             }
+            maxDistIndex = layerHeight;
         }
 
         private void DrawRegionColors()
@@ -140,6 +162,8 @@ namespace World.Generator
                 if (region.type.isGround) color = Color.Lerp(Color.green, color, 0.35f);
                 if (region.type.isWater) color = Color.Lerp(Color.blue, color, 0.5f);
                 if (region.type.isCoastline) color = Color.Lerp(Color.yellow, color, 0.8f);
+                color = Color.Lerp(color, Color.white, mountainsCurve.Evaluate((float)region.type.DistIndexFromCoastline / maxDistIndex));
+                //if (region.type.isMountain) color = Color.Lerp(Color.black, color, 0.3f);
 
                 region.DoForEachPosition((Vector2Int point) => WorldMesh.colorMap[point.x, point.y].ALL = color);
             }
@@ -153,6 +177,5 @@ namespace World.Generator
                 points[i] = new Vector2Int((int)ps[i].x, (int)ps[i].y);
             return points;
         }
-
     }
 }
