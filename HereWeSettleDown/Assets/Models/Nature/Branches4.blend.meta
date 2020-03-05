@@ -1,42 +1,31 @@
 fileFormatVersion: 2
-guid: fc06411469ec9d5468a3743afd984efa
+guid: ae9266bfba507aa4b9b1214b379fd5e0
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Branch
-    100002: Branchlarge
-    100004: Branchsmol
-    100006: //RootNode
-    100008: trunk
-    100010: Leaveslarge
-    100012: Leaveslarge.001
-    400000: Branch
-    400002: Branchlarge
-    400004: Branchsmol
-    400006: //RootNode
-    400008: trunk
-    400010: Leaveslarge
-    400012: Leaveslarge.001
+    100000: //RootNode
+    100002: Cylinder.001
+    100004: Cylinder.002
+    100006: Cylinder.003
+    100008: Cylinder.004
+    400000: //RootNode
+    400002: Cylinder.001
+    400004: Cylinder.002
+    400006: Cylinder.003
+    400008: Cylinder.004
     2100000: No Name
-    2300000: Branch
-    2300002: Branchlarge
-    2300004: Branchsmol
-    2300006: trunk
-    2300008: Leaveslarge
-    2300010: Leaveslarge.001
-    3300000: Branch
-    3300002: Branchlarge
-    3300004: Branchsmol
-    3300006: trunk
-    3300008: Leaveslarge
-    3300010: Leaveslarge.001
-    4300000: trunk
-    4300002: Branchsmol
-    4300004: Branchlarge
-    4300006: Branch
-    4300008: Leaveslarge
-    4300010: Leaveslarge.001
-    2186277476908879412: ImportLogs
+    2300000: Cylinder.001
+    2300002: Cylinder.002
+    2300004: Cylinder.003
+    2300006: Cylinder.004
+    3300000: Cylinder.001
+    3300002: Cylinder.002
+    3300004: Cylinder.003
+    3300006: Cylinder.004
+    4300000: Cylinder.001
+    4300002: Cylinder.003
+    4300004: Cylinder.002
+    4300006: Cylinder.004
   externalObjects: {}
   materials:
     importMaterials: 1

@@ -1,42 +1,36 @@
 fileFormatVersion: 2
-guid: fc06411469ec9d5468a3743afd984efa
+guid: 9a1fc7f0cfaa1314ab82e57df671df23
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: Branch
-    100002: Branchlarge
-    100004: Branchsmol
-    100006: //RootNode
-    100008: trunk
-    100010: Leaveslarge
-    100012: Leaveslarge.001
+    100002: Branch2
+    100004: Leaves2
+    100006: Leaveslarge.001
+    100008: //RootNode
+    100010: Trunk
     400000: Branch
-    400002: Branchlarge
-    400004: Branchsmol
-    400006: //RootNode
-    400008: trunk
-    400010: Leaveslarge
-    400012: Leaveslarge.001
+    400002: Branch2
+    400004: Leaves2
+    400006: Leaveslarge.001
+    400008: //RootNode
+    400010: Trunk
     2100000: No Name
     2300000: Branch
-    2300002: Branchlarge
-    2300004: Branchsmol
-    2300006: trunk
-    2300008: Leaveslarge
-    2300010: Leaveslarge.001
+    2300002: Branch2
+    2300004: Leaves2
+    2300006: Leaveslarge.001
+    2300008: Trunk
     3300000: Branch
-    3300002: Branchlarge
-    3300004: Branchsmol
-    3300006: trunk
-    3300008: Leaveslarge
-    3300010: Leaveslarge.001
-    4300000: trunk
-    4300002: Branchsmol
-    4300004: Branchlarge
-    4300006: Branch
-    4300008: Leaveslarge
-    4300010: Leaveslarge.001
-    2186277476908879412: ImportLogs
+    3300002: Branch2
+    3300004: Leaves2
+    3300006: Leaveslarge.001
+    3300008: Trunk
+    4300000: Branch
+    4300002: Branch2
+    4300004: Leaves2
+    4300006: Trunk
+    4300008: Leaveslarge.001
   externalObjects: {}
   materials:
     importMaterials: 1
