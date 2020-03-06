@@ -25,7 +25,7 @@ namespace World.Generator
 
         public ChunkObject chunkObject;
         public HeightMapGenerationGraph waterMaskGraph;
-        public AnimationCurve mountainsCurve;
+        //public AnimationCurve mountainsCurve;
 
         public static Voronoi voronoi;
         public static Region[] regions;
@@ -35,6 +35,8 @@ namespace World.Generator
 
         private float[,] waterMask;
         private int maxDistIndex;
+        public int mountainSize = 5;
+        public Vector2Int lakesCount;
 
         private System.Random prng;
 
@@ -50,9 +52,14 @@ namespace World.Generator
             Watcher.Watch(() => WorldChunkMap.CreateMap(worldWidth, worldHeight, chunkWidth, chunkHeight, chunkObject.transform.localScale), "CreateMap");
             Watcher.Watch(() => WorldChunkMap.CreateChunks(chunkObject, transform, true), "CreateChunks");
 
-            AThread thread = new AThread(SetVoronoi, SetRegions, GenerateWaterMask, SetWater, SetCoastline, SetRegionDistances);
+            AThread thread = new AThread(
+                SetVoronoi, SetRegions, GenerateWaterMask, 
+                SetWater, SetCoastline, SetRegionDistances, 
+                SetMountains, SetLakes, DrawRegionColors);//, 
+                //ReshuffleVertices);
+
             thread.Start();
-            thread.RunAfterThreadEnd(() => Watcher.Watch(DrawRegionColors));
+            thread.RunAfterThreadEnd(() => Watcher.Watch(WorldMesh.ConfirmChanges));
         }
 
         private void SetVoronoi()
@@ -67,11 +74,20 @@ namespace World.Generator
 
         private void SetRegions()
         {
+            Dictionary<Vector2Int, Edge> posToEdge = new Dictionary<Vector2Int, Edge>();
+
             List<Region> regions = new List<Region>();
             foreach (Vector2 site in voronoi.SiteCoords())
             {
-                Vector2Int[] edges = ToVector2Int(voronoi.Region(site).ToArray());
-                Region region = new Region(edges, site);
+                List<Edge> edges = new List<Edge>();
+                foreach (Vector2Int edgePos in ToVector2Int(voronoi.Region(site).ToArray()))
+                {
+                    if (!posToEdge.ContainsKey(edgePos))
+                        posToEdge[edgePos] = new Edge(edgePos);
+                    edges.Add(posToEdge[edgePos]);
+                }
+
+                Region region = new Region(edges.ToArray(), site);
                 siteToRegion[site] = region;
                 regions.Add(region);
             }
@@ -128,11 +144,12 @@ namespace World.Generator
         private void SetRegionDistances()
         {
             List<Region> regionsLayer = new List<Region>(coastlineRegions);
-            int layerHeight = 1;
+            int layerDist = 0;
 
             while (true)
             {
-                layerHeight++;
+                layerDist++;
+
                 List<Region> regionsLayerClone = new List<Region>(regionsLayer);
                 regionsLayer.Clear();
 
@@ -142,7 +159,7 @@ namespace World.Generator
                     {
                         if (nRegion.type.DistIndexFromCoastline == null)
                         {
-                            nRegion.type.DistIndexFromCoastline = layerHeight;
+                            nRegion.type.DistIndexFromCoastline = layerDist;
                             regionsLayer.Add(nRegion);
                         }
                     }
@@ -151,7 +168,81 @@ namespace World.Generator
                 if (regionsLayer.Count == 0)
                     break;
             }
-            maxDistIndex = layerHeight;
+            maxDistIndex = layerDist;
+        }
+
+        private void SetMountains()
+        {
+            List<Region> farRegions = new List<Region>();
+            foreach (Region region in regions)
+            {
+                if (region.type.DistIndexFromCoastline + 1 >= maxDistIndex)
+                {
+                    farRegions.Add(region);
+                }
+            }
+
+
+            List<Region> mountainRegions = farRegions;
+            /*if (farRegions.Count > 1)
+            {
+                mountainRegions = new List<Region>();
+                int count = prng.Next(1, 3);
+                for (int i = 0; i < count; i++)
+                {
+                    int ind = prng.Next(0, farRegions.Count);
+
+                    Region region = farRegions[ind];
+                    region.type.HeightIndex = mountainSize;
+
+                    mountainRegions.Add(region);
+                    farRegions.RemoveAt(ind);
+                }
+            }
+            else mountainRegions = farRegions;*/
+
+            int layerHeight = mountainSize - 1;
+            while (true)
+            {
+                List<Region> mRegionsClone = new List<Region>(mountainRegions);
+                mountainRegions.Clear();
+
+                foreach (Region region in mRegionsClone)
+                {
+                    region.type.MarkAsMountain();
+                    foreach (Region nRegion in region.neighbours)
+                    {
+                        if (nRegion.type.HeightIndex <= layerHeight)
+                        {
+                            nRegion.type.HeightIndex = layerHeight;
+                            mountainRegions.Add(nRegion);
+                        }
+                    }
+                }
+                if (mountainRegions.Count == 0 || layerHeight == 0)
+                    break;
+                layerHeight--;
+            }
+        }
+
+        private void SetLakes()
+        {
+            List<Lake> randomLakes = new List<Lake>();
+            int rndLakedCount = prng.Next(lakesCount.x, lakesCount.y);
+
+            for (int i = 0; i < rndLakedCount; i++)
+            {
+                while (true)
+                {
+                    Region region = regions[prng.Next(0, regions.Length)];
+                    if (region.type.isGround && region.type.DistIndexFromCoastline > 1)
+                    {
+                        Edge edge = region.edges[prng.Next(0, region.edges.Length)];
+                        randomLakes.Add(new Lake(edge));
+                        break;
+                    }
+                }
+            }
         }
 
         private void DrawRegionColors()
@@ -159,15 +250,26 @@ namespace World.Generator
             foreach (Region region in regions)
             {
                 Color color = Color.white;
-                if (region.type.isGround) color = Color.Lerp(Color.green, color, 0.35f);
+                if (region.type.isGround) color = Color.Lerp(Color.green, color, 0.25f);
                 if (region.type.isWater) color = Color.Lerp(Color.blue, color, 0.5f);
                 if (region.type.isCoastline) color = Color.Lerp(Color.yellow, color, 0.8f);
-                color = Color.Lerp(color, Color.white, mountainsCurve.Evaluate((float)region.type.DistIndexFromCoastline / maxDistIndex));
-                //if (region.type.isMountain) color = Color.Lerp(Color.black, color, 0.3f);
+                color = Color.Lerp(color, Color.black, (float)region.type.DistIndexFromCoastline / maxDistIndex);
+                //color = Color.Lerp(color, Color.white, (float)region.type.HeightIndex / mountainSize);
 
                 region.DoForEachPosition((Vector2Int point) => WorldMesh.colorMap[point.x, point.y].ALL = color);
             }
-            WorldMesh.ConfirmChanges();
+        }
+
+        private void ReshuffleVertices()
+        {
+            VerticesMap vertMap = WorldMesh.verticesMap;
+            for (int x = 0; x < vertMap.width; x++)
+            {
+                for (int y = 0; y < vertMap.height; y++)
+                {
+                    vertMap[x, y] += new Vector3((float)prng.Next(40, 120) / 100, 0, (float)prng.Next(40, 80) / 120);
+                }
+            }
         }
 
         private Vector2Int[] ToVector2Int(Vector2[] ps)

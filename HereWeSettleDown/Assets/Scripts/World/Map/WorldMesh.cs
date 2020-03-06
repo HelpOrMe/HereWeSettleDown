@@ -69,7 +69,8 @@ namespace World.Map
 
         public static void SetEditedPosition(int x, int y)
         {
-            ChunkMesh chunkMesh = GetChunkMesh(x, y);
+            Vector2Int pos = VertexPosToQuadPos(new Vector2Int(x, y));
+            ChunkMesh chunkMesh = GetChunkMesh(pos.x, pos.y);;
             if (!editedChunks.ContainsKey(chunkMesh))
                 editedChunks[chunkMesh] = new List<Vector2Int>();
             editedChunks[chunkMesh].Add(new Vector2Int(x % chunkWidth, y % chunkHeight));
