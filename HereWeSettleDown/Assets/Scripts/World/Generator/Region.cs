@@ -48,12 +48,12 @@ namespace World.Generator
             for (int i = 0; i < edges.Length; i++)
             {
                 int j = (i + 1) % edges.Length;
-                Vector2Int[] connectedPoints = ConnectPointsByVertices(edges[i], edges[j]);
+                Vector2Int[] connectedPoints = ConnectPointsByVertices(edges[i], edges[j], true);
                 bounds.AddRange(connectedPoints);
             }
         }
 
-        private Vector2Int[] ConnectPointsByVertices(Vector2 point1, Vector2 point2)
+        public static Vector2Int[] ConnectPointsByVertices(Vector2 point1, Vector2 point2, bool connectLastPoint)
         {
             List<Vector2Int> points = new List<Vector2Int>();
 
@@ -66,16 +66,19 @@ namespace World.Generator
                 if (!points.Contains(intPoint))
                     points.Add(intPoint);
             }
-            points.Add(ToVector2Int(RoundPosition(point1)));
+
+            if (connectLastPoint)
+                points.Add(ToVector2Int(RoundPosition(point1)));
+            
             return points.ToArray();
         }
 
-        private Vector2Int ToVector2Int(Vector2 p)
+        public static Vector2Int ToVector2Int(Vector2 p)
         {
             return new Vector2Int((int)p.x, (int)p.y);
         }
 
-        private Vector2 RoundPosition(Vector2 p)
+        public static Vector2 RoundPosition(Vector2 p)
         {
             return new Vector2(Mathf.Round(p.x), Mathf.Round(p.y));
         }

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Helper.Threading;
 using Helper.Debugger;
 
 namespace World.Generator
@@ -11,33 +9,48 @@ namespace World.Generator
     {
         public readonly Edge startEdge;
         public readonly List<Edge> edges = new List<Edge>();
+        public readonly List<Vector2Int> path = new List<Vector2Int>();
 
         public Lake(Edge startEdge)
         {
             this.startEdge = startEdge;
             CalculateEdges();
+            CalculatePath();
         }
 
-        public void CalculateEdges()
+        private void CalculateEdges()
         {
-            Drawer.DrawHLine(startEdge, Color.blue);
-
-            List<Edge> lakePath = new List<Edge>();
+            //Drawer.DrawHLine(startEdge, Color.blue);
+            edges.Clear();
             Edge lastEdge = startEdge;
-
             while (true)
             {
                 Edge newEdge = FindLowestEdgeNear(lastEdge);
                 if (newEdge != null)
                 {
-                    Drawer.DrawLine(lastEdge, newEdge, Color.blue);
-                    lakePath.Add(newEdge);
+                    //Drawer.DrawHLine(newEdge, Color.blue);
+                    //Drawer.DrawLine(lastEdge, newEdge, Color.blue);
+                    edges.Add(newEdge);
                     lastEdge = newEdge;
                     if (GetEdgeCoastlineDist(newEdge) <= 0)
                         break;
                 }
                 else break;
             }
+        }
+
+        private void CalculatePath()
+        {
+            for (int i = 0; i < edges.Count - 1; i++)
+            {
+                path.AddRange(Region.ConnectPointsByVertices(edges[i + 1], edges[i], true));
+                //Drawer.DrawLine(edges[i], edges[i + 1], Vector3.up, Color.Lerp(Color.blue, Color.black, (float)i / edges.Count));
+            }
+
+            /*for (int i = 0; i < path.Count - 1; i++) 
+            { 
+                Drawer.DrawLine(path[i], path[i + 1], Color.Lerp(Color.white, Color.black, (float)i / path.Count)); 
+            }*/
         }
 
         private Edge FindLowestEdgeNear(Edge edge)

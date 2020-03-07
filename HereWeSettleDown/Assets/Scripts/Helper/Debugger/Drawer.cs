@@ -39,6 +39,11 @@ namespace Helper.Debugger
             DefDrawLine(ToVector3(point1), ToVector3(point2), color, duration);
         }
 
+        public static void DrawLine(Vector2 point1, Vector2 point2, Vector3 offset, Color color, float duration = float.PositiveInfinity)
+        {
+            DefDrawLine(ToVector3(point1) + offset, ToVector3(point2) + offset, color, duration);
+        }
+
         private static Vector3 ToVector3(Vector2 p)
         {
             return new Vector3(p.x, 0.1f, p.y);

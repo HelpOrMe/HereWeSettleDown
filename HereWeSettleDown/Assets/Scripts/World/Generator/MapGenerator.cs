@@ -27,16 +27,18 @@ namespace World.Generator
         public HeightMapGenerationGraph waterMaskGraph;
         //public AnimationCurve mountainsCurve;
 
+        public int mountainSize = 5;
+        public Vector2Int lakesCount;
+
         public static Voronoi voronoi;
         public static Region[] regions;
 
         public static Region[] coastlineRegions;
         public static Dictionary<Vector2, Region> siteToRegion = new Dictionary<Vector2, Region>();
+        public static List<Lake> lakes = new List<Lake>();
 
         private float[,] waterMask;
         private int maxDistIndex;
-        public int mountainSize = 5;
-        public Vector2Int lakesCount;
 
         private System.Random prng;
 
@@ -184,22 +186,6 @@ namespace World.Generator
 
 
             List<Region> mountainRegions = farRegions;
-            /*if (farRegions.Count > 1)
-            {
-                mountainRegions = new List<Region>();
-                int count = prng.Next(1, 3);
-                for (int i = 0; i < count; i++)
-                {
-                    int ind = prng.Next(0, farRegions.Count);
-
-                    Region region = farRegions[ind];
-                    region.type.HeightIndex = mountainSize;
-
-                    mountainRegions.Add(region);
-                    farRegions.RemoveAt(ind);
-                }
-            }
-            else mountainRegions = farRegions;*/
 
             int layerHeight = mountainSize - 1;
             while (true)
