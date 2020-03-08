@@ -7,7 +7,7 @@ namespace World.Generator
 {
     public class Region
     {   
-        public readonly Vector2Int[] edges;
+        public readonly Edge[] edges;
         public readonly Vector2 site;
 
         public readonly Dictionary<Vector2Int, Vector2Int> ranges = new Dictionary<Vector2Int, Vector2Int>();
@@ -17,15 +17,29 @@ namespace World.Generator
 
         public readonly RegionType type;
 
-        public Region(Vector2Int[] edges, Vector2 site)
+        public Region(Edge[] edges, Vector2 site)
         {
             type = new RegionType(this);
 
             this.site = site;
             this.edges = edges;
 
+            UpdateEdges();
             RecalculatBounds();
             RecalculateRanges();
+        }
+
+        public void UpdateEdges()
+        {
+            for (int i = 0; i < edges.Length; i++)
+            {
+                int b = (i - 1) == -1 ? edges.Length - 1 : i - 1;
+                int f = (i + 1) == edges.Length ? 0 : i + 1;
+                
+                edges[i].ConnectTo(edges[b]);
+                edges[i].ConnectTo(edges[f]);
+                edges[i].incidentRegions.Add(this);
+            }
         }
 
         public void RecalculatBounds()
@@ -34,12 +48,12 @@ namespace World.Generator
             for (int i = 0; i < edges.Length; i++)
             {
                 int j = (i + 1) % edges.Length;
-                Vector2Int[] connectedPoints = ConnectPointsByVertices(edges[i], edges[j]);
+                Vector2Int[] connectedPoints = ConnectPointsByVertices(edges[i], edges[j], true);
                 bounds.AddRange(connectedPoints);
             }
         }
 
-        private Vector2Int[] ConnectPointsByVertices(Vector2 point1, Vector2 point2)
+        public static Vector2Int[] ConnectPointsByVertices(Vector2 point1, Vector2 point2, bool connectLastPoint)
         {
             List<Vector2Int> points = new List<Vector2Int>();
 
@@ -52,16 +66,19 @@ namespace World.Generator
                 if (!points.Contains(intPoint))
                     points.Add(intPoint);
             }
-            points.Add(ToVector2Int(RoundPosition(point1)));
+
+            if (connectLastPoint)
+                points.Add(ToVector2Int(RoundPosition(point1)));
+            
             return points.ToArray();
         }
 
-        private Vector2Int ToVector2Int(Vector2 p)
+        public static Vector2Int ToVector2Int(Vector2 p)
         {
             return new Vector2Int((int)p.x, (int)p.y);
         }
 
-        private Vector2 RoundPosition(Vector2 p)
+        public static Vector2 RoundPosition(Vector2 p)
         {
             return new Vector2(Mathf.Round(p.x), Mathf.Round(p.y));
         }
@@ -122,6 +139,7 @@ namespace World.Generator
         public bool isMountain { get; private set; }
 
         public int? DistIndexFromCoastline;
+        public int HeightIndex = 0;
 
         public RegionType(Region region) => parent = region;
 
