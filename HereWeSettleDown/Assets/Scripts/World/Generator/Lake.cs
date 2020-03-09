@@ -16,6 +16,7 @@ namespace World.Generator
             this.startEdge = startEdge;
             CalculateEdges();
             CalculatePath();
+            SetPathWidth();
         }
 
         private void CalculateEdges()
@@ -51,6 +52,22 @@ namespace World.Generator
             { 
                 Drawer.DrawLine(path[i], path[i + 1], Color.Lerp(Color.white, Color.black, (float)i / path.Count)); 
             }*/
+        }
+
+        private void SetPathWidth()
+        {
+            List<Vector2Int> oldPath = new List<Vector2Int>(path);
+            path.Clear();
+            foreach (Vector2Int pathPoint in oldPath)
+            {
+                for (int x = -1; x < 2; x++)
+                {
+                    for (int y = -1; y < 2; y++)
+                    {
+                        path.Add(pathPoint + new Vector2Int(x, y)); 
+                    }
+                }
+            }
         }
 
         private Edge FindLowestEdgeNear(Edge edge)

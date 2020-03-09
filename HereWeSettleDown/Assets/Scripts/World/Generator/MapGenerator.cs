@@ -55,10 +55,10 @@ namespace World.Generator
             Watcher.Watch(() => WorldChunkMap.CreateChunks(chunkObject, transform, true), "CreateChunks");
 
             AThread thread = new AThread(
-                SetVoronoi, SetRegions, GenerateWaterMask, 
-                SetWater, SetCoastline, SetRegionDistances, 
-                SetMountains, SetLakes, DrawRegionColors);//, 
-                //ReshuffleVertices);
+                SetVoronoi, SetRegions, GenerateWaterMask,
+                SetWater, SetCoastline, SetRegionDistances,
+                SetMountains, SetLakes, DrawRegionColors,
+                SmoothColors);//, ReshuffleVertices);
 
             thread.Start();
             thread.RunAfterThreadEnd(() => Watcher.Watch(WorldMesh.ConfirmChanges));
@@ -150,6 +150,7 @@ namespace World.Generator
 
             while (true)
             {
+
                 layerDist++;
 
                 List<Region> regionsLayerClone = new List<Region>(regionsLayer);
@@ -213,7 +214,6 @@ namespace World.Generator
 
         private void SetLakes()
         {
-            List<Lake> randomLakes = new List<Lake>();
             int rndLakedCount = prng.Next(lakesCount.x, lakesCount.y);
 
             for (int i = 0; i < rndLakedCount; i++)
@@ -221,12 +221,12 @@ namespace World.Generator
                 while (true)
                 {
                     Region region = regions[prng.Next(0, regions.Length)];
-                    if (region.type.isGround && region.type.DistIndexFromCoastline > 1)
+                    if (region.type.isGround && region.type.DistIndexFromCoastline > 2)
                     {
                         Edge edge = region.edges[prng.Next(0, region.edges.Length)];
-                        randomLakes.Add(new Lake(edge));
+                        lakes.Add(new Lake(edge));
                         break;
-                    }
+                    } 
                 }
             }
         }
@@ -243,6 +243,26 @@ namespace World.Generator
                 //color = Color.Lerp(color, Color.white, (float)region.type.HeightIndex / mountainSize);
 
                 region.DoForEachPosition((Vector2Int point) => WorldMesh.colorMap[point.x, point.y].ALL = color);
+            }
+
+            foreach (Lake lake in lakes)
+            {
+                foreach (Vector2Int pathPoint in lake.path)
+                {
+                    Vector2Int point = WorldMesh.VertexPosToQuadPos(pathPoint);
+                    WorldMesh.colorMap[point.x, point.y].ALL = Color.blue;
+                }
+            }
+        }
+
+        private void SmoothColors()
+        {
+            for (int x = 0; x < WorldMesh.colorMap.width; x++)
+            {
+                for (int y = 0; y < WorldMesh.colorMap.height; y++)
+                {
+                    WorldMesh.colorMap[x, y].Smooth();
+                }
             }
         }
 
