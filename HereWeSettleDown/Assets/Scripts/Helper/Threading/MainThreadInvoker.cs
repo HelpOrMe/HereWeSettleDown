@@ -42,9 +42,7 @@ namespace Helper.Threading
 
         public static bool CheckForMainThread()
         {
-            if (Thread.CurrentThread == mainThread)
-                return true;
-            return false;
+            return Thread.CurrentThread == mainThread;
         }
     }
 }

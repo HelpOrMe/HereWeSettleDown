@@ -15,7 +15,7 @@ namespace Helper.Debugger
                 DefDrawLine(points[0], points[points.Length - 1], color, duration);
         }
 
-        public static void DrawConnectedLines(Vector2Int[] points, Color color, bool conLastPoints = false, float duration = float.PositiveInfinity)
+        public static void DrawConnectedLines(Vector2[] points, Color color, bool conLastPoints = false, float duration = float.PositiveInfinity)
         {
             for (int i = 0; i < points.Length - 1; i++)
                 DrawLine(points[i], points[i + 1], color, duration);
@@ -39,22 +39,27 @@ namespace Helper.Debugger
             DefDrawLine(ToVector3(point1), ToVector3(point2), color, duration);
         }
 
+        public static void DrawLine(Vector3 point1, Vector3 point2, Color color, float duration = float.PositiveInfinity)
+        {
+            DefDrawLine(point1, point2, color, duration);
+        }
+
         public static void DrawLine(Vector2 point1, Vector2 point2, Vector3 offset, Color color, float duration = float.PositiveInfinity)
         {
             DefDrawLine(ToVector3(point1) + offset, ToVector3(point2) + offset, color, duration);
         }
 
-        private static Vector3 ToVector3(Vector2 p)
-        {
-            return new Vector3(p.x, 0.1f, p.y);
-        }
-
-        private static void DefDrawLine(Vector3 start, Vector3 end, Color color, float duration)
+        public static void DefDrawLine(Vector3 start, Vector3 end, Color color, float duration)
         {
             if (MainThreadInvoker.CheckForMainThread())
                 Debug.DrawLine(start, end, color, duration);
             else
                 MainThreadInvoker.InvokeAction(() => Debug.DrawLine(start, end, color, duration));
+        }
+
+        private static Vector3 ToVector3(Vector2 p)
+        {
+            return new Vector3(p.x, 0.1f, p.y);
         }
     }
 }

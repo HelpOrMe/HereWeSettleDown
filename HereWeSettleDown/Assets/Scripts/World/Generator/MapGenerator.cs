@@ -9,6 +9,7 @@ using Nodes.HeightMapGeneration;
 using csDelaunay;
 using Helper.Threading;
 using Helper.Debugger;
+using Helper.Math;
 
 namespace World.Generator
 {
@@ -57,8 +58,8 @@ namespace World.Generator
             AThread thread = new AThread(
                 SetVoronoi, SetRegions, GenerateWaterMask,
                 SetWater, SetCoastline, SetRegionDistances,
-                SetMountains, SetLakes, DrawRegionColors,
-                SmoothColors);//, ReshuffleVertices);
+                SetLakes, DrawRegionColors, SmoothColors,
+                CalculateTriangles, SetMapHeight);//, ReshuffleVertices);
 
             thread.Start();
             thread.RunAfterThreadEnd(() => Watcher.Watch(WorldMesh.ConfirmChanges));
@@ -98,7 +99,7 @@ namespace World.Generator
             {
                 foreach (Vector2 nSite in voronoi.NeighborSitesForSite(site))
                 {
-                    siteToRegion[site].AddNeighbour(siteToRegion[nSite]);
+                    siteToRegion[site].neighbours.Add(siteToRegion[nSite]);
                 }
             }
 
@@ -117,7 +118,7 @@ namespace World.Generator
         {
             foreach (Region region in regions)
             {
-                Vector2Int site = new Vector2Int((int)region.site.x, (int)region.site.y);
+                Vector2Int site = MathVert.ToVector2Int(region.site);
                 if (waterMask[site.x, site.y] < 1) 
                     region.type.MarkAsWater();
                 else 
@@ -150,7 +151,6 @@ namespace World.Generator
 
             while (true)
             {
-
                 layerDist++;
 
                 List<Region> regionsLayerClone = new List<Region>(regionsLayer);
@@ -174,48 +174,9 @@ namespace World.Generator
             maxDistIndex = layerDist;
         }
 
-        private void SetMountains()
-        {
-            List<Region> farRegions = new List<Region>();
-            foreach (Region region in regions)
-            {
-                if (region.type.DistIndexFromCoastline + 1 >= maxDistIndex)
-                {
-                    farRegions.Add(region);
-                }
-            }
-
-
-            List<Region> mountainRegions = farRegions;
-
-            int layerHeight = mountainSize - 1;
-            while (true)
-            {
-                List<Region> mRegionsClone = new List<Region>(mountainRegions);
-                mountainRegions.Clear();
-
-                foreach (Region region in mRegionsClone)
-                {
-                    region.type.MarkAsMountain();
-                    foreach (Region nRegion in region.neighbours)
-                    {
-                        if (nRegion.type.HeightIndex <= layerHeight)
-                        {
-                            nRegion.type.HeightIndex = layerHeight;
-                            mountainRegions.Add(nRegion);
-                        }
-                    }
-                }
-                if (mountainRegions.Count == 0 || layerHeight == 0)
-                    break;
-                layerHeight--;
-            }
-        }
-
         private void SetLakes()
         {
             int rndLakedCount = prng.Next(lakesCount.x, lakesCount.y);
-
             for (int i = 0; i < rndLakedCount; i++)
             {
                 while (true)
@@ -224,12 +185,80 @@ namespace World.Generator
                     if (region.type.isGround && region.type.DistIndexFromCoastline > 2)
                     {
                         Edge edge = region.edges[prng.Next(0, region.edges.Length)];
-                        lakes.Add(new Lake(edge));
+                        Lake lake = new Lake(edge);
+                        lake.Set();
+                        lakes.Add(lake);
                         break;
-                    } 
+                    }
                 }
             }
         }
+
+        private void CalculateTriangles()
+        {
+            foreach (Region region in regions)
+            {
+                region.site.CalculateTriangles();
+            }
+        }
+
+        private void SetMapHeight()
+        {
+            /*foreach (Region region in regions)
+            {
+                foreach (Region nRegion in region.neighbours)
+                {
+                    Vector3 point1 = SiteWithHeight(region);
+                    Vector3 point2 = SiteWithHeight(nRegion);
+
+                    //Drawer.DrawLine(MathVert.RoundPosition(point1), MathVert.RoundPosition(point2), Color.red);
+
+                    Vector3[] path = MathVert.ConnectPoints(point1, point2, false);
+                    for (int i = 0; i < path.Length - 1; i++)
+                    {
+                        //Drawer.DrawLine(path[i], path[i + 1], Color.white);
+                    }
+                }
+            }*/
+            
+            foreach (Triangle triangle in Triangle.allTriangles)
+            {
+                if (triangle.GetMidCLIndex() <= 0)
+                    continue;
+
+                //Drawer.DrawConnectedLines(triangle.GetSitePositions(), Color.white);
+
+                Vector3[] trianglePoints = new Vector3[3];
+                for (int i = 0; i < 3; i++)
+                    trianglePoints[i] = SiteWithHeight(triangle.sites[i].parent);
+
+                Vector2Int[] positions = MathVert.GetPositionsBetween(triangle.GetSitePositions());
+                foreach (Vector2Int position in positions)
+                {
+                    //Drawer.DrawHLine(position, Color.white);
+                    //WorldMesh.colorMap[position.x, position.y].ALL = Color.red;
+                    Vector3 vertex = WorldMesh.verticesMap[position.x, position.y];
+                    vertex.y = MathVert.GetHeihtBetween3Points(position, trianglePoints);
+                    WorldMesh.verticesMap[position.x, position.y] = vertex;
+                }
+            }
+        }
+
+        private Vector3 SiteWithHeight(Region region)
+        {
+            if (region.type.DistIndexFromCoastline <= 0)
+                return MathVert.ToVector3(region.site);
+
+            int offset = 4;
+
+            float dist = (float)region.type.DistIndexFromCoastline;
+            dist = Mathf.Clamp(dist - offset, 1, dist);
+
+            float height = Mathf.Pow(dist / maxDistIndex * 10, 2);
+            return MathVert.ToVector3(region.site) + Vector3.up * height;
+        }
+
+        
 
         private void DrawRegionColors()
         {

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Helper.Debugger;
+using Helper.Math;
+//using Helper.Debugger;
 
 namespace World.Generator
 {
@@ -11,9 +12,10 @@ namespace World.Generator
         public readonly List<Edge> edges = new List<Edge>();
         public readonly List<Vector2Int> path = new List<Vector2Int>();
 
-        public Lake(Edge startEdge)
+        public Lake(Edge startEdge) => this.startEdge = startEdge;
+
+        public void Set()
         {
-            this.startEdge = startEdge;
             CalculateEdges();
             CalculatePath();
             SetPathWidth();
@@ -24,7 +26,7 @@ namespace World.Generator
             //Drawer.DrawHLine(startEdge, Color.blue);
             edges.Clear();
             Edge lastEdge = startEdge;
-            while (true)
+            for (int i = 0; i < 100; i++) // while
             {
                 Edge newEdge = FindLowestEdgeNear(lastEdge);
                 if (newEdge != null)
@@ -44,7 +46,7 @@ namespace World.Generator
         {
             for (int i = 0; i < edges.Count - 1; i++)
             {
-                path.AddRange(Region.ConnectPointsByVertices(edges[i + 1], edges[i], true));
+                path.AddRange(MathVert.ConnectPoints(edges[i + 1], edges[i], true));
                 //Drawer.DrawLine(edges[i], edges[i + 1], Vector3.up, Color.Lerp(Color.blue, Color.black, (float)i / edges.Count));
             }
 

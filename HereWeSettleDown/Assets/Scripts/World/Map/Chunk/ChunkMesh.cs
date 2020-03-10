@@ -136,7 +136,8 @@ namespace World.Map
             for (int i = 1; i < 5; i++)
             {
                 Vector2Int mapPosition = ChunkMesh.verticesMapPositionPattern[i];
-                sumOfQuadPoints += WorldMesh.verticesMap[x + mapPosition.x, y + mapPosition.y];
+                Vector3 vert = WorldMesh.verticesMap[x + mapPosition.x, y + mapPosition.y];
+                sumOfQuadPoints += vert;
             }
             middleVert = Vector3.Scale(sumOfQuadPoints, new Vector3(0.25f, 0.25f, 0.25f));
         }
