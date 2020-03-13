@@ -8,11 +8,11 @@ namespace World.Generator
 {
     public class Lake
     {
-        public readonly Edge startEdge;
-        public readonly List<Edge> edges = new List<Edge>();
+        public readonly Vertex startVertex;
+        public readonly List<Vertex> vertices = new List<Vertex>();
         public readonly List<Vector2Int> path = new List<Vector2Int>();
 
-        public Lake(Edge startEdge) => this.startEdge = startEdge;
+        public Lake(Vertex startVertex) => this.startVertex = startVertex;
 
         public void Set()
         {
@@ -24,18 +24,18 @@ namespace World.Generator
         private void CalculateEdges()
         {
             //Drawer.DrawHLine(startEdge, Color.blue);
-            edges.Clear();
-            Edge lastEdge = startEdge;
+            vertices.Clear();
+            Vertex lastVertex = startVertex;
             for (int i = 0; i < 100; i++) // while
             {
-                Edge newEdge = FindLowestEdgeNear(lastEdge);
-                if (newEdge != null)
+                Vertex newVertex = FindLowestEdgeNear(lastVertex);
+                if (lastVertex != null)
                 {
                     //Drawer.DrawHLine(newEdge, Color.blue);
                     //Drawer.DrawLine(lastEdge, newEdge, Color.blue);
-                    edges.Add(newEdge);
-                    lastEdge = newEdge;
-                    if (GetEdgeCoastlineDist(newEdge) <= 0)
+                    vertices.Add(lastVertex);
+                    lastVertex = newVertex;
+                    if (GetVertexCoastlineDist(newVertex) <= 0)
                         break;
                 }
                 else break;
@@ -44,9 +44,9 @@ namespace World.Generator
 
         private void CalculatePath()
         {
-            for (int i = 0; i < edges.Count - 1; i++)
+            for (int i = 0; i < vertices.Count - 1; i++)
             {
-                path.AddRange(MathVert.ConnectPoints(edges[i + 1], edges[i], true));
+                path.AddRange(MathVert.ConnectPoints(vertices[i + 1], vertices[i], false));
                 //Drawer.DrawLine(edges[i], edges[i + 1], Vector3.up, Color.Lerp(Color.blue, Color.black, (float)i / edges.Count));
             }
 
@@ -72,30 +72,30 @@ namespace World.Generator
             }
         }
 
-        private Edge FindLowestEdgeNear(Edge edge)
+        private Vertex FindLowestEdgeNear(Vertex vertex)
         {
-            Dictionary<float, Edge> distToEdge = new Dictionary<float, Edge>();
-            foreach (Edge incEdge in edge.incidentEdges)
+            Dictionary<float, Vertex> distToVertex = new Dictionary<float, Vertex>();
+            foreach (Vertex incVertex in vertex.incidentVertices)
             {
-                float incDist = GetEdgeCoastlineDist(incEdge);
+                float incDist = GetVertexCoastlineDist(incVertex);
 
-                if (distToEdge.ContainsKey(incDist))
+                if (distToVertex.ContainsKey(incDist))
                 {
-                    if (Vector2.Distance(distToEdge[incDist], edge) < Vector2.Distance(incEdge, edge))
+                    if (Vector2.Distance(distToVertex[incDist], vertex) < Vector2.Distance(incVertex, vertex))
                     {
-                        distToEdge[incDist] = incEdge;
+                        distToVertex[incDist] = incVertex;
                     }
                 }
-                else distToEdge[incDist] = incEdge;
+                else distToVertex[incDist] = incVertex;
             }
 
-            return distToEdge[distToEdge.Keys.Min()];
+            return distToVertex[distToVertex.Keys.Min()];
         }
 
-        private float GetEdgeCoastlineDist(Edge edge)
+        private float GetVertexCoastlineDist(Vertex vertex)
         {
             float distance = 0;
-            foreach (Region region in edge.incidentRegions)
+            foreach (Region region in vertex.incidentRegions)
             {
                 if (region.type.DistIndexFromCoastline != null)
                     distance += (int)region.type.DistIndexFromCoastline;
@@ -103,7 +103,7 @@ namespace World.Generator
                 if (region.type.isCoastline)
                     return 0;
             }
-            return distance / edge.incidentRegions.Count;
+            return distance / vertex.incidentRegions.Count;
         }
     }
 }

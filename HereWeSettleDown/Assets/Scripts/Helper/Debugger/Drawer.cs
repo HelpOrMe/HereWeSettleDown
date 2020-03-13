@@ -24,6 +24,15 @@ namespace Helper.Debugger
                 DrawLine(points[0], points[points.Length - 1], color, duration);
         }
 
+        public static void DrawConnectedLines(Vector2Int[] points, Color color, bool conLastPoints = false, float duration = float.PositiveInfinity)
+        {
+            for (int i = 0; i < points.Length - 1; i++)
+                DrawLine(points[i], points[i + 1], color, duration);
+
+            if (conLastPoints)
+                DrawLine(points[0], points[points.Length - 1], color, duration);
+        }
+
         public static void DrawHLine(Vector2 point, Color color, float duration = float.PositiveInfinity)
         {
             DrawHLine(ToVector3(point), color, duration);

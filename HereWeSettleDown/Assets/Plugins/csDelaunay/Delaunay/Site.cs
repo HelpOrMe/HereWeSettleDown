@@ -114,7 +114,7 @@ namespace csDelaunay {
 		}
 
 		private void Clear() {
-			if (Edges != null) {
+            if (Edges != null) {
 				Edges.Clear();
 				Edges = null;
 			}

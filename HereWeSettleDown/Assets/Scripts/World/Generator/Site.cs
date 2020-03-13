@@ -18,7 +18,7 @@ namespace World.Generator
         
         public void CalculateTriangles()
         {
-            Site[] sites = GetNeighbourSites().ToArray();
+            Site[] sites = GetNeighbourSites();
 
             if (sites.Length > 0)
             {
@@ -37,14 +37,14 @@ namespace World.Generator
             }
         }
 
-        public List<Site> GetNeighbourSites()
+        public Site[] GetNeighbourSites()
         {
             List<Site> neighbourSites = new List<Site>();
             foreach (Region region in parent.neighbours)
             {
                 neighbourSites.Add(region.site);
             }
-            return neighbourSites;
+            return neighbourSites.ToArray();
         }
 
         public static implicit operator Vector2(Site site) => site.position;

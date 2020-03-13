@@ -6,10 +6,11 @@ namespace World.Generator
     public class Triangle
     {
         public static List<Triangle> allTriangles = new List<Triangle>();
-        public readonly Site[] sites = new Site[3];
+        public readonly Site[] sites;
 
         public Triangle(Site site1, Site site2, Site site3)
         {
+            sites = new Site[3];
             sites[0] = site1;
             sites[1] = site2;
             sites[2] = site3;

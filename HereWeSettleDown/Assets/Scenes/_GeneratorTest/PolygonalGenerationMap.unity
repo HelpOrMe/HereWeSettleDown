@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 665532687}
   - component: {fileID: 665532686}
   m_Layer: 0
-  m_Name: Generator (1)
+  m_Name: Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ca4250092edfa4ea161921648cc549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 1241
+  seed: 444
   cellsCount: 4096
   worldWidth: 512
   worldHeight: 512
@@ -150,8 +150,10 @@ MonoBehaviour:
   chunkObject: {fileID: 7729945458796392413, guid: 0aa07fb1abbdb464fbe269bcd723415b,
     type: 3}
   waterMaskGraph: {fileID: 11400000, guid: 5cd43cec7dfcaac4eb6d6ee93b99c52f, type: 2}
-  mountainSize: 5
+  mountainOffset: 3
   lakesCount: {x: 5, y: 10}
+  heightSmoothIterations: 2
+  smoothCoef: 0.4
 --- !u!4 &665532687
 Transform:
   m_ObjectHideFlags: 0
@@ -161,10 +163,10 @@ Transform:
   m_GameObject: {fileID: 665532685}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.0001, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &934993454
 GameObject:
@@ -359,7 +361,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1342330096
 MonoBehaviour:
@@ -382,8 +384,10 @@ MonoBehaviour:
   chunkObject: {fileID: 7729945458796392413, guid: 0aa07fb1abbdb464fbe269bcd723415b,
     type: 3}
   waterMaskGraph: {fileID: 11400000, guid: 5cd43cec7dfcaac4eb6d6ee93b99c52f, type: 2}
-  mountainSize: 5
+  mountainOffset: 3
   lakesCount: {x: 5, y: 10}
+  heightSmoothIterations: 2
+  smoothCoef: 0.4
 --- !u!1 &1829992868
 GameObject:
   m_ObjectHideFlags: 0

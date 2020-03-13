@@ -101,7 +101,7 @@ namespace Helper.Math
             for (int i = 0; i < points.Length; i++)
             {
                 int j = (i + 1) % points.Length;
-                Vector2Int[] connectedPoints = ConnectPoints(points[i], points[j], true);
+                Vector2Int[] connectedPoints = ConnectPoints(points[i], points[j], false);
                 bounds.AddRange(connectedPoints);
             }
             return bounds.ToArray();

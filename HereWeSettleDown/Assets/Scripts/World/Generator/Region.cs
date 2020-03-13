@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Helper.Math;
 
@@ -8,7 +7,7 @@ namespace World.Generator
 {
     public class Region
     {   
-        public readonly Edge[] edges;
+        public readonly Vertex[] vertices;
         public readonly Site site;
 
         public readonly Dictionary<Vector2Int, Vector2Int> ranges = new Dictionary<Vector2Int, Vector2Int>();
@@ -18,36 +17,37 @@ namespace World.Generator
 
         public readonly RegionType type;
 
-        public Region(Edge[] edges, Vector2 site)
+        public Region(Vector2 site, Vertex[] vertices)
         {
             type = new RegionType(this);
 
             this.site = new Site(this, site);
-            this.edges = edges;
+            this.vertices = vertices;
+            
+            UpdateVertices();
 
-            UpdateEdges();
             bounds = MathVert.GetBoundsBetween(EdgePositions());
             ranges = MathVert.GetRangesBetween(bounds);
         }
 
-        public void UpdateEdges()
+        private void UpdateVertices()
         {
-            for (int i = 0; i < edges.Length; i++)
+            for (int i = 0; i < vertices.Length; i++)
             {
-                int b = (i - 1) == -1 ? edges.Length - 1 : i - 1;
-                int f = (i + 1) == edges.Length ? 0 : i + 1;
-                
-                edges[i].ConnectTo(edges[b]);
-                edges[i].ConnectTo(edges[f]);
-                edges[i].incidentRegions.Add(this);
+                int b = (i - 1) == -1 ? vertices.Length - 1 : i - 1;
+                int f = (i + 1) == vertices.Length ? 0 : i + 1;
+
+                vertices[i].ConnectTo(vertices[b]);
+                vertices[i].ConnectTo(vertices[f]);
+                vertices[i].incidentRegions.Add(this);
             }
         }
 
         public Vector2[] EdgePositions()
         {
-            Vector2[] edgePositions = new Vector2[edges.Length];
-            for (int i = 0; i < edges.Length; i++)
-                edgePositions[i] = edges[i].position;
+            Vector2[] edgePositions = new Vector2[vertices.Length];
+            for (int i = 0; i < vertices.Length; i++)
+                edgePositions[i] = vertices[i].position;
             return edgePositions;
         }
 
@@ -79,6 +79,7 @@ namespace World.Generator
         public bool isMountain { get; private set; }
 
         public int? DistIndexFromCoastline;
+        public int? Wet;
 
         public RegionType(Region region) => parent = region;
 
