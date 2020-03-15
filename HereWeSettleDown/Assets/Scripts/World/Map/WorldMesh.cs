@@ -12,7 +12,8 @@ namespace World.Map
 
         public static VerticesMap verticesMap;
         public static ColorMap colorMap;
-        
+        public static OriantationMap oriantationMap;
+
         public static ChunkMesh[,] chunkMeshMap;
 
         private static readonly Dictionary<ChunkMesh, List<Vector2Int>> editedChunks = new Dictionary<ChunkMesh, List<Vector2Int>>();
@@ -30,6 +31,7 @@ namespace World.Map
 
             SetEmptyVerticesMap();
             SetEmptyColorMap();
+            SetEmptyOriantationMap();
 
             chunkMeshMap = new ChunkMesh[chunkXCount, chunkYCount];
             for (int x = 0; x < chunkXCount; x++)
@@ -65,6 +67,19 @@ namespace World.Map
                 }
             }
             colorMap = new ColorMap(colorQuadMap);
+        }
+
+        public static void SetEmptyOriantationMap()
+        {
+            int[,] map = new int[mapWidth, mapHeight];
+            for (int x = 0; x < mapWidth; x++)
+            {
+                for (int y = 0; y < mapHeight; y++)
+                {
+                    map[x, y] = 0;
+                }
+            }
+            oriantationMap = new OriantationMap(map);
         }
 
         public static void SetEditedPosition(int x, int y)
@@ -134,11 +149,37 @@ namespace World.Map
                 Mathf.RoundToInt(quadY / chunkHeight)];
         }
 
-        public static Vector2Int VertexPosToQuadPos(Vector2 pos)
+        public static Vector2Int VertexPosToQuadPos(Vector2Int pos)
         {
             return new Vector2Int(
-                (int)Mathf.Clamp(pos.x, 0, mapWidth - 1),
-                (int)Mathf.Clamp(pos.y, 0, mapHeight - 1));
+                Mathf.Clamp(pos.x, 0, mapWidth - 1),
+                Mathf.Clamp(pos.y, 0, mapHeight - 1));
+        }
+
+        public static Vector2Int VertexPosToQuadPos(Vector2Int pos1, Vector2Int pos2)
+        {
+            Vector2Int offset = pos1 - pos2;
+            
+            if (offset == new Vector2Int(-1, 1))
+                return pos1 + Vector2Int.down;
+            if (offset == new Vector2Int(1, -1))
+                return pos1 + Vector2Int.left;
+            if (offset == new Vector2Int(-1, -1))
+                return pos2;
+            if (offset == new Vector2Int(1, 1))
+                return pos1;
+            return VertexPosToQuadPos(pos1);
+        }
+
+        public static int GetOriantation(Vector2Int pos1, Vector2Int pos2)
+        {
+            Vector2Int offset = pos1 - pos2;
+
+            if (offset == new Vector2Int(-1, 1) || offset == new Vector2Int(1, -1))
+                return 1;
+            if (offset == new Vector2Int(-1, -1) || offset == new Vector2Int(1, 1))
+                return 2;
+            return 0;
         }
     }
 }

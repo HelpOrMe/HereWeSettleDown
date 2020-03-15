@@ -1,69 +1,101 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Helper.Threading;
-using Helper.Debugger;
+using Helper.Math;
+//using Helper.Debugger;
 
 namespace World.Generator
 {
     public class Lake
     {
-        public readonly Edge startEdge;
-        public readonly List<Edge> edges = new List<Edge>();
+        public readonly Vertex startVertex;
+        public readonly List<Vertex> vertices = new List<Vertex>();
+        public readonly List<Vector2Int> path = new List<Vector2Int>();
 
-        public Lake(Edge startEdge)
+        public Lake(Vertex startVertex) => this.startVertex = startVertex;
+
+        public void Set()
         {
-            this.startEdge = startEdge;
             CalculateEdges();
+            CalculatePath();
+            SetPathWidth();
         }
 
-        public void CalculateEdges()
+        private void CalculateEdges()
         {
-            Drawer.DrawHLine(startEdge, Color.blue);
-
-            List<Edge> lakePath = new List<Edge>();
-            Edge lastEdge = startEdge;
-
-            while (true)
+            //Drawer.DrawHLine(startEdge, Color.blue);
+            vertices.Clear();
+            Vertex lastVertex = startVertex;
+            for (int i = 0; i < 100; i++) // while
             {
-                Edge newEdge = FindLowestEdgeNear(lastEdge);
-                if (newEdge != null)
+                Vertex newVertex = FindLowestEdgeNear(lastVertex);
+                if (lastVertex != null)
                 {
-                    Drawer.DrawLine(lastEdge, newEdge, Color.blue);
-                    lakePath.Add(newEdge);
-                    lastEdge = newEdge;
-                    if (GetEdgeCoastlineDist(newEdge) <= 0)
+                    //Drawer.DrawHLine(newEdge, Color.blue);
+                    //Drawer.DrawLine(lastEdge, newEdge, Color.blue);
+                    vertices.Add(lastVertex);
+                    lastVertex = newVertex;
+                    if (GetVertexCoastlineDist(newVertex) <= 0)
                         break;
                 }
                 else break;
             }
         }
 
-        private Edge FindLowestEdgeNear(Edge edge)
+        private void CalculatePath()
         {
-            Dictionary<float, Edge> distToEdge = new Dictionary<float, Edge>();
-            foreach (Edge incEdge in edge.incidentEdges)
+            for (int i = 0; i < vertices.Count - 1; i++)
             {
-                float incDist = GetEdgeCoastlineDist(incEdge);
-
-                if (distToEdge.ContainsKey(incDist))
-                {
-                    if (Vector2.Distance(distToEdge[incDist], edge) < Vector2.Distance(incEdge, edge))
-                    {
-                        distToEdge[incDist] = incEdge;
-                    }
-                }
-                else distToEdge[incDist] = incEdge;
+                path.AddRange(MathVert.ConnectPoints(vertices[i + 1], vertices[i], false));
+                //Drawer.DrawLine(edges[i], edges[i + 1], Vector3.up, Color.Lerp(Color.blue, Color.black, (float)i / edges.Count));
             }
 
-            return distToEdge[distToEdge.Keys.Min()];
+            /*for (int i = 0; i < path.Count - 1; i++) 
+            { 
+                Drawer.DrawLine(path[i], path[i + 1], Color.Lerp(Color.white, Color.black, (float)i / path.Count)); 
+            }*/
         }
 
-        private float GetEdgeCoastlineDist(Edge edge)
+        private void SetPathWidth()
+        {
+            List<Vector2Int> oldPath = new List<Vector2Int>(path);
+            path.Clear();
+            foreach (Vector2Int pathPoint in oldPath)
+            {
+                for (int x = -1; x < 2; x++)
+                {
+                    for (int y = -1; y < 2; y++)
+                    {
+                        path.Add(pathPoint + new Vector2Int(x, y)); 
+                    }
+                }
+            }
+        }
+
+        private Vertex FindLowestEdgeNear(Vertex vertex)
+        {
+            Dictionary<float, Vertex> distToVertex = new Dictionary<float, Vertex>();
+            foreach (Vertex incVertex in vertex.incidentVertices)
+            {
+                float incDist = GetVertexCoastlineDist(incVertex);
+
+                if (distToVertex.ContainsKey(incDist))
+                {
+                    if (Vector2.Distance(distToVertex[incDist], vertex) < Vector2.Distance(incVertex, vertex))
+                    {
+                        distToVertex[incDist] = incVertex;
+                    }
+                }
+                else distToVertex[incDist] = incVertex;
+            }
+
+            return distToVertex[distToVertex.Keys.Min()];
+        }
+
+        private float GetVertexCoastlineDist(Vertex vertex)
         {
             float distance = 0;
-            foreach (Region region in edge.incidentRegions)
+            foreach (Region region in vertex.incidentRegions)
             {
                 if (region.type.DistIndexFromCoastline != null)
                     distance += (int)region.type.DistIndexFromCoastline;
@@ -71,7 +103,7 @@ namespace World.Generator
                 if (region.type.isCoastline)
                     return 0;
             }
-            return distance / edge.incidentRegions.Count;
+            return distance / vertex.incidentRegions.Count;
         }
     }
 }

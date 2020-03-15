@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using World.Map;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace World.Map
 {
@@ -108,7 +109,15 @@ namespace World.Map
 
     public class Quad
     {
-        readonly int x, y;
+        public static int or1 = 0;
+        public static int or2 = 0;
+
+        private readonly Dictionary<int, int> reverseIndex = new Dictionary<int, int>() 
+        { 
+            [0] = 2, [2] = 0, [1] = 3, [3] = 1 
+        };
+
+        private readonly int x, y;
         private Vector3 middleVert;
 
         public Quad(int x, int y)
@@ -133,13 +142,25 @@ namespace World.Map
 
         public void RecalculateMiddleVert()
         {
-            Vector3 sumOfQuadPoints = Vector3.zero;
+            int orIndex = WorldMesh.oriantationMap[x, y];
+
+            if (orIndex == 1)
+                SetMiddleVert((GetVert(2).y + GetVert(4).y) / 2);
+            else if (orIndex == 2)
+                SetMiddleVert((GetVert(1).y + GetVert(3).y) / 2);
+            else
+                SetMiddleVert();
+        }
+
+        private void SetMiddleVert(float? height = null)
+        {
+            middleVert = Vector3.zero;
             for (int i = 1; i < 5; i++)
-            {
-                Vector2Int mapPosition = ChunkMesh.verticesMapPositionPattern[i];
-                sumOfQuadPoints += WorldMesh.verticesMap[x + mapPosition.x, y + mapPosition.y];
-            }
-            middleVert = Vector3.Scale(sumOfQuadPoints, new Vector3(0.25f, 0.25f, 0.25f));
+                middleVert += GetVert(i);
+            middleVert = Vector3.Scale(middleVert, new Vector3(0.25f, 0.25f, 0.25f));
+            
+            if (height != null)
+                middleVert.y = (float)height;
         }
     }
 
@@ -156,23 +177,23 @@ namespace World.Map
 
         public Color DOWN
         {
+            get { return colors[3]; }
+            set { colors[3] = value; SetEditedPosition(); }
+        }
+        public Color LEFT
+        {
             get { return colors[0]; }
             set { colors[0] = value; SetEditedPosition(); }
         }
-        public Color LEFT
+        public Color UP
         {
             get { return colors[1]; }
             set { colors[1] = value; SetEditedPosition(); }
         }
-        public Color UP
+        public Color RIGHT
         {
             get { return colors[2]; }
             set { colors[2] = value; SetEditedPosition(); }
-        }
-        public Color RIGHT
-        {
-            get { return colors[3]; }
-            set { colors[3] = value; SetEditedPosition(); }
         }
 
         public Color ALL
@@ -195,6 +216,74 @@ namespace World.Map
         {
             if (x >= 0 && y >= 0)
                 WorldMesh.SetEditedPosition(x, y);
+        }
+
+        public void Smooth()
+        {
+            Smooth01();
+            Smooth23();
+            Smooth12();
+            Smooth30();
+        }
+
+        public void Smooth01()
+        {
+            if (DOWN == LEFT)
+            {
+                ColorQuad leftQuad = WorldMesh.colorMap[x - 1, y];
+                ColorQuad downQuad = WorldMesh.colorMap[x, y - 1];
+
+                if (leftQuad.RIGHT == downQuad.UP)
+                {
+                    DOWN = leftQuad.RIGHT;
+                    LEFT = leftQuad.RIGHT;
+                }
+            }
+        }
+
+        public void Smooth23()
+        {
+            if (UP == RIGHT)
+            {
+                ColorQuad upQuad = WorldMesh.colorMap[x, y + 1];
+                ColorQuad rightQuad = WorldMesh.colorMap[x + 1, y];
+
+                if (upQuad.DOWN == rightQuad.LEFT)
+                {
+                    UP = upQuad.DOWN;
+                    RIGHT = upQuad.DOWN;
+                }
+            }
+        }
+
+        public void Smooth12()
+        {
+            if (LEFT == UP)
+            {
+                ColorQuad upQuad = WorldMesh.colorMap[x, y + 1];
+                ColorQuad leftQuad = WorldMesh.colorMap[x - 1, y];
+
+                if (upQuad.DOWN == leftQuad.RIGHT)
+                {
+                    UP = upQuad.DOWN;
+                    LEFT = upQuad.DOWN;
+                }
+            }
+        }
+
+        public void Smooth30()
+        {
+            if (RIGHT == DOWN)
+            {
+                ColorQuad rightQuad = WorldMesh.colorMap[x + 1, y];
+                ColorQuad downQuad = WorldMesh.colorMap[x, y - 1];
+
+                if (rightQuad.LEFT == downQuad.UP)
+                {
+                    RIGHT = rightQuad.LEFT;
+                    DOWN = rightQuad.LEFT;
+                }
+            }
         }
     }
 }

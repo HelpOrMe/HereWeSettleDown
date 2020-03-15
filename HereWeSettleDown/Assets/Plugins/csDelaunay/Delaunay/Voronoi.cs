@@ -287,14 +287,15 @@ namespace csDelaunay {
 			foreach (Edge e in Edges) {
 				e.ClipVertices(plotBounds);
 			}
-			// But we don't actually ever use them again!
-			foreach (Vertex ve in vertices) {
+
+            // But we don't actually ever use them again! 
+            foreach (Vertex ve in vertices) {
 				ve.Dispose();
 			}
 			vertices.Clear();
-		}
+        }
 
-		public void LloydRelaxation(int nbIterations) {
+        public void LloydRelaxation(int nbIterations) {
 			// Reapeat the whole process for the number of iterations asked
 			for (int i = 0; i < nbIterations; i++) {
 				List<Vector2> newPoints = new List<Vector2>();
