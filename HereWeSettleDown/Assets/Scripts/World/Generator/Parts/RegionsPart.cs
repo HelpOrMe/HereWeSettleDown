@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using csDelaunay;
+using Delaunay;
 using Helper.Math;
 using Helper.Random;
 using Helper.Debugger;
@@ -21,10 +21,14 @@ namespace World.Generator
         private void SetVoronoi()
         {
             List<Vector2> points = new List<Vector2>();
+            List<uint> idkWhatMeanColorsInVoronoi = new List<uint>(); 
             for (int i = 0; i < settings.cellsCount; i++)
+            {
+                idkWhatMeanColorsInVoronoi.Add(0);
                 points.Add(new Vector2(Seed.Range(0, settings.worldWidth), Seed.Range(0, settings.worldHeight)));
+            }
 
-            voronoi = new Voronoi(points, new Rectf(0, 0, settings.worldWidth, settings.worldHeight), 5, Seed.prng);
+            voronoi = new Voronoi(points, idkWhatMeanColorsInVoronoi, new Rect(0, 0, settings.worldWidth, settings.worldHeight), Seed.prng);
         }
 
         private void SetRegions()
@@ -32,11 +36,10 @@ namespace World.Generator
             Dictionary<Vector2Int, Vertex> posToVertex = new Dictionary<Vector2Int, Vertex>();
             List<Region> regions = new List<Region>();
 
-            
-            foreach (var site in voronoi.SitesIndexedByLocation.Values)
+            foreach (Vector2 sitePos in voronoi.SiteCoords())
             {
                 List<Vertex> vertices = new List<Vertex>();
-                foreach (Vector2Int vertPos in MathVert.ToVector2Int(voronoi.Region(site.Coord)))
+                foreach (Vector2Int vertPos in MathVert.ToVector2Int(voronoi.Region(sitePos)))
                 {
                     //Drawer.DrawHLine(edgePos, Color.blue);
                     if (!posToVertex.ContainsKey(vertPos))
@@ -44,12 +47,12 @@ namespace World.Generator
                     vertices.Add(posToVertex[vertPos]);
                 }
 
-                Region region = new Region(site.Coord, vertices.ToArray());
-                siteToRegion[site.Coord] = region;
+                Region region = new Region(sitePos, vertices.ToArray());
+                siteToRegion[sitePos] = region;
                 regions.Add(region);
             }
 
-            foreach (Vector2 site in voronoi.SitesIndexedByLocation.Keys)
+            foreach (Vector2 site in voronoi.SiteCoords())
             {
                 foreach (Vector2 nSite in voronoi.NeighborSitesForSite(site))
                 {
