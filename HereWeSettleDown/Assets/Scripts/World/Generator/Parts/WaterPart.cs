@@ -2,7 +2,6 @@
 using UnityEngine;
 using World.Generator.Nodes.HeightMap;
 using Helper.Math;
-using Helper.Random;
 using Helper.Debugger;
 
 namespace World.Generator
@@ -13,7 +12,7 @@ namespace World.Generator
         public static Region[] coastlineRegions;
         private float[,] waterMask;
 
-        public override void Run()
+        protected override void Run()
         {
             Watcher.WatchRun(GenerateWaterMask, SetWater, SetCoastline, SetRegionDistances);
         }

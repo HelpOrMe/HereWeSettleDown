@@ -16,7 +16,7 @@ namespace Settings
             return default;
         }
 
-        private void Awake()
+        private void OnEnable()
         {
             if (allSettingsObjects.ContainsKey(GetType()))
             {

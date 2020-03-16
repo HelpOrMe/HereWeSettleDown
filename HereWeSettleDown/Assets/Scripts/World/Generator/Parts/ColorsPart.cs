@@ -6,7 +6,7 @@ namespace World.Generator
 {
     public class ColorsPart : GeneratorPart
     {
-        public override void Run()
+        protected override void Run()
         {
             Watcher.WatchRun(DrawRegionColors, SmoothColors);
         }

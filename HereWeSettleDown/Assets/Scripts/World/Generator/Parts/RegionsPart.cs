@@ -13,7 +13,7 @@ namespace World.Generator
         public static Region[] regions;
         public static Dictionary<Vector2, Region> siteToRegion = new Dictionary<Vector2, Region>();
 
-        public override void Run()
+        protected override void Run()
         {
             Watcher.WatchRun(SetVoronoi, SetRegions, CalculateTriangles);
         }
@@ -22,9 +22,8 @@ namespace World.Generator
         {
             List<Vector2> points = new List<Vector2>();
             for (int i = 0; i < settings.cellsCount; i++)
-            {
                 points.Add(new Vector2(Seed.Range(0, settings.worldWidth), Seed.Range(0, settings.worldHeight)));
-            }
+
             voronoi = new Voronoi(points, new Rectf(0, 0, settings.worldWidth, settings.worldHeight), 5, Seed.prng);
         }
 
@@ -33,6 +32,7 @@ namespace World.Generator
             Dictionary<Vector2Int, Vertex> posToVertex = new Dictionary<Vector2Int, Vertex>();
             List<Region> regions = new List<Region>();
 
+            
             foreach (var site in voronoi.SitesIndexedByLocation.Values)
             {
                 List<Vertex> vertices = new List<Vertex>();
@@ -57,7 +57,7 @@ namespace World.Generator
                 }
             }
 
-            MapGenerator.regions = regions.ToArray();
+            RegionsPart.regions = regions.ToArray();
         }
 
         private void CalculateTriangles()

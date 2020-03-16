@@ -5,7 +5,7 @@ namespace World.Generator
 {
     public class WetPart : GeneratorPart
     {
-        public override void Run()
+        protected override void Run()
         {
             Watcher.WatchRun(SetWet);
         }

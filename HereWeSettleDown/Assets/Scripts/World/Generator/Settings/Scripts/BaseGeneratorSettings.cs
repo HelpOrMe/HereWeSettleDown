@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using Settings;
 
-namespace World.Generator
+namespace Settings.Generator
 {
-    [CreateAssetMenu(menuName = "Settings/BaseGeneratorSettings")]
+    [CreateAssetMenu(menuName = "Settings/Generator/BaseGeneratorSettings")]
     public class BaseGeneratorSettings : SettingsObject
     {
         public int cellsCount = 4096;

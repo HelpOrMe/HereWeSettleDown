@@ -2,6 +2,7 @@
 using Helper.Random;
 using Helper.Debugger;
 using Settings;
+using Settings.Generator;
 
 namespace World.Generator
 {
@@ -10,7 +11,7 @@ namespace World.Generator
         public static List<Lake> lakes = new List<Lake>();
         private readonly LakeSettings lakeSettings = SettingsObject.GetObject<LakeSettings>();
 
-        public override void Run()
+        protected override void Run()
         {
             Watcher.WatchRun(SetLakes);
         }

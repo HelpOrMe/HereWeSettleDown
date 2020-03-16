@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using Settings;
 
-namespace World.Generator
+namespace Settings.Generator
 {
-    [CreateAssetMenu(menuName = "Settings/HeightSettings")]
+    [CreateAssetMenu(menuName = "Settings/Generator/HeightSettings")]
     public class HeightSettings : SettingsObject
     {
         public int heightOffset = 3;

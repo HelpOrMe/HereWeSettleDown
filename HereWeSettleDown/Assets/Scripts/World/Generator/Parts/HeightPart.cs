@@ -3,6 +3,7 @@ using World.Map;
 using Helper.Math;
 using Helper.Debugger;
 using Settings;
+using Settings.Generator;
 
 namespace World.Generator
 {
@@ -10,7 +11,7 @@ namespace World.Generator
     {
         private readonly HeightSettings heightSettings = SettingsObject.GetObject<HeightSettings>();
 
-        public override void Run()
+        protected override void Run()
         {
             Watcher.WatchRun(SetMapHeight, SmoothHeight);
         }

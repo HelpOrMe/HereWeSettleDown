@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Threading;
+using UnityEngine;
 using Helper.Threading;
 
 namespace Helper.Random
@@ -12,13 +14,18 @@ namespace Helper.Random
         }
         private static int? _seed;
 
+        private static Dictionary<Thread, System.Random> subThreadPrng = new Dictionary<Thread, System.Random>();
         public static System.Random prng
         {
             get
             {
                 // Give another prng to sub threads
                 if (!MainThreadInvoker.CheckForMainThread())
-                    return new System.Random(seed);
+                {
+                    if (!subThreadPrng.ContainsKey(Thread.CurrentThread))
+                        subThreadPrng.Add(Thread.CurrentThread, new System.Random(seed));
+                    return subThreadPrng[Thread.CurrentThread];
+                }
 
                 if (_prng == null)
                     SetPRSeed();
@@ -67,7 +74,7 @@ namespace Helper.Random
 
         private static int SetPRSeed()
         {
-            UpdateSeed(UnityEngine.Random.Range(int.MinValue, int.MaxValue));
+            UpdateSeed(new System.Random().Next(int.MinValue, int.MaxValue));
             return (int)_seed;
         }
     }

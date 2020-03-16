@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using Settings;
 
-namespace World.Generator
+namespace Settings.Generator
 {
-    [CreateAssetMenu(menuName = "Settings/LakeSettings")]
+    [CreateAssetMenu(menuName = "Settings/Generator/LakeSettings")]
     public class LakeSettings : SettingsObject
     {
         public int MinLakeCount = 7;

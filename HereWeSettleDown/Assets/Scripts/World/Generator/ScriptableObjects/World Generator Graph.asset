@@ -1,0 +1,397 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad68a608d65f5b449846203ad504a2a, type: 3}
+  m_Name: World Generator Graph
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 114797448255493900}
+  - {fileID: 114476763352280960}
+  - {fileID: 114583114518525218}
+  - {fileID: 114194294627834982}
+  - {fileID: 114902592134316358}
+  - {fileID: 114099879071981104}
+  - {fileID: 114652105822657648}
+  - {fileID: 114947233594670004}
+  RegisteredGeneratorParts:
+  - RegionsPart
+  - WaterPart
+  - LakesPart
+  - HeightPart
+  - WetPart
+  - ColorsPart
+  generatorBaseNode: {fileID: 114947233594670004}
+--- !u!114 &114099879071981104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3d57258966d3d4ba3e7de2b8f2b646, type: 3}
+  m_Name: Part
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -424, y: 456}
+  ports:
+    keys:
+    - genPart
+    values:
+    - _fieldName: genPart
+      _node: {fileID: 114099879071981104}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: 'Part #6'
+        node: {fileID: 114652105822657648}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  partObjectFields:
+    keys: []
+    values: []
+  NewThread: 0
+  selectedPart: 5
+  genPart:
+    RunInNewThread: 0
+--- !u!114 &114194294627834982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3d57258966d3d4ba3e7de2b8f2b646, type: 3}
+  m_Name: Part
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -424, y: 264}
+  ports:
+    keys:
+    - genPart
+    values:
+    - _fieldName: genPart
+      _node: {fileID: 114194294627834982}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: 'Part #4'
+        node: {fileID: 114652105822657648}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  partObjectFields:
+    keys: []
+    values: []
+  NewThread: 0
+  selectedPart: 3
+  genPart:
+    RunInNewThread: 0
+--- !u!114 &114476763352280960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3d57258966d3d4ba3e7de2b8f2b646, type: 3}
+  m_Name: Part
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -424, y: 56}
+  ports:
+    keys:
+    - genPart
+    values:
+    - _fieldName: genPart
+      _node: {fileID: 114476763352280960}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: 'Part #2'
+        node: {fileID: 114652105822657648}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  partObjectFields:
+    keys:
+    - waterMaskGraph
+    values:
+    - {fileID: 11400000, guid: 5cd43cec7dfcaac4eb6d6ee93b99c52f, type: 2}
+  NewThread: 0
+  selectedPart: 1
+  genPart:
+    RunInNewThread: 0
+--- !u!114 &114583114518525218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3d57258966d3d4ba3e7de2b8f2b646, type: 3}
+  m_Name: Part
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -424, y: 168}
+  ports:
+    keys:
+    - genPart
+    values:
+    - _fieldName: genPart
+      _node: {fileID: 114583114518525218}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: 'Part #3'
+        node: {fileID: 114652105822657648}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  partObjectFields:
+    keys: []
+    values: []
+  NewThread: 0
+  selectedPart: 2
+  genPart:
+    RunInNewThread: 0
+--- !u!114 &114652105822657648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449e20794b2822e4da06fef8a87b226d, type: 3}
+  m_Name: Part Combiner
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -56, y: 168}
+  ports:
+    keys:
+    - 'Part #1'
+    - 'Part #2'
+    - 'Part #3'
+    - 'Part #4'
+    - combinedPart
+    - 'Part #5'
+    - 'Part #6'
+    values:
+    - _fieldName: 'Part #1'
+      _node: {fileID: 114652105822657648}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: genPart
+        node: {fileID: 114797448255493900}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: 'Part #2'
+      _node: {fileID: 114652105822657648}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: genPart
+        node: {fileID: 114476763352280960}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: 'Part #3'
+      _node: {fileID: 114652105822657648}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: genPart
+        node: {fileID: 114583114518525218}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: 'Part #4'
+      _node: {fileID: 114652105822657648}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: genPart
+        node: {fileID: 114194294627834982}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: combinedPart
+      _node: {fileID: 114652105822657648}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: generatePart
+        node: {fileID: 114947233594670004}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: 'Part #5'
+      _node: {fileID: 114652105822657648}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: genPart
+        node: {fileID: 114902592134316358}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: 'Part #6'
+      _node: {fileID: 114652105822657648}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: genPart
+        node: {fileID: 114099879071981104}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  combinedPart:
+    RunInNewThread: 0
+--- !u!114 &114797448255493900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3d57258966d3d4ba3e7de2b8f2b646, type: 3}
+  m_Name: Part
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -424, y: -40}
+  ports:
+    keys:
+    - genPart
+    values:
+    - _fieldName: genPart
+      _node: {fileID: 114797448255493900}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: 'Part #1'
+        node: {fileID: 114652105822657648}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  partObjectFields:
+    keys: []
+    values: []
+  NewThread: 0
+  selectedPart: 0
+  genPart:
+    RunInNewThread: 0
+--- !u!114 &114902592134316358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3d57258966d3d4ba3e7de2b8f2b646, type: 3}
+  m_Name: Part
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -424, y: 360}
+  ports:
+    keys:
+    - genPart
+    values:
+    - _fieldName: genPart
+      _node: {fileID: 114902592134316358}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: 'Part #5'
+        node: {fileID: 114652105822657648}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  partObjectFields:
+    keys: []
+    values: []
+  NewThread: 0
+  selectedPart: 4
+  genPart:
+    RunInNewThread: 0
+--- !u!114 &114947233594670004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b988d486f4a4b444b8d6e028337b3f6a, type: 3}
+  m_Name: Generator Base
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 328, y: 248}
+  ports:
+    keys:
+    - generatePart
+    values:
+    - _fieldName: generatePart
+      _node: {fileID: 114947233594670004}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: combinedPart
+        node: {fileID: 114652105822657648}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  generatePart:
+    RunInNewThread: 0

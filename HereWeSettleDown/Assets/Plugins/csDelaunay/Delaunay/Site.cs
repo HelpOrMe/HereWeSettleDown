@@ -162,27 +162,27 @@ namespace csDelaunay {
 		}
 
 		public List<Vector2> Region(Rectf clippingBounds) {
-			if (Edges == null || Edges.Count == 0) {
+            if (Edges == null || Edges.Count == 0) {
 				return new List<Vector2>();
 			}
 			if (edgeOrientations == null) {
 				ReorderEdges();
-				region = ClipToBounds(clippingBounds);
-				if ((new Polygon(region)).PolyWinding() == Winding.CLOCKWISE) {
+                region = ClipToBounds(clippingBounds);
+                if ((new Polygon(region)).PolyWinding() == Winding.CLOCKWISE) {
 					region.Reverse();
 				}
-			}
-			return region;
+            }
+            return region;
 		}
 
 		private void ReorderEdges() {
-			EdgeReorderer reorderer = new EdgeReorderer(Edges, typeof(Vertex));
+            EdgeReorderer reorderer = new EdgeReorderer(Edges, typeof(Vertex));
 			Edges = reorderer.Edges;
 			edgeOrientations = reorderer.EdgeOrientations;
-			reorderer.Dispose();
-		}
+            reorderer.Dispose();
+        }
 
-		private List<Vector2> ClipToBounds(Rectf bounds) {
+        private List<Vector2> ClipToBounds(Rectf bounds) {
 			List<Vector2> points = new List<Vector2>();
 			int n = Edges.Count;
 			int i = 0;
