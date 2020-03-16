@@ -15,11 +15,21 @@ namespace Helper.Debugger
             this.name = name;
         }
 
-        public static void Watch(Action action, string name = null)
+        public static void WatchRun(Action action, string name = null)
         {
             Watcher watcher = new Watcher(action, name);
             watcher.Start();
             watcher.Log();
+        }
+
+        public static void WatchRun(params Action[] actions)
+        {
+            foreach (Action action in actions)
+            {
+                Watcher watcher = new Watcher(action, null);
+                watcher.Start();
+                watcher.Log();
+            }
         }
 
         public Stopwatch Start()

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using World.Map;
-using Nodes.HeightMapGeneration;
+using World.Generator.Nodes.HeightMap;
 using csDelaunay;
 using Helper.Threading;
 using Helper.Debugger;
@@ -15,6 +15,9 @@ namespace World.Generator
 {
     public class MapGenerator : MonoBehaviour
     {
+        public ChunkObject chunkObject;
+        public HeightMapGenerationGraph waterMaskGraph;
+
         public int seed = 0;
         public int cellsCount = 124;
 
@@ -24,8 +27,6 @@ namespace World.Generator
         public int chunkWidth = 124 / 2;
         public int chunkHeight = 124 / 2;
 
-        public ChunkObject chunkObject;
-        public HeightMapGenerationGraph waterMaskGraph;
         //public AnimationCurve mountainsCurve;
 
         public int mountainOffset = 3;
@@ -53,19 +54,25 @@ namespace World.Generator
         public void GenerateMap()
         {
             Debug.ClearDeveloperConsole();
-            Watcher.Watch(() => WorldMesh.CreateWorldMesh(worldWidth, worldHeight, chunkWidth, chunkHeight), "CreateWorldMesh");
-            Watcher.Watch(() => WorldChunkMap.CreateMap(worldWidth, worldHeight, chunkWidth, chunkHeight, chunkObject.transform.localScale), "CreateMap");
-            Watcher.Watch(() => WorldChunkMap.CreateChunks(chunkObject, transform, true), "CreateChunks");
+            Watcher.WatchRun(() => WorldMesh.CreateWorldMesh(worldWidth, worldHeight, chunkWidth, chunkHeight), "CreateWorldMesh");
+            Watcher.WatchRun(() => WorldChunkMap.CreateMap(worldWidth, worldHeight, chunkWidth, chunkHeight, chunkObject.transform.localScale), "CreateMap");
+
+            // Voronoi > Regions || Calculate triangles
+            // WaterMask > SetWater
+            // SetCoastline > Set distances
+            // Set lakes > Set wet
+            // Set height > Smooth height
+            // Set biomes
+            // Draw colors > smooth colors
 
             AThread thread = new AThread(
                 SetVoronoi, SetRegions, GenerateWaterMask,
                 SetWater, SetCoastline, SetRegionDistances,
                 SetLakes, SetWet, CalculateTriangles, SetMapHeight, SmoothHeight,
                 DrawRegionColors, SmoothColors);//, ReshuffleVertices);
-
-
             thread.Start();
-            thread.RunAfterThreadEnd(() => Watcher.Watch(WorldMesh.ConfirmChanges));
+
+            thread.RunAfterThreadEnd(() => WorldChunkMap.CreateChunks(chunkObject, transform, true));
         }
 
         private void SetVoronoi()
@@ -202,17 +209,23 @@ namespace World.Generator
 
             MapGenerator.regions = regions.ToArray();
 
-            foreach (Region region in regions)
+            /*foreach (Region region in regions)
             {
                 Drawer.DrawConnectedLines(region.bounds, Color.red);
-            }
+                foreach (Vertex vertex in region.vertices)
+                {
+                    foreach (Region region2 in vertex.incidentRegions)
+                    {
+                        Drawer.DrawLine(vertex, region2.site, Color.white);
+                    }
+                }
+            }*/
         }
 
         private void GenerateWaterMask()
         {
             waterMaskGraph.mapWidth = worldWidth;
             waterMaskGraph.mapHeight = worldHeight;
-            waterMaskGraph.setPrng = prng;
             waterMask = waterMaskGraph.requester.GetHeightMap().map;
         }
 
@@ -479,13 +492,13 @@ namespace World.Generator
             foreach (Region region in regions)
             {
                 Color color = Color.white;
-                /*if (region.type.isGround) color = Color.Lerp(Color.green, color, 0.25f);
+                if (region.type.isGround) color = Color.Lerp(Color.green, color, 0.25f);
                 if (region.type.isWater) color = Color.Lerp(Color.blue, color, 0.5f);
                 if (region.type.isCoastline) color = Color.Lerp(Color.yellow, color, 0.8f);
-                color = Color.Lerp(color, Color.black, (float)region.type.DistIndexFromCoastline / maxDistIndex);*/
+                color = Color.Lerp(color, Color.black, (float)region.type.DistIndexFromCoastline / maxDistIndex);
 
-                color = Color.Lerp(Color.Lerp(Color.yellow, Color.white, 0.5f), Color.Lerp(Color.green, Color.black, 0.5f), (float)region.type.Wet / maxDistIndex);
-                if (region.type.isWater) color = Color.Lerp(Color.blue, Color.white, 0.3f);
+                //color = Color.Lerp(Color.Lerp(Color.yellow, Color.white, 0.5f), Color.Lerp(Color.green, Color.black, 0.5f), (float)region.type.Wet / maxDistIndex);
+                //if (region.type.isWater) color = Color.Lerp(Color.blue, Color.white, 0.3f);
 
                 region.DoForEachPosition((Vector2Int point) => WorldMesh.colorMap[point.x, point.y].ALL = color);
             }
@@ -509,26 +522,6 @@ namespace World.Generator
                     WorldMesh.colorMap[x, y].Smooth();
                 }
             }
-        }
-
-        private void ReshuffleVertices()
-        {
-            VerticesMap vertMap = WorldMesh.verticesMap;
-            for (int x = 0; x < vertMap.width; x++)
-            {
-                for (int y = 0; y < vertMap.height; y++)
-                {
-                    vertMap[x, y] += new Vector3((float)prng.Next(40, 120) / 100, 0, (float)prng.Next(40, 80) / 120);
-                }
-            }
-        }
-
-        private Vector2Int[] ToVector2Int(Vector2[] ps)
-        {
-            Vector2Int[] points = new Vector2Int[ps.Length];
-            for (int i = 0; i < ps.Length; i++)
-                points[i] = new Vector2Int((int)ps[i].x, (int)ps[i].y);
-            return points;
         }
     }
 }
