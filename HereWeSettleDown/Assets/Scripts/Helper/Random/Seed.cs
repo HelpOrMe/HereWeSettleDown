@@ -23,7 +23,7 @@ namespace Helper.Random
                 if (!MainThreadInvoker.CheckForMainThread())
                 {
                     if (!subThreadPrng.ContainsKey(Thread.CurrentThread))
-                        subThreadPrng.Add(Thread.CurrentThread, new System.Random(seed));
+                        subThreadPrng.Add(Thread.CurrentThread, GetNewPrng());
                     return subThreadPrng[Thread.CurrentThread];
                 }
 
@@ -65,6 +65,11 @@ namespace Helper.Random
 
             return prng.Next((int)(min * decValue), (int)(max * decValue)) / (float)decValue;
         } 
+
+        public static System.Random GetNewPrng()
+        {
+            return new System.Random(seed);
+        }
 
         private static void UpdateSeed(int seed)
         {
