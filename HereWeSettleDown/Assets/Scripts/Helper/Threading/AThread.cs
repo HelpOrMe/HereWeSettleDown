@@ -4,10 +4,10 @@ using System.Threading;
 using System.Diagnostics;
 using UnityEngine;
 using Helper.Scene;
-using Helper.Debugger;
 
 namespace Helper.Threading
 {
+    [Serializable]
     public class AThread
     {
         public string Name
@@ -39,12 +39,9 @@ namespace Helper.Threading
         
         private void ActionsInvoker()
         {
-            Stopwatch stopwatch = new Stopwatch();
             foreach (Action action in actions)
             {
-                Watcher watcher = new Watcher(action);
-                watcher.Start();
-                UnityEngine.Debug.Log($"{Name} > {watcher.LogText()}");
+                action();
             }
         }
 

@@ -25,7 +25,7 @@ namespace csDelaunay {
 		}
 
 		private List<Edge> ReorderEdges(List<Edge> origEdges, Type criterion) {
-			int i;
+            int i;
 			int n = origEdges.Count;
 			Edge edge;
 			// We're going to reorder the edges in order of traversal
@@ -34,7 +34,7 @@ namespace csDelaunay {
 			for (int b = 0; b < n; b++) done.Add(false);
 			List<Edge> newEdges = new List<Edge>();
 
-			i = 0;
+            i = 0;
 			edge = origEdges[i];
 			newEdges.Add(edge);
 			edgeOrientations.Add(LR.LEFT);
@@ -55,7 +55,7 @@ namespace csDelaunay {
 			done[i] = true;
 			nDone++;
 
-			while (nDone < n) {
+            while (nDone < n) {
 				for (i = 1; i < n; i++) {
 					if (done[i]) {
 						continue;
@@ -94,12 +94,11 @@ namespace csDelaunay {
 						newEdges.Add(edge);
 						done[i] = true;
 					}
-					if (done[i]) {
-						nDone++;
-					}
-				}
-			}
-			return newEdges;
+                    nDone++;
+                }
+                //UnityEngine.Debug.Log(nDone + " " + n);
+            }
+            return newEdges;
 		}
 	}
 }

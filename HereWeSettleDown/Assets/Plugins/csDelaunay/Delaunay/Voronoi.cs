@@ -47,10 +47,10 @@ namespace csDelaunay {
 		public Voronoi(List<Vector2> points, Rectf plotBounds, int lloydIterations, System.Random prng) {
 			weigthDistributor = prng;
 			Init(points,plotBounds);
-			LloydRelaxation(lloydIterations);
-		}
+            LloydRelaxation(lloydIterations);
+        }
 
-		private void Init(List<Vector2> points, Rectf plotBounds) {
+        private void Init(List<Vector2> points, Rectf plotBounds) {
 			sites = new SiteList();
 			SitesIndexedByLocation = new Dictionary<Vector2, Site>();
 			AddSites(points);
@@ -303,15 +303,15 @@ namespace csDelaunay {
 				sites.ResetListIndex();
 				Site site = sites.Next();
 
-				while (site != null) {
-					// Loop all corners of the site to calculate the centroid
-					List<Vector2> region = site.Region(plotBounds);
+                while (site != null) {
+                    // Loop all corners of the site to calculate the centroid
+                    List<Vector2> region = site.Region(plotBounds);
 					if (region.Count < 1) {
-						site = sites.Next();
+                        site = sites.Next();
 						continue;
 					}
-					
-					Vector2 centroid = Vector2.zero;
+
+                    Vector2 centroid = Vector2.zero;
 					float signedArea = 0;
 					float x0 = 0;
 					float y0 = 0;
@@ -329,8 +329,8 @@ namespace csDelaunay {
 						centroid.x += (x0 + x1)*a;
 						centroid.y += (y0 + y1)*a;
 					}
-					// Do last vertex
-					x0 = region[region.Count-1].x;
+                    // Do last vertex
+                    x0 = region[region.Count-1].x;
 					y0 = region[region.Count-1].y;
 					x1 = region[0].x;
 					y1 = region[0].y;
@@ -338,22 +338,22 @@ namespace csDelaunay {
 					signedArea += a;
 					centroid.x += (x0 + x1)*a;
 					centroid.y += (y0 + y1)*a;
-
-					signedArea *= 0.5f;
+                    
+                    signedArea *= 0.5f;
 					centroid.x /= (6*signedArea);
 					centroid.y /= (6*signedArea);
-					// Move site to the centroid of its Voronoi cell
-					newPoints.Add(centroid);
+                    // Move site to the centroid of its Voronoi cell
+                    newPoints.Add(centroid);
 					site = sites.Next();
-				}
+                }
 
-				// Between each replacement of the cendroid of the cell,
-				// we need to recompute Voronoi diagram:
-				Rectf origPlotBounds = this.plotBounds;
+                // Between each replacement of the cendroid of the cell,
+                // we need to recompute Voronoi diagram:
+                Rectf origPlotBounds = this.plotBounds;
 				Dispose();
 				Init(newPoints,origPlotBounds);
-			}
-		}
+            }
+        }
 
 		private Site LeftRegion(Halfedge he, Site bottomMostSite) {
 			Edge edge = he.edge;

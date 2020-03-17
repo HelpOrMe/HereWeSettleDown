@@ -91,7 +91,7 @@ namespace World.Map
             editedChunks[chunkMesh].Add(new Vector2Int(x % chunkWidth, y % chunkHeight));
         }
 
-        public static void ConfirmChanges()
+        public static void ConfirmChanges(bool updateChunks = true)
         {
             foreach (ChunkMesh chunkMesh in editedChunks.Keys)
             {
@@ -99,7 +99,8 @@ namespace World.Map
                 {
                     chunkMesh.UpdateQuadValues(editedQuad.x, editedQuad.y);
                 }
-                chunkMesh.UpdateConnectedChunk();
+                if (updateChunks)
+                    chunkMesh.UpdateConnectedChunk();
             }
             editedChunks.Clear();
         }

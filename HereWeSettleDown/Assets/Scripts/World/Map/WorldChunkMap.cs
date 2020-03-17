@@ -36,6 +36,7 @@ namespace World.Map
             if (WorldMesh.chunkMeshMap == null)
                 return;
 
+            WorldMesh.ConfirmChanges(false);
             ClearChunkMap();
 
             chunkMap = new Chunk[chunkXCount, chunkYCount];
