@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using AccidentalNoise;
+using Helper.Random;
 
 namespace World.Generator.Helper
 {

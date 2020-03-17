@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Delaunay;
 using Helper.Math;
@@ -31,13 +30,13 @@ namespace World.Generator
                 points.Add(new Vector2(Seed.Range(0, settings.worldWidth), Seed.Range(0, settings.worldHeight)));
             }
 
-            voronoi = new Voronoi(points, idkWhatMeanColorsInVoronoi, bounds, Seed.GetNewPrng());
-            SimpleLloydsRelaxation(idkWhatMeanColorsInVoronoi, bounds, 2);
+            voronoi = new Voronoi(points, idkWhatMeanColorsInVoronoi, bounds, Seed.prng);
+            SimpleLloydsRelaxation(idkWhatMeanColorsInVoronoi, bounds, Seed.prng, 2);
         }
 
-        private void SimpleLloydsRelaxation(List<uint> colors, Rect bounds, int iter)
+        private void SimpleLloydsRelaxation(List<uint> colors, Rect bounds, System.Random prng, int iter)
         {
-            // It works. I didn’t even hope
+            // That works! I didn’t even hope
             for (int i = 0; i < iter; i++)
             {
                 List<Vector2> newPoints = new List<Vector2>();
@@ -53,7 +52,7 @@ namespace World.Generator
                     newPoints.Add(midPoint);
                 }
 
-                voronoi = new Voronoi(newPoints, colors, bounds, Seed.GetNewPrng());
+                voronoi = new Voronoi(newPoints, colors, bounds, prng);
             }
         }
 

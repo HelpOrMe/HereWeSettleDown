@@ -170,6 +170,4 @@ namespace Delaunay
 			}
 		}
 	}
-
-
 }

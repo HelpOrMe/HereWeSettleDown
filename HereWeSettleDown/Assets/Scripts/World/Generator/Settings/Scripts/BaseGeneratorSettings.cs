@@ -12,9 +12,5 @@ namespace Settings.Generator
 
         public int chunkWidth = 64;
         public int chunkHeight = 64;
-
-        public int heightOffset = 3;
-        public int heightSmoothIterations = 2;
-        public float heightSmoothCoef = 0.4f;
     }
 }

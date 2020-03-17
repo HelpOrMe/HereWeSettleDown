@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using Helper.Threading;
 
 namespace Helper.Random
 {
@@ -9,30 +8,22 @@ namespace Helper.Random
     {
         public static int seed
         {
-            get => _seed != null ? (int)_seed : SetPRSeed();
-            set => UpdateSeed(value);
+            get => _seed == null ? 0 : (int)_seed;
+            set => _seed = seed;
         }
         private static int? _seed;
 
-        private static Dictionary<Thread, System.Random> subThreadPrng = new Dictionary<Thread, System.Random>();
+        private readonly static Dictionary<int, System.Random> threadsPRNGs = new Dictionary<int, System.Random>();
         public static System.Random prng
         {
             get
             {
-                // Give another prng to sub threads
-                if (!MainThreadInvoker.CheckForMainThread())
-                {
-                    if (!subThreadPrng.ContainsKey(Thread.CurrentThread))
-                        subThreadPrng.Add(Thread.CurrentThread, GetNewPrng());
-                    return subThreadPrng[Thread.CurrentThread];
-                }
-
-                if (_prng == null)
-                    SetPRSeed();
-                return _prng;
+                int threadId = Thread.CurrentThread.ManagedThreadId;
+                if (!threadsPRNGs.ContainsKey(threadId))
+                    threadsPRNGs.Add(threadId, GetNewPrng());
+                return threadsPRNGs[threadId];
             }
         }
-        private static System.Random _prng;
 
         public static float Random(int dec = 2)
         {
@@ -69,18 +60,6 @@ namespace Helper.Random
         public static System.Random GetNewPrng()
         {
             return new System.Random(seed);
-        }
-
-        private static void UpdateSeed(int seed)
-        {
-            _prng = new System.Random(seed);
-            _seed = seed;
-        }
-
-        private static int SetPRSeed()
-        {
-            UpdateSeed(new System.Random().Next(int.MinValue, int.MaxValue));
-            return (int)_seed;
         }
     }
 }

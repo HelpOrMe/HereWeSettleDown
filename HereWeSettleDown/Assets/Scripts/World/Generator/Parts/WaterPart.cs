@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using World.Generator.Nodes.HeightMap;
+using Helper.Random;
 using Helper.Math;
 using Helper.Debugger;
 
@@ -19,7 +20,7 @@ namespace World.Generator
 
         private void GenerateWaterMask()
         {
-            waterMask = waterMaskGraph.GetMap(settings.worldWidth, settings.worldHeight);
+            waterMask = waterMaskGraph.GetMap(settings.worldWidth, settings.worldHeight, Seed.prng);
         }
 
         private void SetWater()

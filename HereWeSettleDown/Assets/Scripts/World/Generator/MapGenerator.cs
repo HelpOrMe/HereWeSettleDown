@@ -18,6 +18,7 @@ namespace World.Generator
         public void GenerateMap()
         {
             Seed.seed = testSeed;
+            
             BaseGeneratorSettings set = SettingsObject.GetObject<BaseGeneratorSettings>();
 
             Watcher.WatchRun(() => WorldMesh.CreateWorldMesh(set.worldWidth, set.worldHeight, set.chunkWidth, set.chunkHeight), "CreateWorldMesh");

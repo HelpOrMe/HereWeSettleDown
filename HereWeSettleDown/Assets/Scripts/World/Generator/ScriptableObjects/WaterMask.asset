@@ -26,7 +26,6 @@ MonoBehaviour:
   - {fileID: 114887714425382316}
   - {fileID: 114509504227317030}
   - {fileID: 114622649341833310}
-  editorSeed: 1
   mapWidth: 512
   mapHeight: 512
   requester: {fileID: 114128678640617636}
@@ -50,8 +49,8 @@ MonoBehaviour:
     values:
     - _fieldName: outMap
       _node: {fileID: 114001386982141652}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: secondMap
         node: {fileID: 114732631163330512}
@@ -82,8 +81,8 @@ MonoBehaviour:
     values:
     - _fieldName: outMap
       _node: {fileID: 114038280422685256}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: firstMap
         node: {fileID: 114732631163330512}
@@ -122,8 +121,8 @@ MonoBehaviour:
     values:
     - _fieldName: heightMap
       _node: {fileID: 114128678640617636}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
         node: {fileID: 114887714425382316}
@@ -153,8 +152,8 @@ MonoBehaviour:
     values:
     - _fieldName: heightMap
       _node: {fileID: 114167446118716278}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
         node: {fileID: 114732631163330512}
@@ -165,8 +164,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: outMask
       _node: {fileID: 114167446118716278}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: heightMap
         node: {fileID: 114478967609087978}
@@ -200,8 +199,8 @@ MonoBehaviour:
     values:
     - _fieldName: heightMap
       _node: {fileID: 114330984617971480}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
         node: {fileID: 114732631163330512}
@@ -231,8 +230,8 @@ MonoBehaviour:
     values:
     - _fieldName: heightMap
       _node: {fileID: 114478967609087978}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMask
         node: {fileID: 114167446118716278}
@@ -262,8 +261,8 @@ MonoBehaviour:
     values:
     - _fieldName: heightMap
       _node: {fileID: 114509504227317030}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
         node: {fileID: 114887714425382316}
@@ -293,8 +292,8 @@ MonoBehaviour:
     values:
     - _fieldName: heightMap
       _node: {fileID: 114510141995976288}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
         node: {fileID: 114038280422685256}
@@ -325,8 +324,8 @@ MonoBehaviour:
     values:
     - _fieldName: heightMap
       _node: {fileID: 114622649341833310}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMask
         node: {fileID: 114782390943965412}
@@ -337,8 +336,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: outMap
       _node: {fileID: 114622649341833310}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: heightMap
         node: {fileID: 114789312408055772}
@@ -372,8 +371,8 @@ MonoBehaviour:
     values:
     - _fieldName: firstMap
       _node: {fileID: 114732631163330512}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
         node: {fileID: 114038280422685256}
@@ -384,8 +383,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: secondMap
       _node: {fileID: 114732631163330512}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
         node: {fileID: 114001386982141652}
@@ -396,8 +395,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: outMap
       _node: {fileID: 114732631163330512}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: heightMap
         node: {fileID: 114330984617971480}
@@ -431,8 +430,8 @@ MonoBehaviour:
     values:
     - _fieldName: heightMap
       _node: {fileID: 114782390943965412}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
         node: {fileID: 114038280422685256}
@@ -443,8 +442,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: outMask
       _node: {fileID: 114782390943965412}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: heightMap
         node: {fileID: 114622649341833310}
@@ -475,8 +474,8 @@ MonoBehaviour:
     values:
     - _fieldName: heightMap
       _node: {fileID: 114789312408055772}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
         node: {fileID: 114622649341833310}
@@ -508,8 +507,8 @@ MonoBehaviour:
     values:
     - _fieldName: firstMap
       _node: {fileID: 114887714425382316}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMask
         node: {fileID: 114167446118716278}
@@ -520,8 +519,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: secondMap
       _node: {fileID: 114887714425382316}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: outMap
         node: {fileID: 114622649341833310}
@@ -532,8 +531,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: outMap
       _node: {fileID: 114887714425382316}
-      _typeQualifiedName: Nodes.HeightMapGeneration.HeightMap, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: World.Generator.Nodes.HeightMap.HeightMap, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: heightMap
         node: {fileID: 114509504227317030}
