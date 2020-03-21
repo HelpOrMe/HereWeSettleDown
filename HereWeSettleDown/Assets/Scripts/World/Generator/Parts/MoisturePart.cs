@@ -3,18 +3,18 @@ using Helper.Debugger;
 
 namespace World.Generator
 {
-    public class WetPart : GeneratorPart
+    public class MoisturePart : GeneratorPart
     {
         protected override void Run()
         {
-            Watcher.WatchRun(SetWet);
+            Watcher.WatchRun(SetMoisture);
         }
 
-        private void SetWet()
+        private void SetMoisture()
         {
-            foreach (Region region in RegionsPart.regions)
+            foreach (Region region in RegionsInfo.regions)
             {
-                region.type.Wet = RegionType.MaxDistIndex - region.type.DistIndexFromCoastline;
+                region.type.Moisture = RegionsInfo.MaxDistIndex - region.type.DistIndexFromCoastline;
             }
 
             foreach (Lake lake in LakesPart.lakes)
@@ -22,21 +22,21 @@ namespace World.Generator
                 List<Region> lakeRegions = new List<Region>();
                 foreach (Vertex vertex in lake.vertices)
                     lakeRegions.AddRange(vertex.incidentRegions);
-                SetRecWet(lakeRegions);
+                SetRecMoisture(lakeRegions);
             }
         }
 
-        private void SetRecWet(List<Region> regionsLayer)
+        private void SetRecMoisture(List<Region> regionsLayer)
         {
-            int wet = RegionType.MaxDistIndex - 1;
+            int moisture = RegionsInfo.MaxDistIndex - 1;
 
             foreach (Region region in regionsLayer)
-                if (region.type == null || region.type.Wet < wet)
-                    region.type.Wet = wet;
+                if (region.type == null || region.type.Moisture < moisture)
+                    region.type.Moisture = moisture;
 
             while (regionsLayer.Count > 0)
             {
-                wet--;
+                moisture--;
 
                 List<Region> oldRegionsLayer = new List<Region>(regionsLayer);
                 regionsLayer.Clear();
@@ -44,9 +44,9 @@ namespace World.Generator
                 {
                     foreach (Region nRegion in region.neighbours)
                     {
-                        if (nRegion.type == null || nRegion.type.Wet < wet)
+                        if (nRegion.type == null || nRegion.type.Moisture < moisture)
                         {
-                            nRegion.type.Wet = wet;
+                            nRegion.type.Moisture = moisture;
                             regionsLayer.Add(nRegion);
                         }
                     }

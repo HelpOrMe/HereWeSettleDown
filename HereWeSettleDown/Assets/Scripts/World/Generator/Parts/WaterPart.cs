@@ -25,7 +25,7 @@ namespace World.Generator
 
         private void SetWater()
         {
-            foreach (Region region in RegionsPart.regions)
+            foreach (Region region in RegionsInfo.regions)
             {
                 Vector2Int site = MathVert.ToVector2Int(region.site);
                 if (waterMask[site.x, site.y] < 1)
@@ -38,7 +38,7 @@ namespace World.Generator
         private void SetCoastline()
         {
             List<Region> coastlineRegions = new List<Region>();
-            foreach (Region region in RegionsPart.regions)
+            foreach (Region region in RegionsInfo.regions)
             {
                 foreach (Region regionNeighbour in region.neighbours)
                 {

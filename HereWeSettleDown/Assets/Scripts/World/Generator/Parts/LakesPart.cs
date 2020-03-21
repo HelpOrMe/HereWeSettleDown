@@ -23,7 +23,7 @@ namespace World.Generator
             {
                 while (true)
                 {
-                    Region region = RegionsPart.regions[Seed.Range(0, RegionsPart.regions.Length)];
+                    Region region = RegionsInfo.regions[Seed.Range(0, RegionsInfo.regions.Length)];
                     if (region.type.isGround && region.type.DistIndexFromCoastline > 2)
                     {
                         Vertex vertex = region.vertices[Seed.Range(0, region.vertices.Length)];

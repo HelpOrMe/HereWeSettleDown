@@ -9,9 +9,9 @@ namespace World.Generator
 {
     public class RegionsPart : GeneratorPart
     {
-        public static Voronoi voronoi;
-        public static Region[] regions;
-        public static Dictionary<Vector2, Region> siteToRegion = new Dictionary<Vector2, Region>();
+        private Voronoi voronoi;
+        private Region[] regions;
+        private Dictionary<Vector2, Region> siteToRegion = new Dictionary<Vector2, Region>();
 
         protected override void Run()
         {
@@ -85,7 +85,8 @@ namespace World.Generator
                 }
             }
 
-            RegionsPart.regions = regions.ToArray();
+            this.regions = regions.ToArray();
+            RegionsInfo.regions = this.regions;
         }
 
         private void CalculateTriangles()

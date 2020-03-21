@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using World.Map;
 using Helper.Debugger;
+using Settings;
+using Settings.Generator;
 
 namespace World.Generator
 {
     public class ColorsPart : GeneratorPart
     {
+        private ColorsSettings colorsSettings = SettingsObject.GetObject<ColorsSettings>();
+
+
         protected override void Run()
         {
             Watcher.WatchRun(DrawRegionColors, SmoothColors);
@@ -13,13 +18,31 @@ namespace World.Generator
 
         private void DrawRegionColors()
         {
-            foreach (Region region in RegionsPart.regions)
+            foreach (Region region in RegionsInfo.regions)
+            {
+                BiomeColors biomeColors = colorsSettings.biomeColors[region.type.biomeType];
+                Vector2Int[] positions = region.GetRegionPositions();
+                foreach (Vector2Int pos in positions)
+                {
+                    int targetIndex = 0;
+                    for (int i = 0; i < colorsSettings.heightLayers.Count; i++)
+                    {
+                        if (WorldMesh.verticesMap[pos.x, pos.y].y < WorldMesh.maxVertHeight * colorsSettings.heightLayers[i])
+                            targetIndex = i;
+                        else break;
+                    }
+
+                    Vector2Int quadPos = WorldMesh.VertexPosToQuadPos(pos);
+                    WorldMesh.colorMap[quadPos.x, quadPos.y].ALL = biomeColors.heightColors[targetIndex];
+                }
+            }
+            /*foreach (Region region in RegionsInfo.regions)
             {
                 Color color = Color.white;
                 if (region.type.isGround) color = Color.Lerp(Color.green, color, 0.25f);
                 if (region.type.isWater) color = Color.Lerp(Color.blue, color, 0.5f);
                 if (region.type.isCoastline) color = Color.Lerp(Color.yellow, color, 0.8f);
-                color = Color.Lerp(color, Color.black, (float)region.type.DistIndexFromCoastline / RegionType.MaxDistIndex);
+                color = Color.Lerp(color, Color.black, (float)region.type.DistIndexFromCoastline / RegionsInfo.MaxDistIndex);
 
                 //color = Color.Lerp(Color.Lerp(Color.yellow, Color.white, 0.5f), Color.Lerp(Color.green, Color.black, 0.5f), (float)region.type.Wet / maxDistIndex);
                 //if (region.type.isWater) color = Color.Lerp(Color.blue, Color.white, 0.3f);
@@ -34,7 +57,7 @@ namespace World.Generator
                     Vector2Int point = WorldMesh.VertexPosToQuadPos(pathPoint);
                     WorldMesh.colorMap[point.x, point.y].ALL = Color.blue;
                 }
-            }
+            }*/
         }
 
         private void SmoothColors()

@@ -7,6 +7,7 @@ namespace World.Map
     {
         // In quads
         private static int mapWidth, mapHeight;
+        public static float minVertHeight, maxVertHeight;
         private static int chunkWidth, chunkHeight;
         private static int chunkXCount, chunkYCount;
 
@@ -28,6 +29,9 @@ namespace World.Map
 
             chunkXCount = width / chunkWidth;
             chunkYCount = height / chunkHeight;
+
+            minVertHeight = float.MaxValue;
+            maxVertHeight = float.MinValue;
 
             SetEmptyVerticesMap();
             SetEmptyColorMap();
@@ -117,6 +121,12 @@ namespace World.Map
                     chunkMeshMap[x, y].UpdateConnectedChunk();
                 }
             }
+        }
+
+        public static void UpdateAltitude(float alt)
+        {
+            if (minVertHeight > alt) minVertHeight = alt;
+            if (maxVertHeight < alt) maxVertHeight = alt;
         }
 
         public static Vector3 GetNearVertexPos(Vector3 worldPosition)

@@ -19,17 +19,18 @@ namespace World.Map
                 {
                     map[x, y] = value;
                     WorldMesh.SetEditedPosition(x, y);
+                    WorldMesh.UpdateAltitude(value.y);
                 }
             }
         }
 
         public int width
         {
-            get { return map.GetLength(0); }
+            get => map.GetLength(0);
         }
         public int height
         {
-            get { return map.GetLength(1); }
+            get => map.GetLength(1);
         }
 
         public VerticesMap(Vector3[,] map)

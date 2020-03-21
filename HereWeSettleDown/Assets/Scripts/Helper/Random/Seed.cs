@@ -9,7 +9,7 @@ namespace Helper.Random
         public static int seed
         {
             get => _seed == null ? 0 : (int)_seed;
-            set => _seed = seed;
+            set => _seed = value;
         }
         private static int? _seed;
 
