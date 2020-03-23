@@ -56,12 +56,10 @@ namespace World.Generator
         private void SetRegionDistances()
         {
             List<Region> regionsLayer = new List<Region>(coastlineRegions);
-            int layerDist = 0;
 
+            int layerDist = 0;
             while (regionsLayer.Count > 0)
             {
-                layerDist++;
-
                 List<Region> regionsLayerClone = new List<Region>(regionsLayer);
                 regionsLayer.Clear();
 
@@ -76,6 +74,7 @@ namespace World.Generator
                         }
                     }
                 }
+                layerDist++;
             }
         }
     }

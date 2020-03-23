@@ -89,11 +89,19 @@ namespace Settings.Generator
             if (settings.heightLayers.Count > 1 && GUILayout.Button("Remove last height layer"))
                 settings.heightLayers.Remove(settings.heightLayers.Last());
             GUILayout.EndHorizontal();
+
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Fill biomes colors"))
                 FillBiomesColors();
             if (GUILayout.Button("Fill height colors"))
                 FillHeightColors();
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Lerp biome colors"))
+                LerpBiomeColors();
+            if (GUILayout.Button("Reset height"))
+                ResetHeight();
             GUILayout.EndHorizontal();
         }
 
@@ -167,6 +175,30 @@ namespace Settings.Generator
                 {
                     settings.biomeColors[biomeType].waterColor = targetColor;
                 }
+            }
+        }
+
+        private void LerpBiomeColors()
+        {
+            var settings = (ColorsSettings)target;
+            foreach (string biomeType in settings.biomeColors.Keys)
+            {
+                Color startColor = settings.biomeColors[biomeType].heightColors[0];
+                Color endColor = settings.biomeColors[biomeType].heightColors.Last();
+
+                for (int i = 0; i < settings.heightLayers.Count; i++)
+                {
+                    settings.biomeColors[biomeType].heightColors[i] = Color.Lerp(startColor, endColor, settings.heightLayers[i]);
+                }
+            }
+        }
+
+        private void ResetHeight()
+        {
+            var settings = (ColorsSettings)target;
+            for (int i = 0; i < settings.heightLayers.Count; i++)
+            {
+                settings.heightLayers[i] = i / ((float)settings.heightLayers.Count - 1);
             }
         }
     }

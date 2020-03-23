@@ -57,7 +57,7 @@ namespace World.Generator
             float dist = (float)region.type.DistIndexFromCoastline;
             dist = Mathf.Clamp(dist - heightSettings.heightOffset, 1, dist);
 
-            float height = Mathf.Pow(dist / RegionsInfo.MaxDistIndex * heightSettings.heightValue, 2);
+            float height = Mathf.Round(Mathf.Pow(dist / RegionsInfo.MaxDistIndex * heightSettings.heightValue, 2));
             return MathVert.ToVector3(region.site) + Vector3.up * height;
         }
 

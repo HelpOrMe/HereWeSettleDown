@@ -22,18 +22,28 @@ namespace World.Generator
             {
                 BiomeColors biomeColors = colorsSettings.biomeColors[region.type.biomeType];
                 Vector2Int[] positions = region.GetRegionPositions();
+
                 foreach (Vector2Int pos in positions)
                 {
-                    int targetIndex = 0;
-                    for (int i = 0; i < colorsSettings.heightLayers.Count; i++)
+                    Color targetColor = Color.black;
+                    if (region.type.isWater)
                     {
-                        if (WorldMesh.verticesMap[pos.x, pos.y].y < WorldMesh.maxVertHeight * colorsSettings.heightLayers[i])
-                            targetIndex = i;
-                        else break;
+                        targetColor = biomeColors.waterColor;
                     }
-
+                    else
+                    {
+                        for (int i = 0; i < colorsSettings.heightLayers.Count; i++)
+                        {
+                            if (WorldMesh.verticesMap[pos.x, pos.y].y <= WorldMesh.maxVertHeight * colorsSettings.heightLayers[i])
+                            {
+                                targetColor = biomeColors.heightColors[i];
+                                break;
+                            }
+                        }
+                    }
+                    
                     Vector2Int quadPos = WorldMesh.VertexPosToQuadPos(pos);
-                    WorldMesh.colorMap[quadPos.x, quadPos.y].ALL = biomeColors.heightColors[targetIndex];
+                    WorldMesh.colorMap[quadPos.x, quadPos.y].ALL = targetColor;
                 }
             }
             /*foreach (Region region in RegionsInfo.regions)
@@ -44,7 +54,8 @@ namespace World.Generator
                 if (region.type.isCoastline) color = Color.Lerp(Color.yellow, color, 0.8f);
                 color = Color.Lerp(color, Color.black, (float)region.type.DistIndexFromCoastline / RegionsInfo.MaxDistIndex);
 
-                //color = Color.Lerp(Color.Lerp(Color.yellow, Color.white, 0.5f), Color.Lerp(Color.green, Color.black, 0.5f), (float)region.type.Wet / maxDistIndex);
+                color = Color.Lerp(Color.Lerp(Color.yellow, Color.white, 0.5f), Color.Lerp(Color.green, Color.black, 0.5f), (float)region.type.Moisture / RegionsInfo.MaxDistIndex);
+                if (region.type.isWater) color = Color.Lerp(Color.blue, color, 0.3f);
                 //if (region.type.isWater) color = Color.Lerp(Color.blue, Color.white, 0.3f);
 
                 region.DoForEachPosition((Vector2Int point) => WorldMesh.colorMap[point.x, point.y].ALL = color);

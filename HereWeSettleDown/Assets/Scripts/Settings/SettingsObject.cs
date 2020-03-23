@@ -7,7 +7,7 @@ namespace Settings
     [Serializable]
     public class SettingsObject : ScriptableObject
     {
-        private static Dictionary<Type, object> allSettingsObjects = new Dictionary<Type, object>();
+        [SerializeField] private static AllSettingsObjectsDictionary allSettingsObjects = new AllSettingsObjectsDictionary();
 
         public static T GetObject<T>()
         {
@@ -24,6 +24,33 @@ namespace Settings
                 allSettingsObjects.Remove(GetType());
             }
             allSettingsObjects.Add(GetType(), this);
+        }
+
+        [Serializable]
+        public class AllSettingsObjectsDictionary : Dictionary<Type, object>, ISerializationCallbackReceiver
+        {
+            [SerializeField] private List<string> keys = new List<string>();
+            [SerializeField] private List<SettingsObject> values = new List<SettingsObject>();
+
+            public void OnBeforeSerialize()
+            {
+                keys.Clear();
+                values.Clear();
+                foreach (KeyValuePair<Type, object> pair in this)
+                {
+                    keys.Add(pair.Key.ToString());
+                    values.Add((SettingsObject)pair.Value);
+                }
+            }
+
+            public void OnAfterDeserialize()
+            {
+                Clear();
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    Add(Type.GetType($"Settings.{keys[i]}, Assembly-CSharp", false), values[i]);
+                }
+            }
         }
     }
 }

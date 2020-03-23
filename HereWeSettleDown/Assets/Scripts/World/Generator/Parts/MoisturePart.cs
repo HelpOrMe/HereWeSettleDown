@@ -13,25 +13,23 @@ namespace World.Generator
         private void SetMoisture()
         {
             foreach (Region region in RegionsInfo.regions)
-            {
                 region.type.Moisture = RegionsInfo.MaxDistIndex - region.type.DistIndexFromCoastline;
-            }
 
             foreach (Lake lake in LakesPart.lakes)
             {
                 List<Region> lakeRegions = new List<Region>();
                 foreach (Vertex vertex in lake.vertices)
                     lakeRegions.AddRange(vertex.incidentRegions);
-                SetRecMoisture(lakeRegions);
+                SetLakeMoisture(lakeRegions);
             }
         }
 
-        private void SetRecMoisture(List<Region> regionsLayer)
+        private void SetLakeMoisture(List<Region> regionsLayer)
         {
-            int moisture = RegionsInfo.MaxDistIndex - 1;
+            int moisture = RegionsInfo.MaxMoistureIndex;
 
             foreach (Region region in regionsLayer)
-                if (region.type == null || region.type.Moisture < moisture)
+                if (region.type.Moisture < moisture)
                     region.type.Moisture = moisture;
 
             while (regionsLayer.Count > 0)
