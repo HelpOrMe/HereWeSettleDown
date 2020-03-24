@@ -8,7 +8,7 @@ namespace World.Generator
 {
     public class LakesPart : GeneratorPart
     {
-        public static List<Lake> lakes = new List<Lake>();
+        private readonly List<Lake> lakes = new List<Lake>();
         private readonly LakeSettings lakeSettings = SettingsObject.GetObject<LakeSettings>();
 
         protected override void Run()
@@ -34,6 +34,8 @@ namespace World.Generator
                     }
                 }
             }
+            LakesInfo.lakes = lakes.ToArray();
+            LakesInfo.UpdateLakesMap();
         }
     }
 }

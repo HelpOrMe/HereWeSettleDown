@@ -15,7 +15,7 @@ namespace World.Generator
             foreach (Region region in RegionsInfo.regions)
                 region.type.Moisture = RegionsInfo.MaxDistIndex - region.type.DistIndexFromCoastline;
 
-            foreach (Lake lake in LakesPart.lakes)
+            foreach (Lake lake in LakesInfo.lakes)
             {
                 List<Region> lakeRegions = new List<Region>();
                 foreach (Vertex vertex in lake.vertices)
