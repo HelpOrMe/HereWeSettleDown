@@ -28,7 +28,7 @@ namespace World.Generator
 
         public static void UpdateRegionsMap()
         {
-            regionsMap = new Region[WorldChunkMap.worldWidth, WorldChunkMap.worldHeight];
+            regionsMap = new Region[WorldChunkMap.worldWidth + 1, WorldChunkMap.worldHeight + 1];
             foreach (Region region in regions)
             {
                 Vector2Int[] positions = region.GetRegionPositions();

@@ -8,6 +8,7 @@ namespace World.Map
         // In quads
         private static int mapWidth, mapHeight;
         public static float minVertHeight, maxVertHeight;
+
         private static int chunkWidth, chunkHeight;
         private static int chunkXCount, chunkYCount;
 

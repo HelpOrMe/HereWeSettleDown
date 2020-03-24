@@ -87,6 +87,7 @@ namespace World.Generator
 
             this.regions = regions.ToArray();
             RegionsInfo.regions = this.regions;
+            RegionsInfo.UpdateRegionsMap();
         }
 
         private void CalculateTriangles()

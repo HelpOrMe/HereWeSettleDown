@@ -10,7 +10,7 @@ namespace World.Generator
 
         public static void UpdateLakesMap()
         {
-            lakesMap = new Lake[WorldChunkMap.worldWidth, WorldChunkMap.worldHeight];
+            lakesMap = new Lake[WorldChunkMap.worldWidth + 1, WorldChunkMap.worldHeight + 1];
             foreach (Lake lake in lakes)
             {
                 foreach (Vector2Int pos in lake.path)

@@ -4,6 +4,7 @@ namespace World.Map
 {
     public static class WorldChunkMap
     {
+        // In quads
         public static int worldWidth { get; private set; }
         public static int worldHeight { get; private set; }
 

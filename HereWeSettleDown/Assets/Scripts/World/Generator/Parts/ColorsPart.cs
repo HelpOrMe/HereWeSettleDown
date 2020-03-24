@@ -18,6 +18,7 @@ namespace World.Generator
 
         private void DrawRegionColors()
         {
+            // Draw region colors
             foreach (Region region in RegionsInfo.regions)
             {
                 BiomeColors biomeColors = colorsSettings.biomeColors[region.type.biomeType];
@@ -41,9 +42,20 @@ namespace World.Generator
                             }
                         }
                     }
-                    
                     Vector2Int quadPos = WorldMesh.VertexPosToQuadPos(pos);
                     WorldMesh.colorMap[quadPos.x, quadPos.y].ALL = targetColor;
+                }
+            }
+
+            // Draw lake colors
+            foreach (Lake lake in LakesInfo.lakes)
+            {
+                foreach (Vector2Int pos in lake.path)
+                {
+                    Region region = RegionsInfo.regionsMap[pos.x, pos.y];
+                    BiomeColors biomeColors = colorsSettings.biomeColors[region.type.biomeType];
+                    Vector2Int quadPos = WorldMesh.VertexPosToQuadPos(pos);
+                    WorldMesh.colorMap[quadPos.x, quadPos.y].ALL = biomeColors.waterColor;
                 }
             }
             /*foreach (Region region in RegionsInfo.regions)
