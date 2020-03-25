@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using XNode;
 using World.Generator.Nodes.WorldGenerator.Base;
+using XNode;
 
 namespace World.Generator.Nodes.WorldGenerator
 {
@@ -28,11 +28,15 @@ namespace World.Generator.Nodes.WorldGenerator
                 foreach (string typeName in RegisteredGeneratorParts)
                 {
                     if (ignored.Contains(typeName))
+                    {
                         continue;
+                    }
 
                     Type type = Type.GetType($"World.Generator.{typeName}, Assembly-CSharp", false);
                     if (type != null && !types.Contains(type))
+                    {
                         types.Add(type);
+                    }
                 }
             }
             return types.ToArray();

@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using World.Map;
+﻿using Helper.Debugger;
 using Helper.Math;
-using Helper.Debugger;
 using Settings;
 using Settings.Generator;
+using UnityEngine;
+using World.Map;
 
 namespace World.Generator
 {
@@ -21,13 +21,17 @@ namespace World.Generator
             foreach (Triangle triangle in Triangle.allTriangles)
             {
                 if (triangle.GetMidCLIndex() <= 0)
+                {
                     continue;
+                }
 
                 //Drawer.DrawConnectedLines(triangle.GetSitePositions(), Color.white);
 
                 Vector3[] trianglePoints = new Vector3[3];
                 for (int i = 0; i < 3; i++)
+                {
                     trianglePoints[i] = SiteWithHeight(triangle.sites[i].parent);
+                }
 
                 Vector2Int[] bounds = MathVert.GetBoundsBetween(triangle.GetSitePositions());
                 for (int i = 0; i < bounds.Length - 1; i++)
@@ -52,7 +56,9 @@ namespace World.Generator
         private Vector3 SiteWithHeight(Region region)
         {
             if (region.type.DistIndexFromCoastline <= 0)
+            {
                 return MathVert.ToVector3(region.site);
+            }
 
             float dist = (float)region.type.DistIndexFromCoastline;
             dist = Mathf.Clamp(dist - heightSettings.heightOffset, 1, dist);
@@ -76,7 +82,10 @@ namespace World.Generator
                     {
                         Vector3 midPoint = Vector3.zero;
                         foreach (Vector2Int offset in offsets)
+                        {
                             midPoint += WorldMesh.verticesMap[x + offset.x, y + offset.y];
+                        }
+
                         Vector3 vert = Vector3.Scale(midPoint, new Vector3(0.25f, 0.25f, 0.25f));
                         WorldMesh.verticesMap[x, y] = Vector3.Lerp(WorldMesh.verticesMap[x, y], vert, heightSettings.heightSmoothCoef);
                     }

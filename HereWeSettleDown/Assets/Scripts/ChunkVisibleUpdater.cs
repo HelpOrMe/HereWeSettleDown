@@ -13,7 +13,9 @@ namespace World.Map
         public void Update()
         {
             if (WorldChunkMap.chunkMap != null)
+            {
                 UpdateVisibleChunks(GetMapViewerPosition());
+            }
         }
 
         public Vector2Int GetMapViewerPosition()
@@ -28,7 +30,10 @@ namespace World.Map
         {
             // Hide old chunks
             for (int i = 0; i < lastLoadedChunks.Count; i++)
+            {
                 lastLoadedChunks[i].SetVisible(false);
+            }
+
             lastLoadedChunks.Clear();
 
             int chunkVisibleDistanceX = Mathf.RoundToInt(maxViewDistance / WorldChunkMap.chunkWidth);

@@ -35,7 +35,9 @@ namespace World.Map
         public static void CreateChunks(ChunkObject terrain, Transform parent, bool visible)
         {
             if (WorldMesh.chunkMeshMap == null)
+            {
                 return;
+            }
 
             WorldMesh.ConfirmChanges(false);
             ClearChunkMap();
@@ -53,8 +55,10 @@ namespace World.Map
         private static void ClearChunkMap()
         {
             if (chunkMap == null)
+            {
                 return;
-            
+            }
+
             for (int x = 0; x < chunkXCount; x++)
             {
                 for (int y = 0; y < chunkYCount; y++)

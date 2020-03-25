@@ -7,7 +7,7 @@ namespace Helper.Debugger
     {
         public readonly Action action;
         private readonly Stopwatch stopwatch = new Stopwatch();
-        private string name;
+        private readonly string name;
 
         public Watcher(Action action, string name = null)
         {

@@ -34,7 +34,10 @@ namespace World.Generator
         {
             Vector2[] sitePositions = new Vector2[3];
             for (int i = 0; i < 3; i++)
+            {
                 sitePositions[i] = sites[i];
+            }
+
             return sitePositions;
         }
 

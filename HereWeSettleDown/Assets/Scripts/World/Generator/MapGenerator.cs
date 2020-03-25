@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using World.Map;
-using Helper.Threading;
-using Helper.Debugger;
+﻿using Helper.Debugger;
 using Helper.Random;
+using Helper.Threading;
 using Settings;
 using Settings.Generator;
+using UnityEngine;
 using World.Generator.Nodes.WorldGenerator;
+using World.Map;
 
 namespace World.Generator
 {
@@ -18,7 +18,7 @@ namespace World.Generator
         public void GenerateMap()
         {
             Seed.seed = testSeed;
-            
+
             BaseGeneratorSettings set = SettingsObject.GetObject<BaseGeneratorSettings>();
 
             Watcher.WatchRun(() => WorldMesh.CreateWorldMesh(set.worldWidth, set.worldHeight, set.chunkWidth, set.chunkHeight), "CreateWorldMesh");

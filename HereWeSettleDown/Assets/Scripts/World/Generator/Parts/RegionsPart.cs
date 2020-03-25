@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using Delaunay;
+﻿using Delaunay;
+using Helper.Debugger;
 using Helper.Math;
 using Helper.Random;
-using Helper.Debugger;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace World.Generator
 {
@@ -11,7 +11,7 @@ namespace World.Generator
     {
         private Voronoi voronoi;
         private Region[] regions;
-        private Dictionary<Vector2, Region> siteToRegion = new Dictionary<Vector2, Region>();
+        private readonly Dictionary<Vector2, Region> siteToRegion = new Dictionary<Vector2, Region>();
 
         protected override void Run()
         {
@@ -46,7 +46,9 @@ namespace World.Generator
 
                     List<Vector2> verts = voronoi.Region(sitePos);
                     foreach (Vector2 vert in verts)
+                    {
                         midPoint += vert;
+                    }
 
                     midPoint = new Vector2(midPoint.x / verts.Count, midPoint.y / verts.Count);
                     newPoints.Add(midPoint);
@@ -68,7 +70,10 @@ namespace World.Generator
                 {
                     //Drawer.DrawHLine(edgePos, Color.blue);
                     if (!posToVertex.ContainsKey(vertPos))
+                    {
                         posToVertex.Add(vertPos, new Vertex(vertPos));
+                    }
+
                     vertices.Add(posToVertex[vertPos]);
                 }
 

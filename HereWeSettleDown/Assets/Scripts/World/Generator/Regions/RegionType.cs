@@ -33,7 +33,10 @@
 
         public string biomeType;
 
-        public RegionType(Region region) => parent = region;
+        public RegionType(Region region)
+        {
+            parent = region;
+        }
 
         public void MarkAsWater()
         {
@@ -47,7 +50,7 @@
             isGround = true;
             isWater = false;
         }
-        
+
         public void MarkAsCoastline()
         {
             MarkAsWater();
@@ -62,4 +65,3 @@
         }
     }
 }
- 

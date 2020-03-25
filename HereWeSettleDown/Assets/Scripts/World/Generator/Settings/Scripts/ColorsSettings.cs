@@ -14,8 +14,8 @@ namespace Settings.Generator
         [Serializable]
         public class BiomeColorsDictionary : Dictionary<string, BiomeColors>, ISerializationCallbackReceiver
         {
-            [SerializeField] private List<string> keys = new List<string>();
-            [SerializeField] private List<BiomeColors> values = new List<BiomeColors>();
+            [SerializeField] private readonly List<string> keys = new List<string>();
+            [SerializeField] private readonly List<BiomeColors> values = new List<BiomeColors>();
 
             public void OnBeforeSerialize()
             {

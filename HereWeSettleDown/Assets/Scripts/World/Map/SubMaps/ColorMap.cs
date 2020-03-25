@@ -8,7 +8,10 @@
             get
             {
                 if (IsValid(x, y))
+                {
                     return map[x, y];
+                }
+
                 return new ColorQuad(-1, -1);
             }
             set
@@ -20,14 +23,8 @@
             }
         }
 
-        public int width
-        {
-            get => map.GetLength(0);
-        }
-        public int height
-        {
-            get => map.GetLength(1);
-        }
+        public int width => map.GetLength(0);
+        public int height => map.GetLength(1);
 
         public ColorMap(ColorQuad[,] map)
         {

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Helper.Math;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Helper.Math;
 
 namespace World.Generator
 {
     public class Region
-    {   
+    {
         public readonly Vertex[] vertices;
         public readonly Site site;
 
@@ -23,7 +23,7 @@ namespace World.Generator
 
             this.site = new Site(this, site);
             this.vertices = vertices;
-            
+
             UpdateVertices();
 
             bounds = MathVert.GetBoundsBetween(EdgePositions());
@@ -47,7 +47,10 @@ namespace World.Generator
         {
             Vector2[] edgePositions = new Vector2[vertices.Length];
             for (int i = 0; i < vertices.Length; i++)
+            {
                 edgePositions[i] = vertices[i].position;
+            }
+
             return edgePositions;
         }
 
@@ -74,4 +77,3 @@ namespace World.Generator
         }
     }
 }
- 

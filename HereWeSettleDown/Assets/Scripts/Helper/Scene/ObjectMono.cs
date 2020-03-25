@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Helper.Scene
 {
@@ -11,7 +9,10 @@ namespace Helper.Scene
             get
             {
                 if (monoBeh == null)
+                {
                     monoBeh = GetNewMonoBehaviourObject();
+                }
+
                 return monoBeh;
             }
         }

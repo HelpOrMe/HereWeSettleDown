@@ -25,7 +25,8 @@ namespace World.Generator.Nodes.HeightMap.Functions
                         float value;
                         switch (function)
                         {
-                            case MathFunc.Add: default:
+                            case MathFunc.Add:
+                            default:
                                 value = fMap[x, y] + sMap[x, y]; break;
                             case MathFunc.Subtract:
                                 value = fMap[x, y] - sMap[x, y]; break;
@@ -45,7 +46,10 @@ namespace World.Generator.Nodes.HeightMap.Functions
         public override object GetValue(NodePort port)
         {
             if (port.fieldName == "outMap")
+            {
                 return GetOutMap();
+            }
+
             return null;
         }
     }

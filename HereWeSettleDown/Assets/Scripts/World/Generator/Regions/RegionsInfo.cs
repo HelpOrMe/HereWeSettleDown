@@ -16,14 +16,28 @@ namespace World.Generator
 
         public static void UpdateDistIndex(int value)
         {
-            if (value < MinDistIndex) MinDistIndex = value;
-            if (value > MaxDistIndex) MaxDistIndex = value;
+            if (value < MinDistIndex)
+            {
+                MinDistIndex = value;
+            }
+
+            if (value > MaxDistIndex)
+            {
+                MaxDistIndex = value;
+            }
         }
 
         public static void UpdateMoistureIndex(int value)
         {
-            if (value < MinMoistureIndex) MinMoistureIndex = value;
-            if (value > MaxMoistureIndex) MaxMoistureIndex = value;
+            if (value < MinMoistureIndex)
+            {
+                MinMoistureIndex = value;
+            }
+
+            if (value > MaxMoistureIndex)
+            {
+                MaxMoistureIndex = value;
+            }
         }
 
         public static void UpdateRegionsMap()

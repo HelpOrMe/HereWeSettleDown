@@ -1,14 +1,14 @@
-﻿using UnityEngine;
-using World.Map;
-using Helper.Debugger;
+﻿using Helper.Debugger;
 using Settings;
 using Settings.Generator;
+using UnityEngine;
+using World.Map;
 
 namespace World.Generator
 {
     public class ColorsPart : GeneratorPart
     {
-        private ColorsSettings colorsSettings = SettingsObject.GetObject<ColorsSettings>();
+        private readonly ColorsSettings colorsSettings = SettingsObject.GetObject<ColorsSettings>();
 
 
         protected override void Run()

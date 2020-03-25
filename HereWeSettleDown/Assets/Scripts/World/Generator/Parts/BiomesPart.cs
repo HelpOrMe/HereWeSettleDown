@@ -1,13 +1,13 @@
-﻿using UnityEngine;
-using Helper.Debugger;
+﻿using Helper.Debugger;
 using Settings;
 using Settings.Generator;
+using UnityEngine;
 
 namespace World.Generator
 {
     public class BiomesPart : GeneratorPart
     {
-        BiomesSettings biomesSettings = SettingsObject.GetObject<BiomesSettings>();
+        private readonly BiomesSettings biomesSettings = SettingsObject.GetObject<BiomesSettings>();
 
         protected override void Run()
         {
@@ -32,10 +32,10 @@ namespace World.Generator
         private string[,] ConvertBiomes()
         {
             int[,] selectedBiomes = biomesSettings.selectedBiomes;
-            
+
             int width = selectedBiomes.GetLength(0);
             int height = selectedBiomes.GetLength(1);
-            
+
             string[,] convertedBiomes = new string[width, height];
 
             for (int x = 0; x < width; x++)

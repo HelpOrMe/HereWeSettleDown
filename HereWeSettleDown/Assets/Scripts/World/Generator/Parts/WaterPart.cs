@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Helper.Debugger;
+using Helper.Math;
+using Helper.Random;
+using System.Collections.Generic;
 using UnityEngine;
 using World.Generator.Nodes.HeightMap;
-using Helper.Random;
-using Helper.Math;
-using Helper.Debugger;
 
 namespace World.Generator
 {
@@ -29,9 +29,13 @@ namespace World.Generator
             {
                 Vector2Int site = MathVert.ToVector2Int(region.site);
                 if (waterMask[site.x, site.y] < 1)
+                {
                     region.type.MarkAsWater();
+                }
                 else
+                {
                     region.type.MarkAsGround();
+                }
             }
         }
 

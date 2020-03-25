@@ -9,15 +9,22 @@ namespace Settings
         public static AllSettingsObjectsDictionary AllSettingsObjects = new AllSettingsObjectsDictionary();
         [SerializeField] private AllSettingsObjectsDictionary allSettingsObject = new AllSettingsObjectsDictionary();
 
-        public void OnBeforeSerialize() => allSettingsObject = AllSettingsObjects;
-        public void OnAfterDeserialize() => AllSettingsObjects = allSettingsObject;
+        public void OnBeforeSerialize()
+        {
+            allSettingsObject = AllSettingsObjects;
+        }
+
+        public void OnAfterDeserialize()
+        {
+            AllSettingsObjects = allSettingsObject;
+        }
     }
 
     [Serializable]
     public class AllSettingsObjectsDictionary : Dictionary<Type, object>, ISerializationCallbackReceiver
     {
-        [SerializeField] private List<string> keys = new List<string>();
-        [SerializeField] private List<SettingsObject> values = new List<SettingsObject>();
+        [SerializeField] private readonly List<string> keys = new List<string>();
+        [SerializeField] private readonly List<SettingsObject> values = new List<SettingsObject>();
 
         public void OnBeforeSerialize()
         {

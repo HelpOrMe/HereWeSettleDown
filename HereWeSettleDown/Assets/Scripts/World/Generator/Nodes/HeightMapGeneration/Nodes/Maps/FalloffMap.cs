@@ -1,6 +1,5 @@
-﻿using UnityEngine;
+﻿using World.Generator.Helper;
 using XNode;
-using World.Generator.Helper;
 
 namespace World.Generator.Nodes.HeightMap.Maps
 {
@@ -10,7 +9,7 @@ namespace World.Generator.Nodes.HeightMap.Maps
 
         public HeightMap GetOutMap()
         {
-            var ghp = (HeightMapGenerationGraph)graph;
+            HeightMapGenerationGraph ghp = (HeightMapGenerationGraph)graph;
             float[,] outMap = Noise.GenerateFalloffMap(ghp.mapWidth, ghp.mapHeight);
             return new HeightMap(outMap);
         }
@@ -18,7 +17,10 @@ namespace World.Generator.Nodes.HeightMap.Maps
         public override object GetValue(NodePort port)
         {
             if (port.fieldName == "outMap")
+            {
                 return GetOutMap();
+            }
+
             return null;
         }
     }

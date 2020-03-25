@@ -1,6 +1,5 @@
-﻿using System.Threading;
+﻿using Helper.Threading;
 using UnityEngine;
-using Helper.Threading;
 
 namespace Helper.Debugger
 {
@@ -9,28 +8,40 @@ namespace Helper.Debugger
         public static void DrawConnectedLines(Vector3[] points, Color color, bool conLastPoints = false, float duration = float.PositiveInfinity)
         {
             for (int i = 0; i < points.Length - 1; i++)
+            {
                 DefDrawLine(points[i], points[i + 1], color, duration);
+            }
 
             if (conLastPoints)
+            {
                 DefDrawLine(points[0], points[points.Length - 1], color, duration);
+            }
         }
 
         public static void DrawConnectedLines(Vector2[] points, Color color, bool conLastPoints = false, float duration = float.PositiveInfinity)
         {
             for (int i = 0; i < points.Length - 1; i++)
+            {
                 DrawLine(points[i], points[i + 1], color, duration);
+            }
 
             if (conLastPoints)
+            {
                 DrawLine(points[0], points[points.Length - 1], color, duration);
+            }
         }
 
         public static void DrawConnectedLines(Vector2Int[] points, Color color, bool conLastPoints = false, float duration = float.PositiveInfinity)
         {
             for (int i = 0; i < points.Length - 1; i++)
+            {
                 DrawLine(points[i], points[i + 1], color, duration);
+            }
 
             if (conLastPoints)
+            {
                 DrawLine(points[0], points[points.Length - 1], color, duration);
+            }
         }
 
         public static void DrawHLine(Vector2 point, Color color, float duration = float.PositiveInfinity)
@@ -61,9 +72,13 @@ namespace Helper.Debugger
         public static void DefDrawLine(Vector3 start, Vector3 end, Color color, float duration)
         {
             if (MainThreadInvoker.CheckForMainThread())
+            {
                 Debug.DrawLine(start, end, color, duration);
+            }
             else
+            {
                 MainThreadInvoker.InvokeAction(() => Debug.DrawLine(start, end, color, duration));
+            }
         }
 
         private static Vector3 ToVector3(Vector2 p)

@@ -10,7 +10,10 @@ namespace World.Map
             get
             {
                 if (IsValid(x, y))
+                {
                     return map[x, y];
+                }
+
                 return Vector3.zero;
             }
             set
@@ -24,14 +27,8 @@ namespace World.Map
             }
         }
 
-        public int width
-        {
-            get => map.GetLength(0);
-        }
-        public int height
-        {
-            get => map.GetLength(1);
-        }
+        public int width => map.GetLength(0);
+        public int height => map.GetLength(1);
 
         public VerticesMap(Vector3[,] map)
         {

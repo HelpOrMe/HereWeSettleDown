@@ -9,8 +9,8 @@ namespace Helper.Threading
     {
         public static Thread mainThread { get; private set; }
 
-        private static object locker = new object();
-        private static List<Action> registratedActions = new List<Action>();
+        private static readonly object locker = new object();
+        private static readonly List<Action> registratedActions = new List<Action>();
 
         private void Awake()
         {

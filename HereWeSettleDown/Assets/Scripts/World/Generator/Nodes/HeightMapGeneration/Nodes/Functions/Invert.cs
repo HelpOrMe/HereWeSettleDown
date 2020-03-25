@@ -21,12 +21,16 @@ namespace World.Generator.Nodes.HeightMap.Functions
                     for (int y = 0; y < heightMap.height; y++)
                     {
                         if (heightMap[x, y] > maxValue)
+                        {
                             maxValue = heightMap[x, y];
+                        }
                     }
                 }
 
                 if (maxValue < 1)
+                {
                     maxValue = 1;
+                }
 
                 for (int x = 0; x < heightMap.width; x++)
                 {
@@ -44,7 +48,10 @@ namespace World.Generator.Nodes.HeightMap.Functions
         public override object GetValue(NodePort port)
         {
             if (port.fieldName == "outMap")
+            {
                 return GetOutMap();
+            }
+
             return null;
         }
     }

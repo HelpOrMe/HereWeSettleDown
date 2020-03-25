@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Helper.Scene;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using Helper.Scene;
 
 namespace World.Map
 {
@@ -24,7 +24,7 @@ namespace World.Map
 
         public static void CreateWorldMesh(int width, int height, int chunkWidth, int chunkHeight)
         {
-            mapWidth = width; 
+            mapWidth = width;
             mapHeight = height;
 
             WorldMesh.chunkWidth = chunkWidth;
@@ -92,9 +92,12 @@ namespace World.Map
         public static void SetEditedPosition(int x, int y)
         {
             Vector2Int pos = VertexPosToQuadPos(new Vector2Int(x, y));
-            ChunkMesh chunkMesh = GetChunkMesh(pos.x, pos.y);;
+            ChunkMesh chunkMesh = GetChunkMesh(pos.x, pos.y); ;
             if (!editedChunks.ContainsKey(chunkMesh))
+            {
                 editedChunks[chunkMesh] = new List<Vector2Int>();
+            }
+
             editedChunks[chunkMesh].Add(new Vector2Int(x % chunkWidth, y % chunkHeight));
         }
 
@@ -107,12 +110,14 @@ namespace World.Map
                     chunkMesh.UpdateQuadValues(editedQuad.x, editedQuad.y);
                 }
                 if (updateChunks)
+                {
                     chunkMesh.UpdateConnectedChunk();
+                }
             }
             editedChunks.Clear();
         }
 
-        public static void ConfrimChangeSplited(bool updateChunks = true)
+        public static void ConfrimChangeSplitted(bool updateChunks = true)
         {
             ObjectMono.MonoBeh.StartCoroutine(ConfirmChangesCoro(updateChunks));
         }
@@ -126,7 +131,10 @@ namespace World.Map
                     chunkMesh.UpdateQuadValues(editedQuad.x, editedQuad.y);
                 }
                 if (updateChunks)
+                {
                     chunkMesh.UpdateConnectedChunk();
+                }
+
                 yield return new WaitForEndOfFrame();
             }
             editedChunks.Clear();
@@ -135,7 +143,9 @@ namespace World.Map
         public static void UpdateAllMesh()
         {
             if (chunkMeshMap == null)
+            {
                 return;
+            }
 
             for (int x = 0; x < chunkXCount; x++)
             {
@@ -148,8 +158,15 @@ namespace World.Map
 
         public static void UpdateHeight(float alt)
         {
-            if (minVertHeight > alt) minVertHeight = alt;
-            if (maxVertHeight < alt) maxVertHeight = alt;
+            if (minVertHeight > alt)
+            {
+                minVertHeight = alt;
+            }
+
+            if (maxVertHeight < alt)
+            {
+                maxVertHeight = alt;
+            }
         }
 
         public static Vector3 GetNearVertexPos(Vector3 worldPosition)
@@ -193,15 +210,27 @@ namespace World.Map
         public static Vector2Int VertexPosToQuadPos(Vector2Int pos1, Vector2Int pos2)
         {
             Vector2Int offset = pos1 - pos2;
-            
+
             if (offset == new Vector2Int(-1, 1))
+            {
                 return pos1 + Vector2Int.down;
+            }
+
             if (offset == new Vector2Int(1, -1))
+            {
                 return pos1 + Vector2Int.left;
+            }
+
             if (offset == new Vector2Int(-1, -1))
+            {
                 return pos2;
+            }
+
             if (offset == new Vector2Int(1, 1))
+            {
                 return pos1;
+            }
+
             return VertexPosToQuadPos(pos1);
         }
 
@@ -210,9 +239,15 @@ namespace World.Map
             Vector2Int offset = pos1 - pos2;
 
             if (offset == new Vector2Int(-1, 1) || offset == new Vector2Int(1, -1))
+            {
                 return 1;
+            }
+
             if (offset == new Vector2Int(-1, -1) || offset == new Vector2Int(1, 1))
+            {
                 return 2;
+            }
+
             return 0;
         }
     }

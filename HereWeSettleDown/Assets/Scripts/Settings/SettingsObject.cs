@@ -9,7 +9,10 @@ namespace Settings
         public static T GetObject<T>()
         {
             if (SerializedSettings.AllSettingsObjects.ContainsKey(typeof(T)))
+            {
                 return (T)SerializedSettings.AllSettingsObjects[typeof(T)];
+            }
+
             return default;
         }
 

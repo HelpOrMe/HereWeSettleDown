@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using XNode;
 using World.Generator.Nodes.HeightMap.Other;
+using XNode;
 
 namespace World.Generator.Nodes.HeightMap
 {
-    [CreateAssetMenu(fileName ="Height Map Generation", menuName ="Nodes/HeightMapGeneration")]
-    public class HeightMapGenerationGraph : NodeGraph 
+    [CreateAssetMenu(fileName = "Height Map Generation", menuName = "Nodes/HeightMapGeneration")]
+    public class HeightMapGenerationGraph : NodeGraph
     {
         public System.Random prng
         {
@@ -13,7 +13,10 @@ namespace World.Generator.Nodes.HeightMap
             {
                 // If try generate from editor
                 if (_prng == null)
+                {
                     return new System.Random(0);
+                }
+
                 return _prng;
             }
         }

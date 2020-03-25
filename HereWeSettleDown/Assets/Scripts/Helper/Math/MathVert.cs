@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,7 +9,10 @@ namespace Helper.Math
         public static float GetHeihtBetween3Points(Vector2 targetPoint, Vector3[] points)
         {
             if (points.Length < 3)
+            {
                 return 0;
+            }
+
             return GetHeihtBetween3Points(targetPoint, points[0], points[1], points[2]);
         }
 
@@ -28,7 +30,7 @@ namespace Helper.Math
             x1 = point1.x; z1 = point1.y; y1 = point1.z;
             x2 = point2.x; z2 = point2.y; y2 = point2.z;
             x3 = point3.x; z3 = point3.y; y3 = point3.z;
-            
+
             // Calculate delta's
 
             float d10 = (y2 - y3) * (x - x3) + (x3 - x2) * (y - y3);
@@ -42,7 +44,7 @@ namespace Helper.Math
             float d3 = 1 - d1 - d2;
 
             float z = d1 * z1 + d2 * z2 + d3 * z3;
-            
+
             return z;
         }
 
@@ -79,7 +81,10 @@ namespace Helper.Math
             foreach (Vector2Int point in bounds)
             {
                 if (!allPointsByY.ContainsKey(point.y))
+                {
                     allPointsByY.Add(point.y, new List<int>());
+                }
+
                 allPointsByY[point.y].Add(point.x);
             }
 
@@ -89,7 +94,9 @@ namespace Helper.Math
                 Vector2Int maxPos = new Vector2Int(allPointsByY[yLine].Max(), yLine);
 
                 if (!ranges.ContainsKey(minPos))
+                {
                     ranges.Add(minPos, maxPos);
+                }
             }
 
             return ranges;
@@ -123,11 +130,15 @@ namespace Helper.Math
                 Vector2Int intPoint = ToVector2Int(point);
 
                 if (!points.Contains(intPoint))
+                {
                     points.Add(intPoint);
+                }
             }
 
             if (connectLastPoint)
+            {
                 points.Add(ToVector2Int(point1));
+            }
 
             return points.ToArray();
         }
@@ -147,11 +158,15 @@ namespace Helper.Math
                 Vector3 point = RoundPosition(Vector3.Lerp(point1, point2, i));
 
                 if (!points.Contains(point))
+                {
                     points.Add(point);
+                }
             }
 
             if (connectLastPoint)
+            {
                 points.Add(RoundPosition(point1));
+            }
 
             return points.ToArray();
         }
@@ -175,7 +190,10 @@ namespace Helper.Math
         {
             List<Vector2Int> points = new List<Vector2Int>();
             foreach (Vector2 p in ps)
+            {
                 points.Add(ToVector2Int(p));
+            }
+
             return points.ToArray();
         }
 
@@ -183,7 +201,10 @@ namespace Helper.Math
         {
             List<Vector2Int> points = new List<Vector2Int>();
             foreach (Vector2 p in ps)
+            {
                 points.Add(ToVector2Int(p));
+            }
+
             return points.ToArray();
         }
 
