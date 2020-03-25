@@ -19,7 +19,7 @@ namespace World.Map
                 {
                     map[x, y] = value;
                     WorldMesh.SetEditedPosition(x, y);
-                    WorldMesh.UpdateAltitude(value.y);
+                    WorldMesh.UpdateHeight(value.y);
                 }
             }
         }

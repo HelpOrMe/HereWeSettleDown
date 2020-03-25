@@ -11,13 +11,14 @@ namespace World.Generator
             DrawDefaultInspector();
             MapGenerator mapGenerator = (MapGenerator)target;
 
+            EditorGUILayout.Space();
             if (GUILayout.Button("Generate map"))
-            {
-                /*foreach (Transform chunk in FindObjectOfType<ChunkGenerator>().transform)
-                {
-                    Destroy(chunk.gameObject);
-                }*/
                 mapGenerator.GenerateMap();
+            if (GUILayout.Button("Recolor map"))
+            {
+                new BiomesPart().action();
+                new ColorsPart().action();
+                Map.WorldMesh.ConfrimChangeSplited();
             }
         }
     }

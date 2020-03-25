@@ -13,7 +13,7 @@ namespace World.Generator
 
         protected override void Run()
         {
-            Watcher.WatchRun(SetMapHeight, SmoothHeight);
+            Watcher.WatchRun(SetMapHeight, SmoothHeight, SetHeightCurve);
         }
 
         private void SetMapHeight()
@@ -80,6 +80,18 @@ namespace World.Generator
                         Vector3 vert = Vector3.Scale(midPoint, new Vector3(0.25f, 0.25f, 0.25f));
                         WorldMesh.verticesMap[x, y] = Vector3.Lerp(WorldMesh.verticesMap[x, y], vert, heightSettings.heightSmoothCoef);
                     }
+                }
+            }
+        }
+
+        private void SetHeightCurve()
+        {
+            for (int x = 0; x < WorldMesh.verticesMap.width; x++)
+            {
+                for (int y = 0; y < WorldMesh.verticesMap.height; y++)
+                {
+                    Vector3 vert = WorldMesh.verticesMap[x, y];
+                    vert.y = heightSettings.heightCurve.Evaluate(vert.y / WorldMesh.maxVertHeight);
                 }
             }
         }

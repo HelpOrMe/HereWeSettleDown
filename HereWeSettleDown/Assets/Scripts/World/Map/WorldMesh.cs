@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using Helper.Scene;
 
 namespace World.Map
 {
@@ -110,6 +112,26 @@ namespace World.Map
             editedChunks.Clear();
         }
 
+        public static void ConfrimChangeSplited(bool updateChunks = true)
+        {
+            ObjectMono.MonoBeh.StartCoroutine(ConfirmChangesCoro(updateChunks));
+        }
+
+        private static IEnumerator ConfirmChangesCoro(bool updateChunks)
+        {
+            foreach (ChunkMesh chunkMesh in editedChunks.Keys)
+            {
+                foreach (Vector2Int editedQuad in editedChunks[chunkMesh])
+                {
+                    chunkMesh.UpdateQuadValues(editedQuad.x, editedQuad.y);
+                }
+                if (updateChunks)
+                    chunkMesh.UpdateConnectedChunk();
+                yield return new WaitForEndOfFrame();
+            }
+            editedChunks.Clear();
+        }
+
         public static void UpdateAllMesh()
         {
             if (chunkMeshMap == null)
@@ -124,7 +146,7 @@ namespace World.Map
             }
         }
 
-        public static void UpdateAltitude(float alt)
+        public static void UpdateHeight(float alt)
         {
             if (minVertHeight > alt) minVertHeight = alt;
             if (maxVertHeight < alt) maxVertHeight = alt;
