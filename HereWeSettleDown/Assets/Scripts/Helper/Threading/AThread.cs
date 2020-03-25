@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Helper.Scene;
+using System;
 using System.Collections;
-using System.Threading;
 using System.Diagnostics;
+using System.Threading;
 using UnityEngine;
-using Helper.Scene;
 
 namespace Helper.Threading
 {
@@ -17,15 +17,17 @@ namespace Helper.Threading
         }
         public readonly Thread thread;
 
-        private Action[] actions;
-        private bool actionsStart = false;
+        private readonly Action[] actions;
+        private readonly bool actionsStart = false;
 
-        private Stopwatch debugStopwatch = new Stopwatch();
+        private readonly Stopwatch debugStopwatch = new Stopwatch();
 
         public AThread(ParameterizedThreadStart start)
         {
-            thread = new Thread(start);
-            thread.Name = start.GetType().Name;
+            thread = new Thread(start)
+            {
+                Name = start.GetType().Name
+            };
         }
 
         public AThread(params Action[] actions)
@@ -33,10 +35,12 @@ namespace Helper.Threading
             this.actions = actions;
             actionsStart = true;
 
-            thread = new Thread(ActionsInvoker);
-            thread.Name = "Actions Thread";
+            thread = new Thread(ActionsInvoker)
+            {
+                Name = "Actions Thread"
+            };
         }
-        
+
         private void ActionsInvoker()
         {
             foreach (Action action in actions)
@@ -48,9 +52,14 @@ namespace Helper.Threading
         public void Start(object parameter)
         {
             if (actionsStart)
+            {
                 thread.Start();
+            }
             else
+            {
                 thread.Start(parameter);
+            }
+
             StartDebug();
         }
 

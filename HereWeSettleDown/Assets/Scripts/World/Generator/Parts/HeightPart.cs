@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using World.Map;
+﻿using Helper.Debugger;
 using Helper.Math;
-using Helper.Debugger;
 using Settings;
 using Settings.Generator;
+using UnityEngine;
+using World.Map;
 
 namespace World.Generator
 {
@@ -13,7 +13,7 @@ namespace World.Generator
 
         protected override void Run()
         {
-            Watcher.WatchRun(SetMapHeight, SmoothHeight);
+            Watcher.WatchRun(SetMapHeight, SmoothHeight, SetHeightCurve);
         }
 
         private void SetMapHeight()
@@ -21,13 +21,17 @@ namespace World.Generator
             foreach (Triangle triangle in Triangle.allTriangles)
             {
                 if (triangle.GetMidCLIndex() <= 0)
+                {
                     continue;
+                }
 
                 //Drawer.DrawConnectedLines(triangle.GetSitePositions(), Color.white);
 
                 Vector3[] trianglePoints = new Vector3[3];
                 for (int i = 0; i < 3; i++)
+                {
                     trianglePoints[i] = SiteWithHeight(triangle.sites[i].parent);
+                }
 
                 Vector2Int[] bounds = MathVert.GetBoundsBetween(triangle.GetSitePositions());
                 for (int i = 0; i < bounds.Length - 1; i++)
@@ -52,12 +56,14 @@ namespace World.Generator
         private Vector3 SiteWithHeight(Region region)
         {
             if (region.type.DistIndexFromCoastline <= 0)
+            {
                 return MathVert.ToVector3(region.site);
+            }
 
             float dist = (float)region.type.DistIndexFromCoastline;
             dist = Mathf.Clamp(dist - heightSettings.heightOffset, 1, dist);
 
-            float height = Mathf.Pow(dist / RegionType.MaxDistIndex * 10, 2);
+            float height = Mathf.Round(Mathf.Pow(dist / RegionsInfo.MaxDistIndex * heightSettings.heightValue, 2));
             return MathVert.ToVector3(region.site) + Vector3.up * height;
         }
 
@@ -76,10 +82,25 @@ namespace World.Generator
                     {
                         Vector3 midPoint = Vector3.zero;
                         foreach (Vector2Int offset in offsets)
+                        {
                             midPoint += WorldMesh.verticesMap[x + offset.x, y + offset.y];
+                        }
+
                         Vector3 vert = Vector3.Scale(midPoint, new Vector3(0.25f, 0.25f, 0.25f));
                         WorldMesh.verticesMap[x, y] = Vector3.Lerp(WorldMesh.verticesMap[x, y], vert, heightSettings.heightSmoothCoef);
                     }
+                }
+            }
+        }
+
+        private void SetHeightCurve()
+        {
+            for (int x = 0; x < WorldMesh.verticesMap.width; x++)
+            {
+                for (int y = 0; y < WorldMesh.verticesMap.height; y++)
+                {
+                    Vector3 vert = WorldMesh.verticesMap[x, y];
+                    vert.y = heightSettings.heightCurve.Evaluate(vert.y / WorldMesh.maxVertHeight);
                 }
             }
         }

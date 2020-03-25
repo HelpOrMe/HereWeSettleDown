@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869f3b5b147ed18469dbbfed7e4480cb, type: 3}
   m_Name: Height Settings
   m_EditorClassIdentifier: 
+  heightValue: 9
   heightOffset: 3
   heightSmoothIterations: 2
-  heightSmoothCoef: 0.4
+  heightSmoothCoef: 0.35

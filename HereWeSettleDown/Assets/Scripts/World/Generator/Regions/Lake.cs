@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Helper.Math;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Helper.Math;
 //using Helper.Debugger;
 
 namespace World.Generator
@@ -12,7 +12,10 @@ namespace World.Generator
         public readonly List<Vertex> vertices = new List<Vertex>();
         public readonly List<Vector2Int> path = new List<Vector2Int>();
 
-        public Lake(Vertex startVertex) => this.startVertex = startVertex;
+        public Lake(Vertex startVertex)
+        {
+            this.startVertex = startVertex;
+        }
 
         public void Set()
         {
@@ -36,9 +39,14 @@ namespace World.Generator
                     vertices.Add(newVertex);
                     lastVertex = newVertex;
                     if (GetVertexCoastlineDist(newVertex) <= 0)
+                    {
                         break;
+                    }
                 }
-                else break;
+                else
+                {
+                    break;
+                }
             }
         }
 
@@ -66,7 +74,7 @@ namespace World.Generator
                 {
                     for (int y = -1; y < 2; y++)
                     {
-                        path.Add(pathPoint + new Vector2Int(x, y)); 
+                        path.Add(pathPoint + new Vector2Int(x, y));
                     }
                 }
             }
@@ -86,7 +94,10 @@ namespace World.Generator
                         distToVertex[incDist] = incVertex;
                     }
                 }
-                else distToVertex[incDist] = incVertex;
+                else
+                {
+                    distToVertex[incDist] = incVertex;
+                }
             }
 
             return distToVertex[distToVertex.Keys.Min()];
@@ -98,10 +109,14 @@ namespace World.Generator
             foreach (Region region in vertex.incidentRegions)
             {
                 if (region.type.DistIndexFromCoastline != null)
+                {
                     distance += (int)region.type.DistIndexFromCoastline;
+                }
 
                 if (region.type.isCoastline)
+                {
                     return 0;
+                }
             }
             return distance / vertex.incidentRegions.Count;
         }

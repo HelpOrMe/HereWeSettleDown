@@ -35,7 +35,10 @@ namespace World.Objects.Structure
         {
             Collider collider = GetComponent<Collider>();
             if (!collider)
+            {
                 collider = gameObject.AddComponent<BoxCollider>();
+            }
+
             return collider.bounds;
         }
 
@@ -74,7 +77,9 @@ namespace World.Objects.Structure
                 {
                     Debug.DrawRay(position + rayPos, position + rayPos + Vector3.down * hit.distance, Color.white, 1);
                     if (hit.distance > minPlaceAccessDist)
+                    {
                         return false;
+                    }
 
                     IPlaceOn placeOn = hit.collider.gameObject.GetComponent<IPlaceOn>();
                     if (placeOn == null || !placeOn.GetPlaceAccess(this, position))

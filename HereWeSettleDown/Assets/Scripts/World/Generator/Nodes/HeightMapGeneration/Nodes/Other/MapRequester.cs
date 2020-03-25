@@ -9,7 +9,7 @@ namespace World.Generator.Nodes.HeightMap.Other
 
         protected override void Init()
         {
-            var gph = (HeightMapGenerationGraph)graph;
+            HeightMapGenerationGraph gph = (HeightMapGenerationGraph)graph;
             gph.requester = this;
         }
 

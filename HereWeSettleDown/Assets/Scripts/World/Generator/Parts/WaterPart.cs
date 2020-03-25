@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Helper.Debugger;
+using Helper.Math;
+using Helper.Random;
+using System.Collections.Generic;
 using UnityEngine;
 using World.Generator.Nodes.HeightMap;
-using Helper.Random;
-using Helper.Math;
-using Helper.Debugger;
 
 namespace World.Generator
 {
@@ -25,20 +25,24 @@ namespace World.Generator
 
         private void SetWater()
         {
-            foreach (Region region in RegionsPart.regions)
+            foreach (Region region in RegionsInfo.regions)
             {
                 Vector2Int site = MathVert.ToVector2Int(region.site);
                 if (waterMask[site.x, site.y] < 1)
+                {
                     region.type.MarkAsWater();
+                }
                 else
+                {
                     region.type.MarkAsGround();
+                }
             }
         }
 
         private void SetCoastline()
         {
             List<Region> coastlineRegions = new List<Region>();
-            foreach (Region region in RegionsPart.regions)
+            foreach (Region region in RegionsInfo.regions)
             {
                 foreach (Region regionNeighbour in region.neighbours)
                 {
@@ -56,12 +60,10 @@ namespace World.Generator
         private void SetRegionDistances()
         {
             List<Region> regionsLayer = new List<Region>(coastlineRegions);
-            int layerDist = 0;
 
+            int layerDist = 0;
             while (regionsLayer.Count > 0)
             {
-                layerDist++;
-
                 List<Region> regionsLayerClone = new List<Region>(regionsLayer);
                 regionsLayer.Clear();
 
@@ -76,6 +78,7 @@ namespace World.Generator
                         }
                     }
                 }
+                layerDist++;
             }
         }
     }

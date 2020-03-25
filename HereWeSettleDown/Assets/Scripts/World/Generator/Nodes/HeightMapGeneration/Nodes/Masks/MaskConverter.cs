@@ -32,7 +32,10 @@ namespace World.Generator.Nodes.HeightMap.Masks
         public override object GetValue(NodePort port)
         {
             if (port.fieldName == "outMask")
+            {
                 return GetOutMask();
+            }
+
             return null;
         }
     }

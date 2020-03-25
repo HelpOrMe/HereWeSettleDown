@@ -14,13 +14,16 @@ namespace Helper.Scene
                 return _rootGameObjects;
             }
         }
-        static GameObject[] _rootGameObjects;
+
+        private static GameObject[] _rootGameObjects;
 
         public static T[] FindRootSceneObjects<T>()
         {
             List<T> objects = new List<T>();
             foreach (GameObject rootGameObject in RootGameObjects)
+            {
                 objects.AddRange(rootGameObject.GetComponentsInChildren<T>());
+            }
 
             return objects.ToArray();
         }

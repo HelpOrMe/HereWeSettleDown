@@ -11,14 +11,23 @@ namespace World.Generator
             DrawDefaultInspector();
             MapGenerator mapGenerator = (MapGenerator)target;
 
+            EditorGUILayout.Space();
             if (GUILayout.Button("Generate map"))
-            {
-                /*foreach (Transform chunk in FindObjectOfType<ChunkGenerator>().transform)
-                {
-                    Destroy(chunk.gameObject);
-                }*/
                 mapGenerator.GenerateMap();
+
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Recolor map"))
+            {
+                new BiomesPart().action();
+                new ColorsPart().action();
+                Map.WorldMesh.ConfrimChangeSplitted();
             }
+            if (GUILayout.Button("Reset height"))
+            {
+                new HeightPart().action();
+                Map.WorldMesh.ConfrimChangeSplitted();
+            }
+            GUILayout.EndHorizontal();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace World.Generator.Nodes.HeightMap.Maps
 
         public HeightMap GetOutMap()
         {
-            var ghp = (HeightMapGenerationGraph)graph;
+            HeightMapGenerationGraph ghp = (HeightMapGenerationGraph)graph;
             float[,] outMap = new float[ghp.mapWidth, ghp.mapHeight];
 
             int xDist = Mathf.RoundToInt(ghp.mapWidth * xDistPercent);
@@ -25,7 +25,9 @@ namespace World.Generator.Nodes.HeightMap.Maps
                 {
                     float fadeValue = (xDist - (x % (ghp.mapWidth / 2))) / (float)xDist;
                     if (outMap[x, y] < fadeValue)
+                    {
                         outMap[x, y] = fadeValue;
+                    }
                 }
             }
 
@@ -36,10 +38,12 @@ namespace World.Generator.Nodes.HeightMap.Maps
                 {
                     float fadeValue = (yDist - (y % (ghp.mapHeight / 2))) / (float)yDist;
                     if (outMap[x, y] < fadeValue)
+                    {
                         outMap[x, y] = fadeValue;
+                    }
                 }
             }
-            
+
             // Right side
             for (int x = ghp.mapWidth - xDist; x < ghp.mapWidth; x++)
             {
@@ -47,10 +51,12 @@ namespace World.Generator.Nodes.HeightMap.Maps
                 {
                     float fadeValue = (x - (ghp.mapWidth - xDist)) / (float)xDist;
                     if (outMap[x, y] < fadeValue)
+                    {
                         outMap[x, y] = fadeValue;
+                    }
                 }
             }
-            
+
             // Up side
             for (int x = 0; x < ghp.mapWidth; x++)
             {
@@ -58,7 +64,9 @@ namespace World.Generator.Nodes.HeightMap.Maps
                 {
                     float fadeValue = (y - (ghp.mapHeight - yDist)) / (float)yDist;
                     if (outMap[x, y] < fadeValue)
+                    {
                         outMap[x, y] = fadeValue;
+                    }
                 }
             }
 
@@ -68,7 +76,10 @@ namespace World.Generator.Nodes.HeightMap.Maps
         public override object GetValue(NodePort port)
         {
             if (port.fieldName == "outMap")
+            {
                 return GetOutMap();
+            }
+
             return null;
         }
     }

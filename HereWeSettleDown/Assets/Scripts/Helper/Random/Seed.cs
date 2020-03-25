@@ -9,18 +9,21 @@ namespace Helper.Random
         public static int seed
         {
             get => _seed == null ? 0 : (int)_seed;
-            set => _seed = seed;
+            set => _seed = value;
         }
         private static int? _seed;
 
-        private readonly static Dictionary<int, System.Random> threadsPRNGs = new Dictionary<int, System.Random>();
+        private static readonly Dictionary<int, System.Random> threadsPRNGs = new Dictionary<int, System.Random>();
         public static System.Random prng
         {
             get
             {
                 int threadId = Thread.CurrentThread.ManagedThreadId;
                 if (!threadsPRNGs.ContainsKey(threadId))
+                {
                     threadsPRNGs.Add(threadId, GetNewPrng());
+                }
+
                 return threadsPRNGs[threadId];
             }
         }
@@ -47,7 +50,7 @@ namespace Helper.Random
         {
             string minStr = min.ToString();
             string maxStr = max.ToString();
-            
+
             int dec = Mathf.Max(
                 minStr.Length - minStr.IndexOf('.') - 1,
                 maxStr.Length - maxStr.IndexOf('.') - 1);
@@ -55,7 +58,7 @@ namespace Helper.Random
             int decValue = (int)Mathf.Pow(10, dec);
 
             return prng.Next((int)(min * decValue), (int)(max * decValue)) / (float)decValue;
-        } 
+        }
 
         public static System.Random GetNewPrng()
         {

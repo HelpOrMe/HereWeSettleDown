@@ -144,7 +144,7 @@ MonoBehaviour:
   chunkObject: {fileID: 7729945458796392413, guid: 0aa07fb1abbdb464fbe269bcd723415b,
     type: 3}
   generatorGraph: {fileID: 11400000, guid: 709632456f1a07142877a5f4f3566c43, type: 2}
-  testSeed: 444
+  testSeed: 11312
 --- !u!4 &665532687
 Transform:
   m_ObjectHideFlags: 0

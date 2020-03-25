@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Helper.Debugger;
 using Helper.Random;
-using Helper.Debugger;
 using Settings;
 using Settings.Generator;
+using System.Collections.Generic;
 
 namespace World.Generator
 {
     public class LakesPart : GeneratorPart
     {
-        public static List<Lake> lakes = new List<Lake>();
+        private readonly List<Lake> lakes = new List<Lake>();
         private readonly LakeSettings lakeSettings = SettingsObject.GetObject<LakeSettings>();
 
         protected override void Run()
@@ -23,7 +23,7 @@ namespace World.Generator
             {
                 while (true)
                 {
-                    Region region = RegionsPart.regions[Seed.Range(0, RegionsPart.regions.Length)];
+                    Region region = RegionsInfo.regions[Seed.Range(0, RegionsInfo.regions.Length)];
                     if (region.type.isGround && region.type.DistIndexFromCoastline > 2)
                     {
                         Vertex vertex = region.vertices[Seed.Range(0, region.vertices.Length)];
@@ -34,6 +34,8 @@ namespace World.Generator
                     }
                 }
             }
+            LakesInfo.lakes = lakes.ToArray();
+            LakesInfo.UpdateLakesMap();
         }
     }
 }

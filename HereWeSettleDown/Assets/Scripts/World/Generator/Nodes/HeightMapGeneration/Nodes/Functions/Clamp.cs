@@ -31,7 +31,10 @@ namespace World.Generator.Nodes.HeightMap.Functions
         public override object GetValue(NodePort port)
         {
             if (port.fieldName == "outMap")
+            {
                 return GetOutMap();
+            }
+
             return null;
         }
     }

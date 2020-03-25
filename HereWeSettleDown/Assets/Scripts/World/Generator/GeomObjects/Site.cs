@@ -15,7 +15,7 @@ namespace World.Generator
             this.parent = parent;
             this.position = position;
         }
-        
+
         public void CalculateTriangles()
         {
             Site[] sites = GetNeighbourSites();
@@ -32,7 +32,9 @@ namespace World.Generator
                 foreach (Triangle triangle in triangles)
                 {
                     if (!containsIn.Contains(triangle))
+                    {
                         triangle.Confirm();
+                    }
                 }
             }
         }
@@ -47,7 +49,10 @@ namespace World.Generator
             return neighbourSites.ToArray();
         }
 
-        public static implicit operator Vector2(Site site) => site.position;
+        public static implicit operator Vector2(Site site)
+        {
+            return site.position;
+        }
     }
 }
 

@@ -15,7 +15,7 @@ namespace World.Generator.Nodes.WorldGenerator.Parts
 
         public object GetPartObject()
         {
-            var wGraph = (WorldGeneratorGraph)graph;
+            WorldGeneratorGraph wGraph = (WorldGeneratorGraph)graph;
             Type[] types = wGraph.GetPartTypes();
             Type type = types[selectedPart];
 
@@ -23,23 +23,28 @@ namespace World.Generator.Nodes.WorldGenerator.Parts
             part.RunInNewThread = NewThread;
 
             foreach (string fieldName in partObjectFields.Keys)
+            {
                 type.GetField(fieldName).SetValue(part, partObjectFields[fieldName]);
-            
+            }
+
             return part;
         }
 
         public override object GetValue(NodePort port)
         {
             if (port.fieldName == "genPart")
+            {
                 return GetPartObject();
+            }
+
             return null;
         }
 
         [Serializable]
         public class PartObjectFieldsDictionary : Dictionary<string, UnityEngine.Object>, ISerializationCallbackReceiver
         {
-            [SerializeField] private List<string> keys = new List<string>();
-            [SerializeField] private List<UnityEngine.Object> values = new List<UnityEngine.Object>();
+            [SerializeField] private readonly List<string> keys = new List<string>();
+            [SerializeField] private readonly List<UnityEngine.Object> values = new List<UnityEngine.Object>();
 
             public void OnBeforeSerialize()
             {
@@ -56,7 +61,9 @@ namespace World.Generator.Nodes.WorldGenerator.Parts
             {
                 Clear();
                 for (int i = 0; i < keys.Count; i++)
+                {
                     Add(keys[i], values[i]);
+                }
             }
         }
     }
