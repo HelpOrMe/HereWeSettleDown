@@ -9,8 +9,15 @@ namespace Settings
         public static AllSettingsObjectsDictionary AllSettingsObjects = new AllSettingsObjectsDictionary();
         [SerializeField] private AllSettingsObjectsDictionary allSettingsObject = new AllSettingsObjectsDictionary();
 
-        public void OnBeforeSerialize() => allSettingsObject = AllSettingsObjects;
-        public void OnAfterDeserialize() => AllSettingsObjects = allSettingsObject;
+        public void OnBeforeSerialize()
+        {
+            allSettingsObject = AllSettingsObjects;
+        }
+
+        public void OnAfterDeserialize()
+        {
+            AllSettingsObjects = allSettingsObject;
+        }
     }
 
     [Serializable]
@@ -35,7 +42,8 @@ namespace Settings
             Clear();
             for (int i = 0; i < keys.Count; i++)
             {
-                Add(Type.GetType($"Settings.{keys[i]}, Assembly-CSharp", false), values[i]);
+                try { Add(Type.GetType($"Settings.{keys[i]}, Assembly-CSharp", false), values[i]); }
+                catch { }
             }
         }
     }

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using Delaunay;
+﻿using Delaunay;
+using Helper.Debugger;
 using Helper.Math;
 using Helper.Random;
-using Helper.Debugger;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace World.Generator
 {

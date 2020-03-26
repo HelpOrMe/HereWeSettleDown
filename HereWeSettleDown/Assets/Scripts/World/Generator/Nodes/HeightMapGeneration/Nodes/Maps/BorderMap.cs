@@ -12,7 +12,7 @@ namespace World.Generator.Nodes.HeightMap.Maps
 
         public HeightMap GetOutMap()
         {
-            var ghp = (HeightMapGenerationGraph)graph;
+            HeightMapGenerationGraph ghp = (HeightMapGenerationGraph)graph;
             float[,] outMap = new float[ghp.mapWidth, ghp.mapHeight];
 
             int xDist = Mathf.RoundToInt(ghp.mapWidth * xDistPercent);
@@ -39,7 +39,7 @@ namespace World.Generator.Nodes.HeightMap.Maps
                         outMap[x, y] = fadeValue;
                 }
             }
-            
+
             // Right side
             for (int x = ghp.mapWidth - xDist; x < ghp.mapWidth; x++)
             {
@@ -50,7 +50,7 @@ namespace World.Generator.Nodes.HeightMap.Maps
                         outMap[x, y] = fadeValue;
                 }
             }
-            
+
             // Up side
             for (int x = 0; x < ghp.mapWidth; x++)
             {

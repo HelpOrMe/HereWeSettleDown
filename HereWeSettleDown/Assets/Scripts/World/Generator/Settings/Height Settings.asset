@@ -16,3 +16,27 @@ MonoBehaviour:
   heightOffset: 3
   heightSmoothIterations: 2
   heightSmoothCoef: 0.35
+  heightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.0018734
+      outSlope: 1.0018734
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 15.008476
+      value: 15.036593
+      inSlope: 1.0018734
+      outSlope: 1.0018734
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

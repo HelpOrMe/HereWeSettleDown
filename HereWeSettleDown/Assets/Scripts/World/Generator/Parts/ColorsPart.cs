@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using World.Map;
-using Helper.Debugger;
+﻿using Helper.Debugger;
 using Settings;
 using Settings.Generator;
+using UnityEngine;
+using World.Map;
 
 namespace World.Generator
 {

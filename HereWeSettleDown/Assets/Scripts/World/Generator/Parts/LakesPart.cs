@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Helper.Debugger;
 using Helper.Random;
-using Helper.Debugger;
 using Settings;
 using Settings.Generator;
+using System.Collections.Generic;
 
 namespace World.Generator
 {

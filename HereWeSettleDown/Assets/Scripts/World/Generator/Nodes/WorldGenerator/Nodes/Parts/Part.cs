@@ -15,7 +15,7 @@ namespace World.Generator.Nodes.WorldGenerator.Parts
 
         public object GetPartObject()
         {
-            var wGraph = (WorldGeneratorGraph)graph;
+            WorldGeneratorGraph wGraph = (WorldGeneratorGraph)graph;
             Type[] types = wGraph.GetPartTypes();
             Type type = types[selectedPart];
 
@@ -24,7 +24,7 @@ namespace World.Generator.Nodes.WorldGenerator.Parts
 
             foreach (string fieldName in partObjectFields.Keys)
                 type.GetField(fieldName).SetValue(part, partObjectFields[fieldName]);
-            
+
             return part;
         }
 

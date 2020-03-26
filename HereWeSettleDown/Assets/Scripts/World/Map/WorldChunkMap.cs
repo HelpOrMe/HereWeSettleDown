@@ -54,7 +54,7 @@ namespace World.Map
         {
             if (chunkMap == null)
                 return;
-            
+
             for (int x = 0; x < chunkXCount; x++)
             {
                 for (int y = 0; y < chunkYCount; y++)

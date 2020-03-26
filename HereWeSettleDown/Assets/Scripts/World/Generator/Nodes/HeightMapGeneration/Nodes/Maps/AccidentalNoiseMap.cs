@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using XNode;
+﻿using AccidentalNoise;
+using System.Threading;
 using World.Generator.Helper;
-using AccidentalNoise;
+using XNode;
 
 namespace World.Generator.Nodes.HeightMap.Maps
 {
@@ -17,8 +17,7 @@ namespace World.Generator.Nodes.HeightMap.Maps
         public float lacunarity = 2f;
 
         [Output] public HeightMap outMap;
-
-        float[,] outFloatMap;
+        private float[,] outFloatMap;
 
         public HeightMap GetOutMap()
         {
@@ -30,7 +29,7 @@ namespace World.Generator.Nodes.HeightMap.Maps
 
         public void GenerateMap()
         {
-            var ghp = (HeightMapGenerationGraph)graph;
+            HeightMapGenerationGraph ghp = (HeightMapGenerationGraph)graph;
             AccidentalNoiseSettings settings = new AccidentalNoiseSettings()
             {
                 fractalType = fractalType,

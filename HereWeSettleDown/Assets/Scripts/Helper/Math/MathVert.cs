@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -28,7 +27,7 @@ namespace Helper.Math
             x1 = point1.x; z1 = point1.y; y1 = point1.z;
             x2 = point2.x; z2 = point2.y; y2 = point2.z;
             x3 = point3.x; z3 = point3.y; y3 = point3.z;
-            
+
             // Calculate delta's
 
             float d10 = (y2 - y3) * (x - x3) + (x3 - x2) * (y - y3);
@@ -42,7 +41,7 @@ namespace Helper.Math
             float d3 = 1 - d1 - d2;
 
             float z = d1 * z1 + d2 * z2 + d3 * z3;
-            
+
             return z;
         }
 

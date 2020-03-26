@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using World.Map;
+﻿using Helper.Debugger;
 using Helper.Math;
-using Helper.Debugger;
 using Settings;
 using Settings.Generator;
+using UnityEngine;
+using World.Map;
 
 namespace World.Generator
 {
@@ -91,7 +91,8 @@ namespace World.Generator
                 for (int y = 0; y < WorldMesh.verticesMap.height; y++)
                 {
                     Vector3 vert = WorldMesh.verticesMap[x, y];
-                    vert.y = heightSettings.heightCurve.Evaluate(vert.y / WorldMesh.maxVertHeight);
+                    vert.y = heightSettings.heightCurve.Evaluate(vert.y / WorldMesh.maxVertHeight) * WorldMesh.maxVertHeight;
+                    WorldMesh.verticesMap[x, y] = vert;
                 }
             }
         }

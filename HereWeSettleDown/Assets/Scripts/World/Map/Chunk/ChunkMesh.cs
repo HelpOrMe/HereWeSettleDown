@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace World.Map
@@ -7,7 +6,7 @@ namespace World.Map
     public class ChunkMesh
     {
         private Chunk connectedChunk;
-        
+
         public int chunkX, chunkY;
         public int width, height;
         public Quad[,] quadMap;
@@ -112,9 +111,12 @@ namespace World.Map
         public static int or1 = 0;
         public static int or2 = 0;
 
-        private readonly Dictionary<int, int> reverseIndex = new Dictionary<int, int>() 
-        { 
-            [0] = 2, [2] = 0, [1] = 3, [3] = 1 
+        private readonly Dictionary<int, int> reverseIndex = new Dictionary<int, int>()
+        {
+            [0] = 2,
+            [2] = 0,
+            [1] = 3,
+            [3] = 1
         };
 
         private readonly int x, y;
@@ -158,7 +160,7 @@ namespace World.Map
             for (int i = 1; i < 5; i++)
                 middleVert += GetVert(i);
             middleVert = Vector3.Scale(middleVert, new Vector3(0.25f, 0.25f, 0.25f));
-            
+
             if (height != null)
                 middleVert.y = (float)height;
         }
@@ -171,28 +173,28 @@ namespace World.Map
         public Color[] colors = new Color[4];
         public Color this[int index]
         {
-            get { return colors[index]; }
+            get => colors[index];
             set { colors[index] = value; SetEditedPosition(); }
         }
 
         public Color DOWN
         {
-            get { return colors[3]; }
+            get => colors[3];
             set { colors[3] = value; SetEditedPosition(); }
         }
         public Color LEFT
         {
-            get { return colors[0]; }
+            get => colors[0];
             set { colors[0] = value; SetEditedPosition(); }
         }
         public Color UP
         {
-            get { return colors[1]; }
+            get => colors[1];
             set { colors[1] = value; SetEditedPosition(); }
         }
         public Color RIGHT
         {
-            get { return colors[2]; }
+            get => colors[2];
             set { colors[2] = value; SetEditedPosition(); }
         }
 

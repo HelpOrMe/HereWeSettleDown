@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91cdd2903c365be49a3edd1bbe28e9a6, type: 3}
   m_Name: Base Generator Settings
   m_EditorClassIdentifier: 
-  cellsCount: 2048
-  worldWidth: 128
-  worldHeight: 128
+  cellsCount: 8192
+  worldWidth: 512
+  worldHeight: 512
   chunkWidth: 64
   chunkHeight: 64

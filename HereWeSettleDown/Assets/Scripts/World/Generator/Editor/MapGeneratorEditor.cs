@@ -14,12 +14,21 @@ namespace World.Generator
             EditorGUILayout.Space();
             if (GUILayout.Button("Generate map"))
                 mapGenerator.GenerateMap();
-            if (GUILayout.Button("Recolor map"))
+
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Reset color"))
             {
                 new BiomesPart().action();
                 new ColorsPart().action();
-                Map.WorldMesh.ConfrimChangeSplited();
+                Map.WorldMesh.ConfrimChangeSplitted();
             }
+            if (GUILayout.Button("Reset height"))
+            {
+                new HeightPart().action();
+                Map.WorldMesh.ConfrimChangeSplitted();
+            }
+
+            GUILayout.EndHorizontal();
         }
     }
 }

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Helper.Threading;
 using Settings;
 using Settings.Generator;
-using Helper.Threading;
+using System;
 
 namespace World.Generator
 {
     [Serializable]
     public class GeneratorPart
     {
-        public Action action { get => GetAction(); }
+        public Action action => GetAction();
         public bool RunInNewThread = false;
         protected readonly BaseGeneratorSettings settings = SettingsObject.GetObject<BaseGeneratorSettings>();
 

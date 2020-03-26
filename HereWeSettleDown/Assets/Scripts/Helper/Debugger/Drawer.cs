@@ -1,6 +1,5 @@
-﻿using System.Threading;
+﻿using Helper.Threading;
 using UnityEngine;
-using Helper.Threading;
 
 namespace Helper.Debugger
 {

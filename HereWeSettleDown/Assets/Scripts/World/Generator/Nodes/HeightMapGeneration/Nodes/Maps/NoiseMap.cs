@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using XNode;
 using World.Generator.Helper;
+using XNode;
 
 namespace World.Generator.Nodes.HeightMap.Maps
 {
@@ -14,7 +14,7 @@ namespace World.Generator.Nodes.HeightMap.Maps
 
         public HeightMap GetOutMap()
         {
-            var ghp = (HeightMapGenerationGraph)graph;
+            HeightMapGenerationGraph ghp = (HeightMapGenerationGraph)graph;
             float[,] outMap = Noise.GenerateNoiseMap
                 (ghp.prng, ghp.mapWidth, ghp.mapHeight,
                 GetInputValue("scale", scale), GetInputValue("octaves", octaves),

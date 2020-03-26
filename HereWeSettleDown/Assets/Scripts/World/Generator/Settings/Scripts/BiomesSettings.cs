@@ -9,7 +9,7 @@ namespace Settings.Generator
         public string[] biomesTypes = new string[1];
         public int moistureLevels = 10;
         public int heightLevels = 10;
-        
+
         public SelectedBiomesArray selectedBiomes = new SelectedBiomesArray(10, 10);
 
         [Serializable]

@@ -9,7 +9,7 @@ namespace World.Map
 
         public bool Visible { get; private set; }
 
-        MeshFilter meshFilter;
+        private MeshFilter meshFilter;
 
         public Chunk(ChunkObject terrain, Transform parent, bool visible, ChunkMesh meshData)
         {
@@ -22,14 +22,14 @@ namespace World.Map
             meshData.ConnectChunk(this);
         }
 
-        void CreateChunkObject(ChunkObject terrain, Transform parent)
+        private void CreateChunkObject(ChunkObject terrain, Transform parent)
         {
             chunkObject = Object.Instantiate(terrain, parent);
             chunkObject.name = "Chunk" + meshData.chunkX + " " + meshData.chunkY;
             meshFilter = chunkObject.GetComponent<MeshFilter>();
         }
 
-        void UpdateMeshCollider()
+        private void UpdateMeshCollider()
         {
             MeshCollider collider = chunkObject.GetComponent<MeshCollider>();
             if (!collider)

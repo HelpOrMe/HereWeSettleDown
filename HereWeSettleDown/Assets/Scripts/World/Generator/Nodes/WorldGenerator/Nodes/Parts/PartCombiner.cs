@@ -17,7 +17,7 @@ namespace World.Generator.Nodes.WorldGenerator.Parts
 
         public void RemoveEmptyPartLayers()
         {
-            foreach (var port in DynamicInputs.ToArray())
+            foreach (NodePort port in DynamicInputs.ToArray())
             {
                 if (port.ConnectionCount == 0)
                 {

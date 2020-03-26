@@ -14,7 +14,8 @@ namespace Helper.Scene
                 return _rootGameObjects;
             }
         }
-        static GameObject[] _rootGameObjects;
+
+        private static GameObject[] _rootGameObjects;
 
         public static T[] FindRootSceneObjects<T>()
         {

@@ -23,7 +23,14 @@ namespace World.Generator
             }
         }
 
-        public static implicit operator Vector2Int(Vertex vert) => vert.position;
-        public static implicit operator Vector2(Vertex vert) => vert.position;
+        public static implicit operator Vector2Int(Vertex vert)
+        {
+            return vert.position;
+        }
+
+        public static implicit operator Vector2(Vertex vert)
+        {
+            return vert.position;
+        }
     }
 }

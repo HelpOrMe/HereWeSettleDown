@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Helper.Debugger;
+﻿using Helper.Debugger;
+using System.Collections.Generic;
 
 namespace World.Generator
 {

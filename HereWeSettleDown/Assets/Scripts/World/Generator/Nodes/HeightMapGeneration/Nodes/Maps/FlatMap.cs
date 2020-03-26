@@ -10,7 +10,7 @@ namespace World.Generator.Nodes.HeightMap.Maps
         {
             if (port.fieldName == "outMap")
             {
-                var ghp = (HeightMapGenerationGraph)graph;
+                HeightMapGenerationGraph ghp = (HeightMapGenerationGraph)graph;
                 return new HeightMap(new float[ghp.mapWidth, ghp.mapHeight]);
             }
             return null;
