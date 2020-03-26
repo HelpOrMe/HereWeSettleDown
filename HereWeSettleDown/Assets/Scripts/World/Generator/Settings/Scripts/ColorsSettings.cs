@@ -43,6 +43,6 @@ namespace Settings.Generator
     public class BiomeColors
     {
         public Color waterColor;
-        public Color[] heightColors = Array.Empty<Color>();
+        public Color[] heightColors = new Color[1];
     }
 }
