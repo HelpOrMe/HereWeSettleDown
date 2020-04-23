@@ -1,112 +1,62 @@
 fileFormatVersion: 2
-guid: 61654b9a3a293914fab7c69dfe7ade21
+guid: dadbda37e0965924f9dd9af67cdef7b4
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Cube.001
-    100002: Cube.002
-    100004: Cube.003
-    100006: Cube.004
-    100008: Cube.005
-    100010: Cube.006
-    100012: Cube.007
-    100014: Cube.008
-    100016: Cube.019
-    100018: Cube.020
-    100020: Cube.021
-    100022: Cube.022
-    100024: Cube.023
-    100026: Cube.024
-    100028: Cube.025
-    100030: Cube.028
-    100032: Cube.029
-    100034: Cube.030
-    100036: Torus.001
-    100038: Torus.002
-    100040: //RootNode
-    400000: Cube.001
-    400002: Cube.002
-    400004: Cube.003
-    400006: Cube.004
-    400008: Cube.005
-    400010: Cube.006
-    400012: Cube.007
-    400014: Cube.008
-    400016: Cube.019
-    400018: Cube.020
-    400020: Cube.021
-    400022: Cube.022
-    400024: Cube.023
-    400026: Cube.024
-    400028: Cube.025
-    400030: Cube.028
-    400032: Cube.029
-    400034: Cube.030
-    400036: Torus.001
-    400038: Torus.002
-    400040: //RootNode
-    2100000: Material.002
-    2100002: No Name
+    100000: //RootNode
+    100002: Cube.001
+    100004: Cube.002
+    100006: Cube.003
+    100008: Cube.004
+    100010: Cube.005
+    100012: Cube.006
+    100014: Cylinder
+    100016: Cylinder.001
+    100018: Torus
+    100020: Torus.001
+    400000: //RootNode
+    400002: Cube.001
+    400004: Cube.002
+    400006: Cube.003
+    400008: Cube.004
+    400010: Cube.005
+    400012: Cube.006
+    400014: Cylinder
+    400016: Cylinder.001
+    400018: Torus
+    400020: Torus.001
+    2100000: No Name
+    2100002: Material.003
     2300000: Cube.001
     2300002: Cube.002
     2300004: Cube.003
     2300006: Cube.004
     2300008: Cube.005
     2300010: Cube.006
-    2300012: Cube.007
-    2300014: Cube.008
-    2300016: Cube.019
-    2300018: Cube.020
-    2300020: Cube.021
-    2300022: Cube.022
-    2300024: Cube.023
-    2300026: Cube.024
-    2300028: Cube.025
-    2300030: Cube.028
-    2300032: Cube.029
-    2300034: Cube.030
-    2300036: Torus.001
-    2300038: Torus.002
+    2300012: Cylinder
+    2300014: Cylinder.001
+    2300016: Torus
+    2300018: Torus.001
     3300000: Cube.001
     3300002: Cube.002
     3300004: Cube.003
     3300006: Cube.004
     3300008: Cube.005
     3300010: Cube.006
-    3300012: Cube.007
-    3300014: Cube.008
-    3300016: Cube.019
-    3300018: Cube.020
-    3300020: Cube.021
-    3300022: Cube.022
-    3300024: Cube.023
-    3300026: Cube.024
-    3300028: Cube.025
-    3300030: Cube.028
-    3300032: Cube.029
-    3300034: Cube.030
-    3300036: Torus.001
-    3300038: Torus.002
-    4300000: Cube.019
-    4300002: Cube.020
-    4300004: Cube.021
-    4300006: Cube.022
-    4300008: Cube.023
-    4300010: Cube.024
-    4300012: Cube.025
-    4300014: Cube.028
-    4300016: Cube.029
-    4300018: Cube.030
-    4300020: Torus.002
-    4300022: Cube.001
-    4300024: Cube.002
-    4300026: Cube.003
-    4300028: Cube.004
-    4300030: Cube.005
-    4300032: Cube.006
-    4300034: Cube.007
-    4300036: Torus.001
-    4300038: Cube.008
+    3300012: Cylinder
+    3300014: Cylinder.001
+    3300016: Torus
+    3300018: Torus.001
+    4300000: Torus
+    4300002: Cube.004
+    4300004: Cube.001
+    4300006: Cube.002
+    4300008: Cube.003
+    4300010: Cube.005
+    4300012: Cube.006
+    4300014: Cylinder
+    4300016: Cylinder.001
+    4300018: Torus.001
   externalObjects: {}
   materials:
     importMaterials: 1
