@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Settings
 {
+    [Serializable]
     public class SerializedSettings : ScriptableObject, ISerializationCallbackReceiver
     {
         public static AllSettingsObjectsDictionary AllSettingsObjects = new AllSettingsObjectsDictionary();
@@ -11,7 +12,10 @@ namespace Settings
 
         public void OnBeforeSerialize()
         {
-            allSettingsObject = AllSettingsObjects;
+            if (AllSettingsObjects.Count > 0)
+            {
+                allSettingsObject = AllSettingsObjects;
+            }
         }
 
         public void OnAfterDeserialize()

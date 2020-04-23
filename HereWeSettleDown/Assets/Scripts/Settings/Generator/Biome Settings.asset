@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4736a3d0d9b631c46ab608efa00424ee, type: 3}
-  m_Name: Biomes Settings
+  m_Name: Biome Settings
   m_EditorClassIdentifier: 
   biomesTypes:
   - SNOW

@@ -1,10 +1,16 @@
-﻿using Helper.Debugger;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Helper.Debugger;
+using Settings;
+using Settings.Generator;
 
 namespace World.Generator
 {
     public class MoisturePart : GeneratorPart
     {
+        private readonly MoistureSettings moistureSettings = SettingsObject.GetObject<MoistureSettings>();
+
+
         protected override void Run()
         {
             Watcher.WatchRun(SetMoisture);
@@ -12,24 +18,36 @@ namespace World.Generator
 
         private void SetMoisture()
         {
-            foreach (Region region in RegionsInfo.regions)
-                region.type.Moisture = RegionsInfo.MaxDistIndex - region.type.DistIndexFromCoastline;
+            RegionsInfo.UpdateMoistureIndex(RegionsInfo.MaxDistIndex);
 
-            foreach (Lake lake in LakesInfo.lakes)
+            // Set ocean moisture
+            foreach (Region region in RegionsInfo.regions)
+                if (moistureSettings.SetMoistureFromOcean || region.type.DistIndexFromCoastline <= 0)
+                    region.type.Moisture = RegionsInfo.MaxDistIndex - region.type.DistIndexFromCoastline;
+            
+            // Set lakes moisture
+            if (moistureSettings.SetMoistureFromLakes)
+                SetMoistureAround(LakesInfo.lakes.ToList());
+
+            // Set river moisture
+            if (moistureSettings.SetMoistureFromRivers)
             {
-                List<Region> lakeRegions = new List<Region>();
-                foreach (Vertex vertex in lake.vertices)
-                    lakeRegions.AddRange(vertex.incidentRegions);
-                SetLakeMoisture(lakeRegions);
+                foreach (River river in RiversInfo.rivers)
+                {
+                    List<Region> riverRegions = new List<Region>();
+                    foreach (Vertex vertex in river.vertices)
+                        riverRegions.AddRange(vertex.incidentRegions);
+                    SetMoistureAround(riverRegions);
+                }
             }
         }
 
-        private void SetLakeMoisture(List<Region> regionsLayer)
+        private void SetMoistureAround(List<Region> regionsLayer)
         {
             int moisture = RegionsInfo.MaxMoistureIndex;
 
             foreach (Region region in regionsLayer)
-                if (region.type.Moisture < moisture)
+                if (region.type.Moisture == null || region.type.Moisture < moisture)
                     region.type.Moisture = moisture;
 
             while (regionsLayer.Count > 0)
@@ -42,7 +60,7 @@ namespace World.Generator
                 {
                     foreach (Region nRegion in region.neighbours)
                     {
-                        if (nRegion.type == null || nRegion.type.Moisture < moisture)
+                        if (nRegion.type.Moisture == null || nRegion.type.Moisture < moisture)
                         {
                             nRegion.type.Moisture = moisture;
                             regionsLayer.Add(nRegion);

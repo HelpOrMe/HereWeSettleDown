@@ -6,20 +6,20 @@ using System.Collections.Generic;
 
 namespace World.Generator
 {
-    public class LakesPart : GeneratorPart
+    public class RiversPart : GeneratorPart
     {
-        private readonly List<Lake> lakes = new List<Lake>();
-        private readonly LakeSettings lakeSettings = SettingsObject.GetObject<LakeSettings>();
+        private readonly List<River> rivers = new List<River>();
+        private readonly RiverSettings riverSettings = SettingsObject.GetObject<RiverSettings>();
 
         protected override void Run()
         {
-            Watcher.WatchRun(SetLakes);
+            Watcher.WatchRun(SetRivers);
         }
 
-        private void SetLakes()
+        private void SetRivers()
         {
-            int rndLakedCount = Seed.Range(lakeSettings.MinLakeCount, lakeSettings.MaxLakeCount);
-            for (int i = 0; i < rndLakedCount; i++)
+            int rndRiverCount = Seed.Range(riverSettings.MinRiverCount, riverSettings.MaxRiverCount);
+            for (int i = 0; i < rndRiverCount; i++)
             {
                 while (true)
                 {
@@ -27,15 +27,15 @@ namespace World.Generator
                     if (region.type.isGround && region.type.DistIndexFromCoastline > 2)
                     {
                         Vertex vertex = region.vertices[Seed.Range(0, region.vertices.Length)];
-                        Lake lake = new Lake(vertex);
-                        lake.Set();
-                        lakes.Add(lake);
+                        River river = new River(vertex);
+                        river.Set();
+                        rivers.Add(river);
                         break;
                     }
                 }
             }
-            LakesInfo.lakes = lakes.ToArray();
-            LakesInfo.UpdateLakesMap();
+            RiversInfo.rivers = rivers.ToArray();
+            RiversInfo.UpdateRiversMap();
         }
     }
 }

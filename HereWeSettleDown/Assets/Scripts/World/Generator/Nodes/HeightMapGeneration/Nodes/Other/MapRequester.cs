@@ -10,7 +10,16 @@ namespace World.Generator.Nodes.HeightMap.Other
         protected override void Init()
         {
             HeightMapGenerationGraph gph = (HeightMapGenerationGraph)graph;
-            gph.requester = this;
+            if (!gph.requesters.Contains(this))
+            {
+                gph.requesters.Add(this);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            HeightMapGenerationGraph gph = (HeightMapGenerationGraph)graph;
+            gph.requesters.Remove(this);
         }
 
         public HeightMap GetHeightMap()

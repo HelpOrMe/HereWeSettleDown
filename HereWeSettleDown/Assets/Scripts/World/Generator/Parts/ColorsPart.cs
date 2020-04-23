@@ -10,7 +10,6 @@ namespace World.Generator
     {
         private ColorsSettings colorsSettings = SettingsObject.GetObject<ColorsSettings>();
 
-
         protected override void Run()
         {
             Watcher.WatchRun(DrawRegionColors, SmoothColors);
@@ -47,10 +46,10 @@ namespace World.Generator
                 }
             }
 
-            // Draw lake colors
-            foreach (Lake lake in LakesInfo.lakes)
+            // Draw river colors
+            foreach (River river in RiversInfo.rivers)
             {
-                foreach (Vector2Int pos in lake.path)
+                foreach (Vector2Int pos in river.path)
                 {
                     Region region = RegionsInfo.regionsMap[pos.x, pos.y];
                     BiomeColors biomeColors = colorsSettings.biomeColors[region.type.biomeType];

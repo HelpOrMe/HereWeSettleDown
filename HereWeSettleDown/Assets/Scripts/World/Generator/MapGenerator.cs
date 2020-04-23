@@ -26,7 +26,7 @@ namespace World.Generator
 
             // Voronoi > Regions > Calculate triangles
             // WaterMask > SetWater > SetCoastline > Set distances
-            // Set lakes
+            // Set rivers
             // Set height > Smooth height
             // Set wet
             // Draw colors > smooth colors
@@ -34,6 +34,26 @@ namespace World.Generator
             AThread thread = new AThread(generatorGraph.GetGenerateAction());
             thread.Start();
             thread.RunAfterThreadEnd(() => WorldChunkMap.CreateChunks(chunkObject, transform, true));
+        }
+
+        public void Debug_DrawMoisture()
+        {
+            foreach (Region region in RegionsInfo.regions)
+            {
+                Color targetColor = Color.Lerp(Color.white, Color.black, (float)region.type.Moisture / RegionsInfo.MaxMoistureIndex);
+                region.DoForEachPosition(pos => WorldMesh.colorMap[pos.x, pos.y].ALL = targetColor);
+            }
+            WorldMesh.ConfrimChangeSplitted();
+        }
+
+        public void Debug_DrawHeight()
+        {
+            foreach (Region region in RegionsInfo.regions)
+            {
+                Color targetColor = Color.Lerp(Color.black, Color.white, (float)region.type.DistIndexFromCoastline / RegionsInfo.MaxDistIndex);
+                region.DoForEachPosition(pos => WorldMesh.colorMap[pos.x, pos.y].ALL = targetColor);
+            }
+            WorldMesh.ConfrimChangeSplitted();
         }
     }
 }

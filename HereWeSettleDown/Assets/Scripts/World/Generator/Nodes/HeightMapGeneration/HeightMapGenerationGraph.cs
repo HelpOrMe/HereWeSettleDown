@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using World.Generator.Nodes.HeightMap.Other;
 using XNode;
 
@@ -21,19 +22,21 @@ namespace World.Generator.Nodes.HeightMap
         }
         private System.Random _prng;
 
-
         public int mapWidth = 256;
         public int mapHeight = 256;
 
-        public MapRequester requester;
+        public List<MapRequester> requesters;
 
-        public float[,] GetMap(int width, int height, System.Random prng)
+        public void SetGraphSettings(int width, int height, System.Random prng)
         {
             _prng = prng;
             mapWidth = width;
             mapHeight = height;
-            return requester.GetHeightMap().map;
+        }
+
+        public float[,] GetMap(int requesterInd)
+        {
+            return requesters[requesterInd].GetHeightMap().map;
         }
     }
 }
-

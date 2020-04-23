@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace World.Generator
 {
-    public class Lake
+    public class River
     {
         public readonly Vertex startVertex;
         public readonly List<Vertex> vertices = new List<Vertex>();
         public readonly List<Vector2Int> path = new List<Vector2Int>();
 
-        public Lake(Vertex startVertex)
+        public River(Vertex startVertex)
         {
             this.startVertex = startVertex;
         }

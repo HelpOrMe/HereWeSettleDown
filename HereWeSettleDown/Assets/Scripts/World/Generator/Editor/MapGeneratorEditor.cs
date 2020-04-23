@@ -13,11 +13,16 @@ namespace World.Generator
 
             EditorGUILayout.Space();
             if (GUILayout.Button("Generate map"))
+            {
                 mapGenerator.GenerateMap();
+            }
+
+            EditorGUILayout.Space();
 
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Reset color"))
             {
+                new MoisturePart().action();
                 new BiomesPart().action();
                 new ColorsPart().action();
                 Map.WorldMesh.ConfrimChangeSplitted();
@@ -27,7 +32,17 @@ namespace World.Generator
                 new HeightPart().action();
                 Map.WorldMesh.ConfrimChangeSplitted();
             }
+            GUILayout.EndHorizontal();
 
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Debug moisture"))
+            {
+                mapGenerator.Debug_DrawMoisture();
+            }
+            if (GUILayout.Button("Debug height"))
+            {
+                mapGenerator.Debug_DrawHeight();
+            }
             GUILayout.EndHorizontal();
         }
     }
