@@ -4,7 +4,7 @@ namespace Helper.Threading
 {
     public class AThreadMono : MonoBehaviour
     {
-        
+
     }
 }
 

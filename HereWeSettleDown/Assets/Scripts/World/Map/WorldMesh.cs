@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Helper.Scene;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace World.Map
@@ -7,19 +9,22 @@ namespace World.Map
     {
         // In quads
         private static int mapWidth, mapHeight;
+        public static float minVertHeight, maxVertHeight;
+
         private static int chunkWidth, chunkHeight;
         private static int chunkXCount, chunkYCount;
 
         public static VerticesMap verticesMap;
         public static ColorMap colorMap;
-        
+        public static OriantationMap oriantationMap;
+
         public static ChunkMesh[,] chunkMeshMap;
 
         private static readonly Dictionary<ChunkMesh, List<Vector2Int>> editedChunks = new Dictionary<ChunkMesh, List<Vector2Int>>();
 
         public static void CreateWorldMesh(int width, int height, int chunkWidth, int chunkHeight)
         {
-            mapWidth = width; 
+            mapWidth = width;
             mapHeight = height;
 
             WorldMesh.chunkWidth = chunkWidth;
@@ -28,8 +33,12 @@ namespace World.Map
             chunkXCount = width / chunkWidth;
             chunkYCount = height / chunkHeight;
 
+            minVertHeight = float.MaxValue;
+            maxVertHeight = float.MinValue;
+
             SetEmptyVerticesMap();
             SetEmptyColorMap();
+            SetEmptyOriantationMap();
 
             chunkMeshMap = new ChunkMesh[chunkXCount, chunkYCount];
             for (int x = 0; x < chunkXCount; x++)
@@ -67,16 +76,29 @@ namespace World.Map
             colorMap = new ColorMap(colorQuadMap);
         }
 
+        public static void SetEmptyOriantationMap()
+        {
+            int[,] map = new int[mapWidth, mapHeight];
+            for (int x = 0; x < mapWidth; x++)
+            {
+                for (int y = 0; y < mapHeight; y++)
+                {
+                    map[x, y] = 0;
+                }
+            }
+            oriantationMap = new OriantationMap(map);
+        }
+
         public static void SetEditedPosition(int x, int y)
         {
             Vector2Int pos = VertexPosToQuadPos(new Vector2Int(x, y));
-            ChunkMesh chunkMesh = GetChunkMesh(pos.x, pos.y);;
+            ChunkMesh chunkMesh = GetChunkMesh(pos.x, pos.y); ;
             if (!editedChunks.ContainsKey(chunkMesh))
                 editedChunks[chunkMesh] = new List<Vector2Int>();
             editedChunks[chunkMesh].Add(new Vector2Int(x % chunkWidth, y % chunkHeight));
         }
 
-        public static void ConfirmChanges()
+        public static void ConfirmChanges(bool updateChunks = true)
         {
             foreach (ChunkMesh chunkMesh in editedChunks.Keys)
             {
@@ -84,7 +106,28 @@ namespace World.Map
                 {
                     chunkMesh.UpdateQuadValues(editedQuad.x, editedQuad.y);
                 }
-                chunkMesh.UpdateConnectedChunk();
+                if (updateChunks)
+                    chunkMesh.UpdateConnectedChunk();
+            }
+            editedChunks.Clear();
+        }
+
+        public static void ConfrimChangeSplitted(bool updateChunks = true)
+        {
+            ObjectMono.MonoBeh.StartCoroutine(ConfirmChangesCoro(updateChunks));
+        }
+
+        private static IEnumerator ConfirmChangesCoro(bool updateChunks)
+        {
+            foreach (ChunkMesh chunkMesh in editedChunks.Keys)
+            {
+                foreach (Vector2Int editedQuad in editedChunks[chunkMesh])
+                {
+                    chunkMesh.UpdateQuadValues(editedQuad.x, editedQuad.y);
+                }
+                if (updateChunks)
+                    chunkMesh.UpdateConnectedChunk();
+                yield return new WaitForEndOfFrame();
             }
             editedChunks.Clear();
         }
@@ -101,6 +144,12 @@ namespace World.Map
                     chunkMeshMap[x, y].UpdateConnectedChunk();
                 }
             }
+        }
+
+        public static void UpdateHeight(float alt)
+        {
+            if (minVertHeight > alt) minVertHeight = alt;
+            if (maxVertHeight < alt) maxVertHeight = alt;
         }
 
         public static Vector3 GetNearVertexPos(Vector3 worldPosition)
@@ -134,11 +183,37 @@ namespace World.Map
                 Mathf.RoundToInt(quadY / chunkHeight)];
         }
 
-        public static Vector2Int VertexPosToQuadPos(Vector2 pos)
+        public static Vector2Int VertexPosToQuadPos(Vector2Int pos)
         {
             return new Vector2Int(
-                (int)Mathf.Clamp(pos.x, 0, mapWidth - 1),
-                (int)Mathf.Clamp(pos.y, 0, mapHeight - 1));
+                Mathf.Clamp(pos.x, 0, mapWidth - 1),
+                Mathf.Clamp(pos.y, 0, mapHeight - 1));
+        }
+
+        public static Vector2Int VertexPosToQuadPos(Vector2Int pos1, Vector2Int pos2)
+        {
+            Vector2Int offset = pos1 - pos2;
+
+            if (offset == new Vector2Int(-1, 1))
+                return pos1 + Vector2Int.down;
+            if (offset == new Vector2Int(1, -1))
+                return pos1 + Vector2Int.left;
+            if (offset == new Vector2Int(-1, -1))
+                return pos2;
+            if (offset == new Vector2Int(1, 1))
+                return pos1;
+            return VertexPosToQuadPos(pos1);
+        }
+
+        public static int GetOriantation(Vector2Int pos1, Vector2Int pos2)
+        {
+            Vector2Int offset = pos1 - pos2;
+
+            if (offset == new Vector2Int(-1, 1) || offset == new Vector2Int(1, -1))
+                return 1;
+            if (offset == new Vector2Int(-1, -1) || offset == new Vector2Int(1, 1))
+                return 2;
+            return 0;
         }
     }
 }

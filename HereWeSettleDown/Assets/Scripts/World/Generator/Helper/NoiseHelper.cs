@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using AccidentalNoise;
+﻿using AccidentalNoise;
+using UnityEngine;
 
 namespace World.Generator.Helper
 {
@@ -130,7 +130,7 @@ namespace World.Generator.Helper
             return map;
         }
 
-        static float EvaluateFalloffValue(float value)
+        private static float EvaluateFalloffValue(float value)
         {
             float a = 3;
             float b = 2.2f;

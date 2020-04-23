@@ -4,6 +4,7 @@ namespace World.Map
 {
     public static class WorldChunkMap
     {
+        // In quads
         public static int worldWidth { get; private set; }
         public static int worldHeight { get; private set; }
 
@@ -36,6 +37,7 @@ namespace World.Map
             if (WorldMesh.chunkMeshMap == null)
                 return;
 
+            WorldMesh.ConfirmChanges(false);
             ClearChunkMap();
 
             chunkMap = new Chunk[chunkXCount, chunkYCount];
@@ -52,7 +54,7 @@ namespace World.Map
         {
             if (chunkMap == null)
                 return;
-            
+
             for (int x = 0; x < chunkXCount; x++)
             {
                 for (int y = 0; y < chunkYCount; y++)

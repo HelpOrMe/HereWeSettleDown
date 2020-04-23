@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Helper.Scene;
+using System;
 using System.Collections;
-using System.Threading;
 using System.Diagnostics;
+using System.Threading;
 using UnityEngine;
-using Helper.Scene;
-using Helper.Debugger;
 
 namespace Helper.Threading
 {
+    [Serializable]
     public class AThread
     {
         public string Name
@@ -24,8 +24,10 @@ namespace Helper.Threading
 
         public AThread(ParameterizedThreadStart start)
         {
-            thread = new Thread(start);
-            thread.Name = start.GetType().Name;
+            thread = new Thread(start)
+            {
+                Name = start.GetType().Name
+            };
         }
 
         public AThread(params Action[] actions)
@@ -33,18 +35,17 @@ namespace Helper.Threading
             this.actions = actions;
             actionsStart = true;
 
-            thread = new Thread(ActionsInvoker);
-            thread.Name = "Actions Thread";
+            thread = new Thread(ActionsInvoker)
+            {
+                Name = "Actions Thread"
+            };
         }
-        
+
         private void ActionsInvoker()
         {
-            Stopwatch stopwatch = new Stopwatch();
             foreach (Action action in actions)
             {
-                Watcher watcher = new Watcher(action);
-                watcher.Start();
-                UnityEngine.Debug.Log($"{Name} > {watcher.LogText()}");
+                action();
             }
         }
 

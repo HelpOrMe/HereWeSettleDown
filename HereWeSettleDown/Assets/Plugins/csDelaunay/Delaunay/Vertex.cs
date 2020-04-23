@@ -26,7 +26,7 @@ namespace csDelaunay {
 		#endregion
 
 		#region Object
-		private Vector2 coord;
+		public Vector2 coord;
 		public Vector2 Coord {get{return coord;}set{coord=value;}}
 
 		public float x {get{return coord.x;}}
@@ -40,7 +40,6 @@ namespace csDelaunay {
 
 		private Vertex Init(float x, float y) {
 			coord = new Vector2(x,y);
-
 			return this;
 		}
 
