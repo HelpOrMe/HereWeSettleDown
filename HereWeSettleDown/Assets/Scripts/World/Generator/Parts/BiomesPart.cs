@@ -1,4 +1,4 @@
-﻿using Helper.Debugger;
+﻿using Helper.Debugging;
 using Settings;
 using Settings.Generator;
 using UnityEngine;
@@ -7,7 +7,7 @@ namespace World.Generator
 {
     public class BiomesPart : GeneratorPart
     {
-        private BiomesSettings biomesSettings = SettingsObject.GetObject<BiomesSettings>();
+        private BiomesSettings biomesSettings = SerializedSettings.GetSettings<BiomesSettings>();
 
         protected override void Run()
         {

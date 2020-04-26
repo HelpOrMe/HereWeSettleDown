@@ -1,4 +1,5 @@
 ﻿using Helper.Scene;
+using Helper.Debugging;
 using System;
 using System.Collections;
 using System.Diagnostics;
@@ -78,7 +79,7 @@ namespace Helper.Threading
 
         private void StartDebug()
         {
-            UnityEngine.Debug.Log(Name + " starts");
+            Log.Info(Name, "starts");
             debugStopwatch.Start();
             RunAfterThreadEnd(EndDebug);
         }
@@ -86,7 +87,7 @@ namespace Helper.Threading
         private void EndDebug()
         {
             debugStopwatch.Stop();
-            UnityEngine.Debug.Log($"The {Name} ended after {debugStopwatch.ElapsedMilliseconds} mS.");
+            Log.Info("The", Name, "ended after", debugStopwatch.ElapsedMilliseconds, "ms.");
         }
     }
 }

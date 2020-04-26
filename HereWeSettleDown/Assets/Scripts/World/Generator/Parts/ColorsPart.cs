@@ -1,4 +1,4 @@
-﻿using Helper.Debugger;
+﻿using Helper.Debugging;
 using Settings;
 using Settings.Generator;
 using UnityEngine;
@@ -8,7 +8,7 @@ namespace World.Generator
 {
     public class ColorsPart : GeneratorPart
     {
-        private ColorsSettings colorsSettings = SettingsObject.GetObject<ColorsSettings>();
+        private ColorsSettings colorsSettings = SerializedSettings.GetSettings<ColorsSettings>();
 
         protected override void Run()
         {

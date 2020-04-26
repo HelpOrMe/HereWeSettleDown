@@ -1,4 +1,4 @@
-﻿using Helper.Debugger;
+﻿using Helper.Debugging;
 using Helper.Random;
 using Settings;
 using Settings.Generator;
@@ -9,7 +9,7 @@ namespace World.Generator
     public class RiversPart : GeneratorPart
     {
         private readonly List<River> rivers = new List<River>();
-        private readonly RiverSettings riverSettings = SettingsObject.GetObject<RiverSettings>();
+        private readonly RiverSettings riverSettings = SerializedSettings.GetSettings<RiverSettings>();
 
         protected override void Run()
         {

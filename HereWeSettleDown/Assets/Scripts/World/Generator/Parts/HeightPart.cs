@@ -1,4 +1,4 @@
-﻿using Helper.Debugger;
+﻿using Helper.Debugging;
 using Helper.Math;
 using Settings;
 using Settings.Generator;
@@ -9,7 +9,7 @@ namespace World.Generator
 {
     public class HeightPart : GeneratorPart
     {
-        private readonly HeightSettings heightSettings = SettingsObject.GetObject<HeightSettings>();
+        private readonly HeightSettings heightSettings = SerializedSettings.GetSettings<HeightSettings>();
 
         protected override void Run()
         {

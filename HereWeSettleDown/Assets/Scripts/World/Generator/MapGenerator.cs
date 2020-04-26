@@ -1,4 +1,4 @@
-﻿using Helper.Debugger;
+﻿using Helper.Debugging;
 using Helper.Random;
 using Helper.Threading;
 using Settings;
@@ -18,8 +18,9 @@ namespace World.Generator
         public void GenerateMap()
         {
             Seed.seed = testSeed;
+            Log.InfoSet("Seed");
 
-            BaseGeneratorSettings set = SettingsObject.GetObject<BaseGeneratorSettings>();
+            BaseGeneratorSettings set = SerializedSettings.GetSettings<BaseGeneratorSettings>();
 
             Watcher.WatchRun(() => WorldMesh.CreateWorldMesh(set.worldWidth, set.worldHeight, set.chunkWidth, set.chunkHeight), "CreateWorldMesh");
             Watcher.WatchRun(() => WorldChunkMap.CreateMap(set.worldWidth, set.worldHeight, set.chunkWidth, set.chunkHeight, chunkObject.transform.localScale), "CreateMap");
@@ -28,7 +29,7 @@ namespace World.Generator
             // WaterMask > SetWater > SetCoastline > Set distances
             // Set rivers
             // Set height > Smooth height
-            // Set wet
+            // Set moisture
             // Draw colors > smooth colors
 
             AThread thread = new AThread(generatorGraph.GetGenerateAction());

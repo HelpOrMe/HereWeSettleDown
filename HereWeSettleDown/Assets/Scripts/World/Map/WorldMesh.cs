@@ -1,4 +1,5 @@
-﻿using Helper.Scene;
+﻿using Helper.Debugging;
+using Helper.Scene;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,8 @@ namespace World.Map
             minVertHeight = float.MaxValue;
             maxVertHeight = float.MinValue;
 
+            Log.InfoSet("Mesh map size");
+
             SetEmptyVerticesMap();
             SetEmptyColorMap();
             SetEmptyOriantationMap();
@@ -48,6 +51,8 @@ namespace World.Map
                     chunkMeshMap[x, y] = new ChunkMesh(chunkWidth, chunkHeight, x, y);
                 }
             }
+
+            Log.InfoSet("Chunk mesh map");
         }
 
         public static void SetEmptyVerticesMap()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Helper.Debugging;
+using UnityEngine;
 
 namespace World.Map
 {
@@ -30,6 +31,8 @@ namespace World.Map
 
             chunkXCount = worldWidth / chunkWidth;
             chunkYCount = worldHeight / chunkHeight;
+
+            Log.InfoSet("World chunk size");
         }
 
         public static void CreateChunks(ChunkObject terrain, Transform parent, bool visible)

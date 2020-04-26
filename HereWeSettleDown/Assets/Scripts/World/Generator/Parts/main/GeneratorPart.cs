@@ -10,7 +10,17 @@ namespace World.Generator
     {
         public Action action => GetAction();
         public bool RunInNewThread = false;
-        protected readonly BaseGeneratorSettings settings = SettingsObject.GetObject<BaseGeneratorSettings>();
+
+        protected BaseGeneratorSettings settings
+        {
+            get
+            {
+                if (_settings == null)
+                    _settings = SerializedSettings.GetSettings<BaseGeneratorSettings>();
+                return _settings;
+            }
+        }
+        [NonSerialized] private BaseGeneratorSettings _settings;
 
         protected virtual void Run() { }
 

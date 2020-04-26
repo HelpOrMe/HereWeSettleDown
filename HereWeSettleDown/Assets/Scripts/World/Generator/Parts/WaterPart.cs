@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Helper.Debugger;
+using Helper.Debugging;
 using Helper.Math;
 using Helper.Random;
 using World.Generator.Nodes.HeightMap;
@@ -28,8 +28,8 @@ namespace World.Generator
 
         private void SetRegionTypes()
         {
-            SetLakes();
             SetGround();
+            SetLakes();
         }
 
         private void SetLakes()
@@ -44,7 +44,7 @@ namespace World.Generator
 
             // Список всех озер и океана
             var allRegionGroups = new List<List<Region>>();
-
+            
             // Объединяем соединенные регионы воды в списки
             while (waterRegions.Count > 0)
             {
@@ -52,40 +52,32 @@ namespace World.Generator
                 Region targetRegion = waterRegions[0];
                 waterRegions.RemoveAt(0);
 
-                // Список соединенных регионов воды по слоям
-                List<List<Region>> regionLayers = new List<List<Region>>
-                {
-                    new List<Region>() { targetRegion }
-                };
+                var regionGroup = new List<Region>();
+                var oldRegions = new List<Region>() { targetRegion };
 
                 // Ищем соединенные регионы воды
-                while (regionLayers.Last().Count > 0)
+                while (oldRegions.Count > 0)
                 {
-                    var oldRegions = new List<Region>();
-                    if (regionLayers.Count > 1)
-                        oldRegions = regionLayers[regionLayers.Count - 2];
                     var newRegions = new List<Region>();
 
                     // Перебираем все последние регионы
-                    foreach (Region region in regionLayers.Last())
+                    foreach (Region region in oldRegions)
                     {
                         // Берем все соседние регионы воды
                         foreach (Region regionNr in region.neighbours)
                         {
-                            if (regionNr.type.isWater && !oldRegions.Contains(regionNr))
+                            if (regionNr.type.isWater && !regionGroup.Contains(regionNr))
                             {
                                 waterRegions.Remove(regionNr);
                                 newRegions.Add(regionNr);
+                                regionGroup.Add(regionNr);
                             }
                         }
                     }
-                    regionLayers.Add(newRegions);
+                    oldRegions = newRegions;
                 }
 
                 // Добавляем соединенные регионы в общий список
-                var regionGroup = new List<Region>();
-                foreach (var regionLayer in regionLayers)
-                    regionGroup.AddRange(regionLayer);
                 allRegionGroups.Add(regionGroup);
             }
 

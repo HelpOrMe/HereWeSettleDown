@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-//using Helper.Debugger;
+//using Helper.Debugging;
 
 namespace World.Generator
 {

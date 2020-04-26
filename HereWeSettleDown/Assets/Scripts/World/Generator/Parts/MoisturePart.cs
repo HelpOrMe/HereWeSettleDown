@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Helper.Debugger;
+using Helper.Debugging;
 using Settings;
 using Settings.Generator;
 
@@ -8,7 +8,7 @@ namespace World.Generator
 {
     public class MoisturePart : GeneratorPart
     {
-        private readonly MoistureSettings moistureSettings = SettingsObject.GetObject<MoistureSettings>();
+        private readonly MoistureSettings moistureSettings = SerializedSettings.GetSettings<MoistureSettings>();
 
 
         protected override void Run()

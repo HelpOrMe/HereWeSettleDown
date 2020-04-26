@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Helper.Debugger
+namespace Helper.Debugging
 {
     public class Watcher
     {
@@ -18,8 +18,9 @@ namespace Helper.Debugger
         public static void WatchRun(Action action, string name = null)
         {
             Watcher watcher = new Watcher(action, name);
+            Log.Info(watcher.StartLogText());
             watcher.Start();
-            watcher.Log();
+            Log.Info(watcher.EndLogText());
         }
 
         public static void WatchRun(params Action[] actions)
@@ -27,8 +28,9 @@ namespace Helper.Debugger
             foreach (Action action in actions)
             {
                 Watcher watcher = new Watcher(action, null);
+                Log.Info(watcher.StartLogText());
                 watcher.Start();
-                watcher.Log();
+                Log.Info(watcher.EndLogText());
             }
         }
 
@@ -41,15 +43,16 @@ namespace Helper.Debugger
             return stopwatch;
         }
 
-        public string LogText()
+        public string StartLogText()
         {
-            string mName = name == null ? action.Method.Name : name;
-            return $"{mName} ends after {stopwatch.ElapsedMilliseconds} mS.";
+            string mName = name ?? action.Method.Name;
+            return $"{mName} started.";
         }
 
-        public void Log()
+        public string EndLogText()
         {
-            UnityEngine.Debug.Log(LogText());
+            string mName = name ?? action.Method.Name;
+            return $"{mName} completed after {stopwatch.ElapsedMilliseconds} ms.";
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Delaunay;
-using Helper.Debugger;
+using Helper.Debugging;
 using Helper.Math;
 using Helper.Random;
 using System.Collections.Generic;

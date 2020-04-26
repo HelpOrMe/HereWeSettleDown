@@ -1,7 +1,7 @@
 ﻿using Helper.Threading;
 using UnityEngine;
 
-namespace Helper.Debugger
+namespace Helper.Debugging
 {
     public static class Drawer
     {
