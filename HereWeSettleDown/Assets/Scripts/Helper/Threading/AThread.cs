@@ -79,7 +79,7 @@ namespace Helper.Threading
 
         private void StartDebug()
         {
-            Log.Info(Name, "starts");
+            Log.Info(Name, "starts.");
             debugStopwatch.Start();
             RunAfterThreadEnd(EndDebug);
         }

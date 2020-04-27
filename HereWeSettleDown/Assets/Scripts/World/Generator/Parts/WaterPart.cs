@@ -17,53 +17,38 @@ namespace World.Generator
 
         protected override void Run()
         {
-            Watcher.WatchRun(GenerateWaterMask, SetRegionTypes, SetCoastline, SetRegionDistances);
+            Watcher.WatchRun(GenerateWaterMask, SetGround, SetLakes, SetCoastline, SetRegionDistances);
         }
 
         private void GenerateWaterMask()
         {
             waterMaskGraph.SetGraphSettings(settings.worldWidth, settings.worldHeight, Seed.prng);
+            Log.InfoSet("Water mask graph settings");
             waterMask = waterMaskGraph.GetMap(0);
-        }
-
-        private void SetRegionTypes()
-        {
-            SetGround();
-            SetLakes();
         }
 
         private void SetLakes()
         {
-            // todo: Translate
+            // Groups water into lakes and the ocean.
+            // The lakes has type.isLake flag
 
-            // Этот метод групперует регионы воды и разделяет их на озера и океан.
-            // Озера имеют флаг isLake и isWater, когда же океан имеет только isWater
-
-            // Берем все регионы воды в список
             var waterRegions = RegionsInfo.regions.Where(region => region.type.isWater).ToList();
-
-            // Список всех озер и океана
             var allRegionGroups = new List<List<Region>>();
             
-            // Объединяем соединенные регионы воды в списки
             while (waterRegions.Count > 0)
             {
-                // Берем первый регион воды из списка
                 Region targetRegion = waterRegions[0];
                 waterRegions.RemoveAt(0);
 
                 var regionGroup = new List<Region>();
                 var oldRegions = new List<Region>() { targetRegion };
 
-                // Ищем соединенные регионы воды
                 while (oldRegions.Count > 0)
                 {
                     var newRegions = new List<Region>();
 
-                    // Перебираем все последние регионы
                     foreach (Region region in oldRegions)
                     {
-                        // Берем все соседние регионы воды
                         foreach (Region regionNr in region.neighbours)
                         {
                             if (regionNr.type.isWater && !regionGroup.Contains(regionNr))
@@ -77,13 +62,13 @@ namespace World.Generator
                     oldRegions = newRegions;
                 }
 
-                // Добавляем соединенные регионы в общий список
                 allRegionGroups.Add(regionGroup);
             }
+            Log.Info("Water grouped.");
 
             List<Region> lakes = new List<Region>();
 
-            // Добавляем все группы регионов воды в список озер кроме океана (самой большой группы)
+            // Select all small water groups (lakes)
             int maxCount = allRegionGroups.Select(lst => lst.Count).Max();
             foreach (var regionGroup in allRegionGroups)
             {
@@ -99,6 +84,7 @@ namespace World.Generator
 
         private void SetGround()
         {
+            // Set ground & water flags
             foreach (Region region in RegionsInfo.regions)
             {
                 Vector2Int site = MathVert.ToVector2Int(region.site);

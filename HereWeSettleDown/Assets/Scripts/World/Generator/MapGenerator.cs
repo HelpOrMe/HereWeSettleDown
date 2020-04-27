@@ -17,6 +17,8 @@ namespace World.Generator
 
         public void GenerateMap()
         {
+            Log.SetWorker("GenerateMap");
+
             Seed.seed = testSeed;
             Log.InfoSet("Seed");
 
@@ -31,6 +33,8 @@ namespace World.Generator
             // Set height > Smooth height
             // Set moisture
             // Draw colors > smooth colors
+
+            Log.ResetWorker();
 
             AThread thread = new AThread(generatorGraph.GetGenerateAction());
             thread.Start();
