@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba0a35c7487f35a489e44386ffd04158, type: 3}
   m_Name: Moisture Settings
   m_EditorClassIdentifier: 
-  SetMoistureFromFreshWater: 1
+  SetMoistureFromOcean: 0
+  OceanMoistureMultiplier: 1
+  SetMoistureFromLakes: 1
+  LakesMoistureMultiplier: 1
+  SetMoistureFromRivers: 1
+  RiversMoistureMultiplier: 0.7

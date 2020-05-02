@@ -8,11 +8,11 @@ namespace World.Generator
         public static Region[] regions;
         public static Region[,] regionsMap;
 
-        public static int MinDistIndex { get; private set; } = int.MaxValue;
-        public static int MaxDistIndex { get; private set; } = int.MinValue;
+        public static int MinDistIndex { get; set; } = int.MaxValue;
+        public static int MaxDistIndex { get; set; } = int.MinValue;
 
-        public static int MinMoistureIndex { get; private set; } = int.MaxValue;
-        public static int MaxMoistureIndex { get; private set; } = int.MinValue;
+        public static int MinMoistureIndex { get; set; } = int.MaxValue;
+        public static int MaxMoistureIndex { get; set; } = int.MinValue;
 
         public static void UpdateDistIndex(int value)
         {

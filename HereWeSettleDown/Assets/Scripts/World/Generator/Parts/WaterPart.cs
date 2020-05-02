@@ -74,6 +74,7 @@ namespace World.Generator
             {
                 if (regionGroup.Count < maxCount)
                 {
+                    regionGroup.ForEach(region => region.type.MarkAsLake());
                     lakes.AddRange(regionGroup);
                 }
             }

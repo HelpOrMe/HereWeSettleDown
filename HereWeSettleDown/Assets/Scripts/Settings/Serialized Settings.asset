@@ -19,9 +19,11 @@ MonoBehaviour:
     - Settings.Generator.RiverSettings
     - Settings.Generator.BiomesSettings
     - Settings.Generator.BaseGeneratorSettings
+    - Settings.Generator.MoistureSettings
     values:
     - {fileID: 11400000, guid: e5c537d762154c94796e479ac2b2e502, type: 2}
     - {fileID: 11400000, guid: f6d151368baaadb4385e285636be71bd, type: 2}
     - {fileID: 11400000, guid: 1512d6d216500ea43b36d3f4926fdd0c, type: 2}
     - {fileID: 11400000, guid: f3e4d2aed2e12d14cb3823a0a626b2da, type: 2}
     - {fileID: 11400000, guid: 3044291248a4abd45bbb0a9b4ec79b64, type: 2}
+    - {fileID: 11400000, guid: 6a61a86b7c8c8fc4ebf38f3ab377bece, type: 2}

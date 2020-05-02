@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Reflection;
+using System.Collections.Generic;   
+using UnityEngine;
 using UnityEditor;
+using World.Generator._Debug;
 
 namespace World.Generator
 {
@@ -34,16 +37,17 @@ namespace World.Generator
             }
             GUILayout.EndHorizontal();
 
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Debug moisture"))
+            // Ignore equal, toString, etc. methods
+            foreach (var method in typeof(GeneratorDebuger).GetMethods())
             {
-                mapGenerator.Debug_DrawMoisture();
+                if (method.Name == "Equals")
+                    break;
+
+                if (GUILayout.Button(method.Name))
+                {
+                    method.Invoke(null, null);
+                }
             }
-            if (GUILayout.Button("Debug height"))
-            {
-                mapGenerator.Debug_DrawHeight();
-            }
-            GUILayout.EndHorizontal();
         }
     }
 }
