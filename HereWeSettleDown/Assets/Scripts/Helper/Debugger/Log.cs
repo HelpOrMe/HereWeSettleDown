@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Helper.Threading;
+using System;
 using System.Collections.Generic;
 using System.Threading;
-using Helper.Threading;
 using UnityEngine;
 
 namespace Helper.Debugging
@@ -19,39 +19,64 @@ namespace Helper.Debugging
         /// <summary>
         /// LogMethod info shortcut
         /// </summary>
-        public static void Info(object[] objects, string sep, string format, string threadName) => LogMethod(Debug.Log, objects, sep, format, worker, threadName);
+        public static void Info(object[] objects, string sep, string format, string threadName)
+        {
+            LogMethod(Debug.Log, objects, sep, format, worker, threadName);
+        }
+
         /// <summary>
         /// LogMethod info shortcut
         /// Uses Log.defaultFormat
         /// </summary>
-        public static void Info(params object[] objects) => Info(objects, " ", defaultFormat, Thread.CurrentThread.Name);
+        public static void Info(params object[] objects)
+        {
+            Info(objects, " ", defaultFormat, Thread.CurrentThread.Name);
+        }
+
         /// <summary>
         /// LogMethod set info shortcut
         /// Uses Log.setFormat
         /// </summary>
-        public static void InfoSet(params object[] objects) => Info(objects, " ", setFromat, Thread.CurrentThread.Name);
+        public static void InfoSet(params object[] objects)
+        {
+            Info(objects, " ", setFromat, Thread.CurrentThread.Name);
+        }
 
         // Warning shortcuts
         /// <summary>
         /// LogMethod warn shortcut
         /// </summary>
-        public static void Warning(object[] objects, string sep, string format, string threadName) => LogMethod(Debug.LogWarning, objects, sep, format, worker, threadName);
+        public static void Warning(object[] objects, string sep, string format, string threadName)
+        {
+            LogMethod(Debug.LogWarning, objects, sep, format, worker, threadName);
+        }
+
         /// <summary>
         /// LogMethod warn shortcut
         /// Uses Log.defaultFormat
         /// </summary>
-        public static void Warning(params object[] objects) => Warning(objects, " ", defaultFormat, Thread.CurrentThread.Name);
+        public static void Warning(params object[] objects)
+        {
+            Warning(objects, " ", defaultFormat, Thread.CurrentThread.Name);
+        }
 
         // Error shortcuts
         /// <summary>
         /// LogMethod error shortcut
         /// </summary>
-        public static void Error(object[] objects, string sep, string format, string threadName) => LogMethod(Debug.LogError, objects, sep, format, worker, threadName);
+        public static void Error(object[] objects, string sep, string format, string threadName)
+        {
+            LogMethod(Debug.LogError, objects, sep, format, worker, threadName);
+        }
+
         /// <summary>
         /// LogMethod error shortcut
         /// Uses Log.defaultFormat
         /// </summary>
-        public static void Error(params object[] objects) => Error(objects, " ", defaultFormat, Thread.CurrentThread.Name);
+        public static void Error(params object[] objects)
+        {
+            Error(objects, " ", defaultFormat, Thread.CurrentThread.Name);
+        }
 
         /// <summary>
         /// Send log message with logMethod
@@ -80,12 +105,18 @@ namespace Helper.Debugging
         /// <summary>
         /// Set logger worker
         /// </summary>
-        public static void SetWorker(string name) => worker = name;
+        public static void SetWorker(string name)
+        {
+            worker = name;
+        }
 
         /// <summary>
         /// Reset current worker
         /// </summary>
-        public static void ResetWorker() => worker = "Main";
+        public static void ResetWorker()
+        {
+            worker = "Main";
+        }
 
         /// <summary>
         /// Convert objects array to string
@@ -102,7 +133,7 @@ namespace Helper.Debugging
                     text = item.ToString();
                 res += text + sep;
             }
-            
+
             return res.Remove(res.Length - 1);
         }
 

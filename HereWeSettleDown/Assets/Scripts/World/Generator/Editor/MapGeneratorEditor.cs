@@ -17,7 +17,6 @@ namespace World.Generator
             {
                 mapGenerator.GenerateMap();
             }
-
             EditorGUILayout.Space();
 
             GUILayout.BeginHorizontal();
@@ -26,11 +25,6 @@ namespace World.Generator
                 GeneratorPart.InvokePart<MoisturePart>();
                 GeneratorPart.InvokePart<BiomesPart>();
                 GeneratorPart.InvokePart<ColorsPart>();
-                Map.WorldMesh.ConfrimChangeSplitted();
-            }
-            if (GUILayout.Button("Reset height"))
-            {
-                GeneratorPart.InvokePart<HeightPart>();
                 Map.WorldMesh.ConfrimChangeSplitted();
             }
             GUILayout.EndHorizontal();

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Helper.Debugging;
+﻿using Helper.Debugging;
 using Settings;
 using Settings.Generator;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace World.Generator
@@ -29,7 +29,7 @@ namespace World.Generator
                     region.type.Moisture = ind;
                 }
             }
-            
+
             // Set lakes moisture
             if (moistureSettings.SetMoistureFromLakes)
                 SetMoistureAround(LakesInfo.lakes.ToList(), moistureSettings.LakesMoistureMultiplier);
@@ -60,9 +60,9 @@ namespace World.Generator
                 if (region.type.Moisture == null || region.type.Moisture < moisture)
                     region.type.Moisture = moisture;
 
-            var allRegions = new List<Region>(regions);
-            var oldRegions = new List<Region>(regions);
-            var newRegions = new List<Region>();
+            List<Region> allRegions = new List<Region>(regions);
+            List<Region> oldRegions = new List<Region>(regions);
+            List<Region> newRegions = new List<Region>();
 
             while (oldRegions.Count > 0)
             {

@@ -45,4 +45,4 @@ namespace Settings.Generator
         public Color waterColor;
         public Color[] heightColors = new Color[1];
     }
-} 
+}

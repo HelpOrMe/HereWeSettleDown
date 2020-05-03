@@ -25,10 +25,22 @@ namespace World.Generator._Debug
             {
                 Color targetColor;
                 if (region.type.Moisture != null)
+                {
                     targetColor = Color.Lerp(Color.black, Color.white, (float)region.type.Moisture / RegionsInfo.MaxMoistureIndex);
-                else targetColor = Color.red;
+                }
+                else
+                {
+                    targetColor = Color.red;
+                }
+
                 region.DoForEachPosition(pos => WorldMesh.colorMap[pos.x, pos.y].ALL = targetColor);
             }
+            WorldMesh.ConfrimChangeSplitted();
+        }
+
+        public static void ResetHeight()
+        {
+            GeneratorPart.InvokePart<HeightPart>();
             WorldMesh.ConfrimChangeSplitted();
         }
 
@@ -39,6 +51,17 @@ namespace World.Generator._Debug
                 Color targetColor = Color.Lerp(Color.black, Color.white, (float)region.type.DistIndexFromCoastline / RegionsInfo.MaxDistIndex);
                 region.DoForEachPosition(pos => WorldMesh.colorMap[pos.x, pos.y].ALL = targetColor);
             }
+            WorldMesh.ConfrimChangeSplitted();
+        }
+
+        public static void ResetBiomes()
+        {
+            GeneratorPart.InvokePart<BiomesPart>();
+        }
+
+        public static void DrawColors()
+        {
+            GeneratorPart.InvokePart<ColorsPart>();
             WorldMesh.ConfrimChangeSplitted();
         }
 

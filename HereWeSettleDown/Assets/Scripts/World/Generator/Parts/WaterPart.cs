@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using Helper.Debugging;
+﻿using Helper.Debugging;
 using Helper.Math;
 using Helper.Random;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using World.Generator.Nodes.HeightMap;
 
 namespace World.Generator
@@ -32,20 +32,20 @@ namespace World.Generator
             // Groups water into lakes and the ocean.
             // The lakes has type.isLake flag
 
-            var waterRegions = RegionsInfo.regions.Where(region => region.type.isWater).ToList();
-            var allRegionGroups = new List<List<Region>>();
-            
+            List<Region> waterRegions = RegionsInfo.regions.Where(region => region.type.isWater).ToList();
+            List<List<Region>> allRegionGroups = new List<List<Region>>();
+
             while (waterRegions.Count > 0)
             {
                 Region targetRegion = waterRegions[0];
                 waterRegions.RemoveAt(0);
 
-                var regionGroup = new List<Region>();
-                var oldRegions = new List<Region>() { targetRegion };
+                List<Region> regionGroup = new List<Region>();
+                List<Region> oldRegions = new List<Region>() { targetRegion };
 
                 while (oldRegions.Count > 0)
                 {
-                    var newRegions = new List<Region>();
+                    List<Region> newRegions = new List<Region>();
 
                     foreach (Region region in oldRegions)
                     {
@@ -70,7 +70,7 @@ namespace World.Generator
 
             // Select all small water groups (lakes)
             int maxCount = allRegionGroups.Select(lst => lst.Count).Max();
-            foreach (var regionGroup in allRegionGroups)
+            foreach (List<Region> regionGroup in allRegionGroups)
             {
                 if (regionGroup.Count < maxCount)
                 {
@@ -78,7 +78,7 @@ namespace World.Generator
                     lakes.AddRange(regionGroup);
                 }
             }
-            
+
             LakesInfo.lakes = lakes.ToArray();
             LakesInfo.UpdateLakesMap();
         }

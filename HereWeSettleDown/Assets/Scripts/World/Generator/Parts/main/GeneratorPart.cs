@@ -1,7 +1,6 @@
 ﻿using Helper.Threading;
 using Settings;
 using Settings.Generator;
-using System.Reflection;
 using System;
 
 namespace World.Generator
@@ -33,7 +32,7 @@ namespace World.Generator
 
         public static void InvokePart<T>() where T : GeneratorPart
         {
-            var part = (GeneratorPart)Activator.CreateInstance(typeof(T));
+            GeneratorPart part = (GeneratorPart)Activator.CreateInstance(typeof(T));
             part.Invoke();
         }
 
@@ -41,7 +40,7 @@ namespace World.Generator
         {
             if (t.IsSubclassOf(typeof(GeneratorPart)))
             {
-                var part = (GeneratorPart)Activator.CreateInstance(t);
+                GeneratorPart part = (GeneratorPart)Activator.CreateInstance(t);
                 part.Invoke();
             }
         }
