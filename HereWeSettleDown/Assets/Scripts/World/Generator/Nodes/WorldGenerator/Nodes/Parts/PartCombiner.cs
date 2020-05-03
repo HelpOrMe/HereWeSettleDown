@@ -64,7 +64,7 @@ namespace World.Generator.Nodes.WorldGenerator.Parts
         protected override void Run()
         {
             foreach (GeneratorPart part in parts)
-                part.GetAction()();
+                part.Invoke();
         }
     }
 }

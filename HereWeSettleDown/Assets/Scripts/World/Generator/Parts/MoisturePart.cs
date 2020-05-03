@@ -19,8 +19,6 @@ namespace World.Generator
 
         private void SetMoisture()
         {
-            RegionsInfo.UpdateMoistureIndex(0);
-
             // Set ocean moisture
             if (moistureSettings.SetMoistureFromOcean)
             {

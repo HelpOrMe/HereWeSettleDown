@@ -10,7 +10,7 @@ namespace World.Generator._Debug
         {
             ClearMoisture();
             RegionsInfo.MaxMoistureIndex = int.MinValue;
-            new MoisturePart().action();
+            GeneratorPart.InvokePart<MoisturePart>();
             DrawMoisture();
         }
 

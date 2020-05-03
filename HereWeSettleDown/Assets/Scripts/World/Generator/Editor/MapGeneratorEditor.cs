@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using System.Collections.Generic;   
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using World.Generator._Debug;
 
@@ -25,14 +23,14 @@ namespace World.Generator
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Reset color"))
             {
-                new MoisturePart().action();
-                new BiomesPart().action();
-                new ColorsPart().action();
+                GeneratorPart.InvokePart<MoisturePart>();
+                GeneratorPart.InvokePart<BiomesPart>();
+                GeneratorPart.InvokePart<ColorsPart>();
                 Map.WorldMesh.ConfrimChangeSplitted();
             }
             if (GUILayout.Button("Reset height"))
             {
-                new HeightPart().action();
+                GeneratorPart.InvokePart<HeightPart>();
                 Map.WorldMesh.ConfrimChangeSplitted();
             }
             GUILayout.EndHorizontal();

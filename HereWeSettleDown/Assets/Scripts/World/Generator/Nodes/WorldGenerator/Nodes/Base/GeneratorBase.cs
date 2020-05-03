@@ -15,7 +15,7 @@ namespace World.Generator.Nodes.WorldGenerator.Base
 
         public Action GetGenerateAction()
         {
-            return GetInputValue<GeneratorPart>("generatePart").GetAction();
+            return GetInputValue<GeneratorPart>("generatePart").Invoke;
         }
     }
 }

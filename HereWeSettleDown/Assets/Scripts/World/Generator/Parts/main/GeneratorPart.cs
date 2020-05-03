@@ -1,6 +1,7 @@
 ﻿using Helper.Threading;
 using Settings;
 using Settings.Generator;
+using System.Reflection;
 using System;
 
 namespace World.Generator
@@ -8,7 +9,6 @@ namespace World.Generator
     [Serializable]
     public class GeneratorPart
     {
-        public Action action => GetAction();
         public bool RunInNewThread = false;
 
         protected BaseGeneratorSettings settings
@@ -24,11 +24,26 @@ namespace World.Generator
 
         protected virtual void Run() { }
 
-        public Action GetAction()
+        public void Invoke()
         {
             if (RunInNewThread)
-                return new AThread(Run).Start;
-            return Run;
+                new AThread(Run).Start();
+            else Run();
+        }
+
+        public static void InvokePart<T>() where T : GeneratorPart
+        {
+            var part = (GeneratorPart)Activator.CreateInstance(typeof(T));
+            part.Invoke();
+        }
+
+        public static void InvokePart(Type t)
+        {
+            if (t.IsSubclassOf(typeof(GeneratorPart)))
+            {
+                var part = (GeneratorPart)Activator.CreateInstance(t);
+                part.Invoke();
+            }
         }
     }
 }
