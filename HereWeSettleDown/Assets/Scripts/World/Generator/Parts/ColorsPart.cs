@@ -8,7 +8,7 @@ namespace World.Generator
 {
     public class ColorsPart : GeneratorPart
     {
-        private ColorsSettings colorsSettings = SerializedSettings.GetSettings<ColorsSettings>();
+        private ColorsSettings colorsSettings = GameSettingsProvider.GetSettings<ColorsSettings>();
 
         protected override void Run()
         {

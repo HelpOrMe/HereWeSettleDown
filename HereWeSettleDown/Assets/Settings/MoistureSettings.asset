@@ -15,6 +15,6 @@ MonoBehaviour:
   SetMoistureFromOcean: 0
   OceanMoistureMultiplier: 1
   SetMoistureFromLakes: 1
-  LakesMoistureMultiplier: 1
-  SetMoistureFromRivers: 1
-  RiversMoistureMultiplier: 0.7
+  LakesMoistureMultiplier: 0.9
+  SetMoistureFromRivers: 0
+  RiversMoistureMultiplier: 0.9

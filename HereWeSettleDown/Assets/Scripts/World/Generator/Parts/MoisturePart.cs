@@ -9,7 +9,7 @@ namespace World.Generator
 {
     public class MoisturePart : GeneratorPart
     {
-        private readonly MoistureSettings moistureSettings = SerializedSettings.GetSettings<MoistureSettings>();
+        private readonly MoistureSettings moistureSettings = GameSettingsProvider.GetSettings<MoistureSettings>();
 
 
         protected override void Run()

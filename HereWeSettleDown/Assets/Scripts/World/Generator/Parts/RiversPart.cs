@@ -9,7 +9,7 @@ namespace World.Generator
     public class RiversPart : GeneratorPart
     {
         private readonly List<River> rivers = new List<River>();
-        private readonly RiverSettings riverSettings = SerializedSettings.GetSettings<RiverSettings>();
+        private readonly RiverSettings riverSettings = GameSettingsProvider.GetSettings<RiverSettings>();
 
         protected override void Run()
         {

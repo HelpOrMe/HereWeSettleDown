@@ -7,7 +7,7 @@ namespace World.Generator
 {
     public class BiomesPart : GeneratorPart
     {
-        private BiomesSettings biomesSettings = SerializedSettings.GetSettings<BiomesSettings>();
+        private BiomesSettings biomesSettings = GameSettingsProvider.GetSettings<BiomesSettings>();
 
         protected override void Run()
         {

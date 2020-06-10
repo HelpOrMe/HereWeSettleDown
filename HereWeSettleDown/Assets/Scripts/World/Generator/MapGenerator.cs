@@ -7,6 +7,7 @@ using UnityEngine;
 using World.Generator.Nodes.WorldGenerator;
 using World.Map;
 
+
 namespace World.Generator
 {
     public class MapGenerator : MonoBehaviour
@@ -22,7 +23,7 @@ namespace World.Generator
             Seed.seed = testSeed;
             Log.InfoSet("Seed");
 
-            BaseGeneratorSettings set = SerializedSettings.GetSettings<BaseGeneratorSettings>();
+            BaseGeneratorSettings set = GameSettingsProvider.GetSettings<BaseGeneratorSettings>();
 
             Watcher.WatchRun(() => WorldMesh.CreateWorldMesh(set.worldWidth, set.worldHeight, set.chunkWidth, set.chunkHeight), "CreateWorldMesh");
             Watcher.WatchRun(() => WorldChunkMap.CreateMap(set.worldWidth, set.worldHeight, set.chunkWidth, set.chunkHeight, chunkObject.transform.localScale), "CreateMap");

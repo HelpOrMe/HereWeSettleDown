@@ -55,7 +55,7 @@ namespace Settings.Generator
             GUILayout.BeginHorizontal();
             GUILayout.Space(29);
             foreach (string biomeType in settings.biomeColors.Keys)
-                EditorGUILayout.TextField(biomeType);
+                EditorGUILayout.TextField(biomeType, EditorStyles.label);
             GUILayout.EndHorizontal();
         }
 

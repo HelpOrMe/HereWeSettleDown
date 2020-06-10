@@ -15,7 +15,7 @@ namespace World.Generator
             get
             {
                 if (_settings == null)
-                    _settings = SerializedSettings.GetSettings<BaseGeneratorSettings>();
+                    _settings = GameSettingsProvider.GetSettings<BaseGeneratorSettings>();
                 return _settings;
             }
         }

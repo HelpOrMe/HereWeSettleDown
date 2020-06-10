@@ -9,7 +9,7 @@ namespace World.Generator
 {
     public class HeightPart : GeneratorPart
     {
-        private readonly HeightSettings heightSettings = SerializedSettings.GetSettings<HeightSettings>();
+        private readonly HeightSettings heightSettings = GameSettingsProvider.GetSettings<HeightSettings>();
 
         protected override void Run()
         {
