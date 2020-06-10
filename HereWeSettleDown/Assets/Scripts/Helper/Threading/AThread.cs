@@ -1,4 +1,5 @@
-﻿using Helper.Scene;
+﻿using Helper.Debugging;
+using Helper.Scene;
 using System;
 using System.Collections;
 using System.Diagnostics;
@@ -17,10 +18,10 @@ namespace Helper.Threading
         }
         public readonly Thread thread;
 
-        private readonly Action[] actions;
-        private readonly bool actionsStart = false;
+        private Action[] actions;
+        private bool actionsStart = false;
 
-        private readonly Stopwatch debugStopwatch = new Stopwatch();
+        private Stopwatch debugStopwatch = new Stopwatch();
 
         public AThread(ParameterizedThreadStart start)
         {
@@ -52,14 +53,9 @@ namespace Helper.Threading
         public void Start(object parameter)
         {
             if (actionsStart)
-            {
                 thread.Start();
-            }
             else
-            {
                 thread.Start(parameter);
-            }
-
             StartDebug();
         }
 
@@ -83,7 +79,7 @@ namespace Helper.Threading
 
         private void StartDebug()
         {
-            UnityEngine.Debug.Log(Name + " starts");
+            Log.Info(Name, "starts.");
             debugStopwatch.Start();
             RunAfterThreadEnd(EndDebug);
         }
@@ -91,7 +87,7 @@ namespace Helper.Threading
         private void EndDebug()
         {
             debugStopwatch.Stop();
-            UnityEngine.Debug.Log($"The {Name} ended after {debugStopwatch.ElapsedMilliseconds} mS.");
+            Log.Info("The", Name, "ended after", debugStopwatch.ElapsedMilliseconds, "ms.");
         }
     }
 }

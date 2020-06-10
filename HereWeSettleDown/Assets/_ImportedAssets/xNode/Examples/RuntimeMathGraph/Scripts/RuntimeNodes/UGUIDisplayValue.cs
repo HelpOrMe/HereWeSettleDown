@@ -11,14 +11,8 @@ namespace XNode.Examples.RuntimeMathNodes
         {
             DisplayValue displayValue = node as DisplayValue;
             object obj = displayValue.GetInputValue<object>("input");
-            if (obj != null)
-            {
-                label.text = obj.ToString();
-            }
-            else
-            {
-                label.text = "n/a";
-            }
+            if (obj != null) label.text = obj.ToString();
+            else label.text = "n/a";
         }
     }
 }

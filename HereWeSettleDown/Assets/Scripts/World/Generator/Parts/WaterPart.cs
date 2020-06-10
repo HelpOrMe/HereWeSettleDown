@@ -1,7 +1,8 @@
-﻿using Helper.Debugger;
+﻿using Helper.Debugging;
 using Helper.Math;
 using Helper.Random;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using World.Generator.Nodes.HeightMap;
 
@@ -11,31 +12,87 @@ namespace World.Generator
     {
         public HeightMapGenerationGraph waterMaskGraph;
         public static Region[] coastlineRegions;
+
         private float[,] waterMask;
 
         protected override void Run()
         {
-            Watcher.WatchRun(GenerateWaterMask, SetWater, SetCoastline, SetRegionDistances);
+            Watcher.WatchRun(GenerateWaterMask, SetGround, SetLakes, SetCoastline, SetRegionDistances);
         }
 
         private void GenerateWaterMask()
         {
-            waterMask = waterMaskGraph.GetMap(settings.worldWidth, settings.worldHeight, Seed.prng);
+            waterMaskGraph.SetGraphSettings(settings.worldWidth, settings.worldHeight, Seed.prng);
+            Log.InfoSet("Water mask graph settings");
+            waterMask = waterMaskGraph.GetMap(0);
         }
 
-        private void SetWater()
+        private void SetLakes()
         {
+            // Groups water into lakes and the ocean.
+            // The lakes has type.isLake flag
+
+            List<Region> waterRegions = RegionsInfo.regions.Where(region => region.type.isWater).ToList();
+            List<List<Region>> allRegionGroups = new List<List<Region>>();
+
+            while (waterRegions.Count > 0)
+            {
+                Region targetRegion = waterRegions[0];
+                waterRegions.RemoveAt(0);
+
+                List<Region> regionGroup = new List<Region>();
+                List<Region> oldRegions = new List<Region>() { targetRegion };
+
+                while (oldRegions.Count > 0)
+                {
+                    List<Region> newRegions = new List<Region>();
+
+                    foreach (Region region in oldRegions)
+                    {
+                        foreach (Region regionNr in region.neighbours)
+                        {
+                            if (regionNr.type.isWater && !regionGroup.Contains(regionNr))
+                            {
+                                waterRegions.Remove(regionNr);
+                                newRegions.Add(regionNr);
+                                regionGroup.Add(regionNr);
+                            }
+                        }
+                    }
+                    oldRegions = newRegions;
+                }
+
+                allRegionGroups.Add(regionGroup);
+            }
+            Log.Info("Water grouped.");
+
+            List<Region> lakes = new List<Region>();
+
+            // Select all small water groups (lakes)
+            int maxCount = allRegionGroups.Select(lst => lst.Count).Max();
+            foreach (List<Region> regionGroup in allRegionGroups)
+            {
+                if (regionGroup.Count < maxCount)
+                {
+                    regionGroup.ForEach(region => region.type.MarkAsLake());
+                    lakes.AddRange(regionGroup);
+                }
+            }
+
+            LakesInfo.lakes = lakes.ToArray();
+            LakesInfo.UpdateLakesMap();
+        }
+
+        private void SetGround()
+        {
+            // Set ground & water flags
             foreach (Region region in RegionsInfo.regions)
             {
                 Vector2Int site = MathVert.ToVector2Int(region.site);
                 if (waterMask[site.x, site.y] < 1)
-                {
                     region.type.MarkAsWater();
-                }
                 else
-                {
                     region.type.MarkAsGround();
-                }
             }
         }
 

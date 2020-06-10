@@ -54,14 +54,8 @@ namespace XNode.Examples.RuntimeMathNodes
 
         public void SpawnGraph()
         {
-            if (nodes != null)
-            {
-                nodes.Clear();
-            }
-            else
-            {
-                nodes = new List<UGUIMathBaseNode>();
-            }
+            if (nodes != null) nodes.Clear();
+            else nodes = new List<UGUIMathBaseNode>();
 
             for (int i = 0; i < graph.nodes.Count; i++)
             {
@@ -111,9 +105,7 @@ namespace XNode.Examples.RuntimeMathNodes
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Right)
-            {
                 return;
-            }
 
             graphContextMenu.OpenAt(eventData.position);
         }

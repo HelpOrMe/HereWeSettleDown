@@ -1,4 +1,5 @@
-﻿using Helper.Scene;
+﻿using Helper.Debugging;
+using Helper.Scene;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,8 @@ namespace World.Map
             minVertHeight = float.MaxValue;
             maxVertHeight = float.MinValue;
 
+            Log.InfoSet("Mesh map size");
+
             SetEmptyVerticesMap();
             SetEmptyColorMap();
             SetEmptyOriantationMap();
@@ -48,6 +51,8 @@ namespace World.Map
                     chunkMeshMap[x, y] = new ChunkMesh(chunkWidth, chunkHeight, x, y);
                 }
             }
+
+            Log.InfoSet("Chunk mesh map");
         }
 
         public static void SetEmptyVerticesMap()
@@ -94,10 +99,7 @@ namespace World.Map
             Vector2Int pos = VertexPosToQuadPos(new Vector2Int(x, y));
             ChunkMesh chunkMesh = GetChunkMesh(pos.x, pos.y); ;
             if (!editedChunks.ContainsKey(chunkMesh))
-            {
                 editedChunks[chunkMesh] = new List<Vector2Int>();
-            }
-
             editedChunks[chunkMesh].Add(new Vector2Int(x % chunkWidth, y % chunkHeight));
         }
 
@@ -110,9 +112,7 @@ namespace World.Map
                     chunkMesh.UpdateQuadValues(editedQuad.x, editedQuad.y);
                 }
                 if (updateChunks)
-                {
                     chunkMesh.UpdateConnectedChunk();
-                }
             }
             editedChunks.Clear();
         }
@@ -131,10 +131,7 @@ namespace World.Map
                     chunkMesh.UpdateQuadValues(editedQuad.x, editedQuad.y);
                 }
                 if (updateChunks)
-                {
                     chunkMesh.UpdateConnectedChunk();
-                }
-
                 yield return new WaitForEndOfFrame();
             }
             editedChunks.Clear();
@@ -143,9 +140,7 @@ namespace World.Map
         public static void UpdateAllMesh()
         {
             if (chunkMeshMap == null)
-            {
                 return;
-            }
 
             for (int x = 0; x < chunkXCount; x++)
             {
@@ -158,15 +153,8 @@ namespace World.Map
 
         public static void UpdateHeight(float alt)
         {
-            if (minVertHeight > alt)
-            {
-                minVertHeight = alt;
-            }
-
-            if (maxVertHeight < alt)
-            {
-                maxVertHeight = alt;
-            }
+            if (minVertHeight > alt) minVertHeight = alt;
+            if (maxVertHeight < alt) maxVertHeight = alt;
         }
 
         public static Vector3 GetNearVertexPos(Vector3 worldPosition)
@@ -212,25 +200,13 @@ namespace World.Map
             Vector2Int offset = pos1 - pos2;
 
             if (offset == new Vector2Int(-1, 1))
-            {
                 return pos1 + Vector2Int.down;
-            }
-
             if (offset == new Vector2Int(1, -1))
-            {
                 return pos1 + Vector2Int.left;
-            }
-
             if (offset == new Vector2Int(-1, -1))
-            {
                 return pos2;
-            }
-
             if (offset == new Vector2Int(1, 1))
-            {
                 return pos1;
-            }
-
             return VertexPosToQuadPos(pos1);
         }
 
@@ -239,15 +215,9 @@ namespace World.Map
             Vector2Int offset = pos1 - pos2;
 
             if (offset == new Vector2Int(-1, 1) || offset == new Vector2Int(1, -1))
-            {
                 return 1;
-            }
-
             if (offset == new Vector2Int(-1, -1) || offset == new Vector2Int(1, 1))
-            {
                 return 2;
-            }
-
             return 0;
         }
     }

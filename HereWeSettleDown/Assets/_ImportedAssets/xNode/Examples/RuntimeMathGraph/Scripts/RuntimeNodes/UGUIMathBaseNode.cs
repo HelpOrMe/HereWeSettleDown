@@ -15,11 +15,7 @@ namespace XNode.Examples.RuntimeMathNodes
         public virtual void Start()
         {
             ports = GetComponentsInChildren<UGUIPort>();
-            foreach (UGUIPort port in ports)
-            {
-                port.node = node;
-            }
-
+            foreach (UGUIPort port in ports) port.node = node;
             header.text = node.name;
             SetPosition(node.position);
         }
@@ -28,20 +24,14 @@ namespace XNode.Examples.RuntimeMathNodes
 
         private void LateUpdate()
         {
-            foreach (UGUIPort port in ports)
-            {
-                port.UpdateConnectionTransforms();
-            }
+            foreach (UGUIPort port in ports) port.UpdateConnectionTransforms();
         }
 
         public UGUIPort GetPort(string name)
         {
             for (int i = 0; i < ports.Length; i++)
             {
-                if (ports[i].name == name)
-                {
-                    return ports[i];
-                }
+                if (ports[i].name == name) return ports[i];
             }
             return null;
         }

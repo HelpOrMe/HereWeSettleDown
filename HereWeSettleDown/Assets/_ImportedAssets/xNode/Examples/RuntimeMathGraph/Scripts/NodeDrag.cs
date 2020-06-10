@@ -36,9 +36,7 @@ namespace XNode.Examples.RuntimeMathNodes
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Right)
-            {
                 return;
-            }
 
             node.graph.nodeContextMenu.selectedNode = node.node;
             node.graph.nodeContextMenu.OpenAt(eventData.position);

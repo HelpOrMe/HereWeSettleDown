@@ -25,7 +25,7 @@ MonoBehaviour:
   RegisteredGeneratorParts:
   - RegionsPart
   - WaterPart
-  - LakesPart
+  - RiversPart
   - HeightPart
   - MoisturePart
   - ColorsPart
@@ -234,15 +234,27 @@ MonoBehaviour:
   position: {x: -56, y: 200}
   ports:
     keys:
+    - combinedPart
     - 'Part #1'
     - 'Part #2'
     - 'Part #3'
     - 'Part #4'
-    - combinedPart
     - 'Part #5'
     - 'Part #6'
     - 'Part #7'
     values:
+    - _fieldName: combinedPart
+      _node: {fileID: 114652105822657648}
+      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: generatePart
+        node: {fileID: 114947233594670004}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
     - _fieldName: 'Part #1'
       _node: {fileID: 114652105822657648}
       _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
@@ -291,18 +303,6 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: combinedPart
-      _node: {fileID: 114652105822657648}
-      _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: generatePart
-        node: {fileID: 114947233594670004}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
     - _fieldName: 'Part #5'
       _node: {fileID: 114652105822657648}
       _typeQualifiedName: World.Generator.GeneratorPart, Assembly-CSharp, Version=0.0.0.0,

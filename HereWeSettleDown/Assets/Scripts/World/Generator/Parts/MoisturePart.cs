@@ -1,10 +1,17 @@
-﻿using Helper.Debugger;
+﻿using Helper.Debugging;
+using Settings;
+using Settings.Generator;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace World.Generator
 {
     public class MoisturePart : GeneratorPart
     {
+        private readonly MoistureSettings moistureSettings = GameSettingsProvider.GetSettings<MoistureSettings>();
+
+
         protected override void Run()
         {
             Watcher.WatchRun(SetMoisture);
@@ -12,53 +19,78 @@ namespace World.Generator
 
         private void SetMoisture()
         {
-            foreach (Region region in RegionsInfo.regions)
+            // Set ocean moisture
+            if (moistureSettings.SetMoistureFromOcean)
             {
-                region.type.Moisture = RegionsInfo.MaxDistIndex - region.type.DistIndexFromCoastline;
-            }
-
-            foreach (Lake lake in LakesInfo.lakes)
-            {
-                List<Region> lakeRegions = new List<Region>();
-                foreach (Vertex vertex in lake.vertices)
+                foreach (Region region in RegionsInfo.regions)
                 {
-                    lakeRegions.AddRange(vertex.incidentRegions);
+                    int ind = (RegionsInfo.MaxDistIndex - (int)region.type.DistIndexFromCoastline);
+                    int moisture = Mathf.RoundToInt(ind * moistureSettings.OceanMoistureMultiplier);
+                    region.type.Moisture = ind;
                 }
-
-                SetLakeMoisture(lakeRegions);
             }
+
+            // Set lakes moisture
+            if (moistureSettings.SetMoistureFromLakes)
+                SetMoistureAround(LakesInfo.lakes.ToList(), moistureSettings.LakesMoistureMultiplier);
+
+            // Set river moisture
+            if (moistureSettings.SetMoistureFromRivers)
+            {
+                foreach (River river in RiversInfo.rivers)
+                {
+                    List<Region> riverRegions = new List<Region>();
+                    foreach (Vertex vertex in river.vertices)
+                        riverRegions.AddRange(vertex.incidentRegions);
+                    SetMoistureAround(riverRegions, moistureSettings.RiversMoistureMultiplier);
+                }
+            }
+
+            // Set water moisture
+            foreach (Region region in RegionsInfo.regions.Where(reg => reg.type.isWater))
+                region.type.Moisture = RegionsInfo.MaxMoistureIndex;
         }
 
-        private void SetLakeMoisture(List<Region> regionsLayer)
+        private void SetMoistureAround(List<Region> regions, float multiplier = 1f)
         {
+            int lowestMoisture = int.MaxValue;
             int moisture = RegionsInfo.MaxMoistureIndex;
 
-            foreach (Region region in regionsLayer)
-            {
-                if (region.type.Moisture < moisture)
-                {
+            foreach (Region region in regions)
+                if (region.type.Moisture == null || region.type.Moisture < moisture)
                     region.type.Moisture = moisture;
-                }
-            }
 
-            while (regionsLayer.Count > 0)
+            List<Region> allRegions = new List<Region>(regions);
+            List<Region> oldRegions = new List<Region>(regions);
+            List<Region> newRegions = new List<Region>();
+
+            while (oldRegions.Count > 0)
             {
                 moisture--;
+                moisture = Mathf.RoundToInt(moisture * multiplier);
+                // Check for new lowest moisture
+                if (moisture < lowestMoisture)
+                    lowestMoisture = moisture;
 
-                List<Region> oldRegionsLayer = new List<Region>(regionsLayer);
-                regionsLayer.Clear();
-                foreach (Region region in oldRegionsLayer)
+                newRegions.Clear();
+                foreach (Region region in oldRegions)
                 {
                     foreach (Region nRegion in region.neighbours)
                     {
-                        if (nRegion.type == null || nRegion.type.Moisture < moisture)
+                        if (nRegion.type.Moisture == null || nRegion.type.Moisture < moisture)
                         {
                             nRegion.type.Moisture = moisture;
-                            regionsLayer.Add(nRegion);
+                            newRegions.Add(nRegion);
+                            allRegions.Add(nRegion);
                         }
                     }
                 }
+                oldRegions = new List<Region>(newRegions);
             }
+
+            // Change lowest moisture to zero
+            if (lowestMoisture < 0)
+                allRegions.ForEach(reg => reg.type.Moisture -= lowestMoisture);
         }
     }
 }

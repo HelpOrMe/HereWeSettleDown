@@ -24,7 +24,6 @@
             // After you've gotten your input values, you can perform your calculations and return a value
             result = 0f;
             if (port.fieldName == "result")
-            {
                 switch (mathType)
                 {
                     case MathType.Add: default: result = a + b; break;
@@ -32,8 +31,6 @@
                     case MathType.Multiply: result = a * b; break;
                     case MathType.Divide: result = a / b; break;
                 }
-            }
-
             return result;
         }
     }

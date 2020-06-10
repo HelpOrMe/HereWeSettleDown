@@ -102,9 +102,7 @@ namespace World.Map
         public void UpdateConnectedChunk()
         {
             if (connectedChunk != null)
-            {
                 connectedChunk.DrawMesh();
-            }
         }
     }
 
@@ -112,6 +110,14 @@ namespace World.Map
     {
         public static int or1 = 0;
         public static int or2 = 0;
+
+        private readonly Dictionary<int, int> reverseIndex = new Dictionary<int, int>()
+        {
+            [0] = 2,
+            [2] = 0,
+            [1] = 3,
+            [3] = 1
+        };
 
         private readonly int x, y;
         private Vector3 middleVert;
@@ -125,9 +131,7 @@ namespace World.Map
         public Vector3 GetVert(int index)
         {
             if (index == 0)
-            {
                 return middleVert;
-            }
 
             Vector2Int targetVert = ChunkMesh.verticesMapPositionPattern[index];
             return WorldMesh.verticesMap[x + targetVert.x, y + targetVert.y];
@@ -143,39 +147,28 @@ namespace World.Map
             int orIndex = WorldMesh.oriantationMap[x, y];
 
             if (orIndex == 1)
-            {
                 SetMiddleVert((GetVert(2).y + GetVert(4).y) / 2);
-            }
             else if (orIndex == 2)
-            {
                 SetMiddleVert((GetVert(1).y + GetVert(3).y) / 2);
-            }
             else
-            {
                 SetMiddleVert();
-            }
         }
 
         private void SetMiddleVert(float? height = null)
         {
             middleVert = Vector3.zero;
             for (int i = 1; i < 5; i++)
-            {
                 middleVert += GetVert(i);
-            }
-
             middleVert = Vector3.Scale(middleVert, new Vector3(0.25f, 0.25f, 0.25f));
 
             if (height != null)
-            {
                 middleVert.y = (float)height;
-            }
         }
     }
 
     public class ColorQuad
     {
-        private readonly int x, y;
+        private int x, y;
 
         public Color[] colors = new Color[4];
         public Color this[int index]
@@ -210,10 +203,7 @@ namespace World.Map
             set
             {
                 for (int i = 0; i < colors.Length; i++)
-                {
                     colors[i] = value;
-                }
-
                 SetEditedPosition();
             }
         }
@@ -227,9 +217,7 @@ namespace World.Map
         public void SetEditedPosition()
         {
             if (x >= 0 && y >= 0)
-            {
                 WorldMesh.SetEditedPosition(x, y);
-            }
         }
 
         public void Smooth()

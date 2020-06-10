@@ -43,9 +43,7 @@ namespace World.Generator.Nodes.WorldGenerator.Parts
                 {
                     GeneratorPart part = (GeneratorPart)dPort.GetInputValue();
                     if (part != null)
-                    {
                         parts.Add(part);
-                    }
                 }
                 return new CombinedPart(parts.ToArray());
             }
@@ -66,9 +64,7 @@ namespace World.Generator.Nodes.WorldGenerator.Parts
         protected override void Run()
         {
             foreach (GeneratorPart part in parts)
-            {
-                part.GetAction()();
-            }
+                part.Invoke();
         }
     }
 }

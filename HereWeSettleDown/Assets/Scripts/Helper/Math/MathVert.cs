@@ -215,7 +215,7 @@ namespace Helper.Math
 
         public static Vector2Int ToVector2Int(Vector2 p)
         {
-            return new Vector2Int((int)p.x, (int)p.y);
+            return new Vector2Int(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y));
         }
 
         public static Vector2 ToVector2(Vector3 p)

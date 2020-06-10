@@ -16,7 +16,7 @@ namespace XNode.Examples.RuntimeMathNodes
         private UGUIPort tempHovered;
         private RuntimeMathGraph graph;
         private Vector2 startPos;
-        private readonly List<Connection> connections = new List<Connection>();
+        private List<Connection> connections = new List<Connection>();
 
         private void Start()
         {
@@ -48,16 +48,9 @@ namespace XNode.Examples.RuntimeMathNodes
 
         public void UpdateConnectionTransforms()
         {
-            if (port.IsInput)
-            {
-                return;
-            }
+            if (port.IsInput) return;
 
-            while (connections.Count < port.ConnectionCount)
-            {
-                AddConnection();
-            }
-
+            while (connections.Count < port.ConnectionCount) AddConnection();
             while (connections.Count > port.ConnectionCount)
             {
                 Destroy(connections[0].gameObject);
@@ -69,17 +62,9 @@ namespace XNode.Examples.RuntimeMathNodes
             {
                 NodePort other = port.GetConnection(i);
                 UGUIMathBaseNode otherNode = graph.GetRuntimeNode(other.node);
-                if (!otherNode)
-                {
-                    Debug.LogWarning(other.node.name + " node not found", this);
-                }
-
+                if (!otherNode) Debug.LogWarning(other.node.name + " node not found", this);
                 Transform port2 = otherNode.GetPort(other.fieldName).transform;
-                if (!port2)
-                {
-                    Debug.LogWarning(other.fieldName + " not found", this);
-                }
-
+                if (!port2) Debug.LogWarning(other.fieldName + " not found", this);
                 connections[i].SetPosition(transform.position, port2.position);
             }
         }
@@ -124,11 +109,7 @@ namespace XNode.Examples.RuntimeMathNodes
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (tempConnection == null)
-            {
-                return;
-            }
-
+            if (tempConnection == null) return;
             UGUIPort otherPort = FindPortInStack(eventData.hovered);
             tempHovered = otherPort;
             tempConnection.SetPosition(startPos, eventData.position);
@@ -136,11 +117,7 @@ namespace XNode.Examples.RuntimeMathNodes
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (tempConnection == null)
-            {
-                return;
-            }
-
+            if (tempConnection == null) return;
             if (tempHovered)
             {
                 startPort.Connect(tempHovered.port);
@@ -154,10 +131,7 @@ namespace XNode.Examples.RuntimeMathNodes
             for (int i = 0; i < stack.Count; i++)
             {
                 UGUIPort port = stack[i].GetComponent<UGUIPort>();
-                if (port)
-                {
-                    return port;
-                }
+                if (port) return port;
             }
             return null;
         }
@@ -166,14 +140,8 @@ namespace XNode.Examples.RuntimeMathNodes
         {
             graph.tooltip.Show();
             object obj = node.GetInputValue<object>(port.fieldName, null);
-            if (obj != null)
-            {
-                graph.tooltip.label.text = obj.ToString();
-            }
-            else
-            {
-                graph.tooltip.label.text = "n/a";
-            }
+            if (obj != null) graph.tooltip.label.text = obj.ToString();
+            else graph.tooltip.label.text = "n/a";
         }
 
         public void OnPointerExit(PointerEventData eventData)

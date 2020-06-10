@@ -1,4 +1,4 @@
-﻿using Helper.Debugger;
+﻿using Helper.Debugging;
 using Settings;
 using Settings.Generator;
 using UnityEngine;
@@ -7,7 +7,7 @@ namespace World.Generator
 {
     public class BiomesPart : GeneratorPart
     {
-        private readonly BiomesSettings biomesSettings = SettingsObject.GetObject<BiomesSettings>();
+        private BiomesSettings biomesSettings = GameSettingsProvider.GetSettings<BiomesSettings>();
 
         protected override void Run()
         {
@@ -19,7 +19,7 @@ namespace World.Generator
             string[,] convertedBiomes = ConvertBiomes();
             foreach (Region region in RegionsInfo.regions)
             {
-                float deltaMoisture = (int)region.type.Moisture / (float)RegionsInfo.MaxMoistureIndex;
+                float deltaMoisture = (region.type.Moisture ?? 0) / (float)RegionsInfo.MaxMoistureIndex;
                 float deltaHeight = (int)region.type.DistIndexFromCoastline / (float)RegionsInfo.MaxDistIndex;
 
                 int tableMoistureLevel = Mathf.RoundToInt(Mathf.Lerp(0, biomesSettings.moistureLevels - 1, deltaMoisture));

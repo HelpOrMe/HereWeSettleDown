@@ -14,10 +14,7 @@ namespace XNode
         /// <summary> Update static ports to reflect class fields. </summary>
         public static void UpdatePorts(Node node, Dictionary<string, NodePort> ports)
         {
-            if (!Initialized)
-            {
-                BuildCache();
-            }
+            if (!Initialized) BuildCache();
 
             Dictionary<string, NodePort> staticPorts = new Dictionary<string, NodePort>();
             System.Type nodeType = node.GetType();
@@ -38,20 +35,11 @@ namespace XNode
                 if (staticPorts.TryGetValue(port.fieldName, out NodePort staticPort))
                 {
                     // If port exists but with wrong settings, remove it. Re-add it later.
-                    if (port.connectionType != staticPort.connectionType || port.IsDynamic || port.direction != staticPort.direction || port.typeConstraint != staticPort.typeConstraint)
-                    {
-                        ports.Remove(port.fieldName);
-                    }
-                    else
-                    {
-                        port.ValueType = staticPort.ValueType;
-                    }
+                    if (port.connectionType != staticPort.connectionType || port.IsDynamic || port.direction != staticPort.direction || port.typeConstraint != staticPort.typeConstraint) ports.Remove(port.fieldName);
+                    else port.ValueType = staticPort.ValueType;
                 }
                 // If port doesn't exist anymore, remove it
-                else if (port.IsStatic)
-                {
-                    ports.Remove(port.fieldName);
-                }
+                else if (port.IsStatic) ports.Remove(port.fieldName);
             }
             // Add missing ports
             foreach (NodePort staticPort in staticPorts.Values)
@@ -81,16 +69,9 @@ namespace XNode
                 // ignore all unity related assemblies
                 foreach (Assembly assembly in assemblies)
                 {
-                    if (assembly.FullName.StartsWith("Unity"))
-                    {
-                        continue;
-                    }
+                    if (assembly.FullName.StartsWith("Unity")) continue;
                     // unity created assemblies always have version 0.0.0
-                    if (!assembly.FullName.Contains("Version=0.0.0"))
-                    {
-                        continue;
-                    }
-
+                    if (!assembly.FullName.Contains("Version=0.0.0")) continue;
                     nodeTypes.AddRange(assembly.GetTypes().Where(t => !t.IsAbstract && baseType.IsAssignableFrom(t)).ToArray());
                 }
             }
@@ -125,22 +106,12 @@ namespace XNode
                 Node.InputAttribute inputAttrib = attribs.FirstOrDefault(x => x is Node.InputAttribute) as Node.InputAttribute;
                 Node.OutputAttribute outputAttrib = attribs.FirstOrDefault(x => x is Node.OutputAttribute) as Node.OutputAttribute;
 
-                if (inputAttrib == null && outputAttrib == null)
-                {
-                    continue;
-                }
+                if (inputAttrib == null && outputAttrib == null) continue;
 
-                if (inputAttrib != null && outputAttrib != null)
-                {
-                    Debug.LogError("Field " + fieldInfo[i].Name + " of type " + nodeType.FullName + " cannot be both input and output.");
-                }
+                if (inputAttrib != null && outputAttrib != null) Debug.LogError("Field " + fieldInfo[i].Name + " of type " + nodeType.FullName + " cannot be both input and output.");
                 else
                 {
-                    if (!portDataCache.ContainsKey(nodeType))
-                    {
-                        portDataCache.Add(nodeType, new List<NodePort>());
-                    }
-
+                    if (!portDataCache.ContainsKey(nodeType)) portDataCache.Add(nodeType, new List<NodePort>());
                     portDataCache[nodeType].Add(new NodePort(fieldInfo[i]));
                 }
             }
@@ -149,8 +120,8 @@ namespace XNode
         [System.Serializable]
         private class PortDataCache : Dictionary<System.Type, List<NodePort>>, ISerializationCallbackReceiver
         {
-            [SerializeField] private readonly List<System.Type> keys = new List<System.Type>();
-            [SerializeField] private readonly List<List<NodePort>> values = new List<List<NodePort>>();
+            [SerializeField] private List<System.Type> keys = new List<System.Type>();
+            [SerializeField] private List<List<NodePort>> values = new List<List<NodePort>>();
 
             // save the dictionary to lists
             public void OnBeforeSerialize()
@@ -170,14 +141,10 @@ namespace XNode
                 Clear();
 
                 if (keys.Count != values.Count)
-                {
                     throw new System.Exception(string.Format("there are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable."));
-                }
 
                 for (int i = 0; i < keys.Count; i++)
-                {
                     Add(keys[i], values[i]);
-                }
             }
         }
     }

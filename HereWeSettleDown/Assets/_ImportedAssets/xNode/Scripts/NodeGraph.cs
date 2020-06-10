@@ -46,10 +46,7 @@ namespace XNode
         {
             node.ClearConnections();
             nodes.Remove(node);
-            if (Application.isPlaying)
-            {
-                Destroy(node);
-            }
+            if (Application.isPlaying) Destroy(node);
         }
 
         /// <summary> Remove all nodes and connections from the graph </summary>
@@ -73,11 +70,7 @@ namespace XNode
             // Instantiate all nodes inside the graph
             for (int i = 0; i < nodes.Count; i++)
             {
-                if (nodes[i] == null)
-                {
-                    continue;
-                }
-
+                if (nodes[i] == null) continue;
                 Node.graphHotfix = graph;
                 Node node = Instantiate(nodes[i]) as Node;
                 node.graph = graph;
@@ -87,11 +80,7 @@ namespace XNode
             // Redirect all connections
             for (int i = 0; i < graph.nodes.Count; i++)
             {
-                if (graph.nodes[i] == null)
-                {
-                    continue;
-                }
-
+                if (graph.nodes[i] == null) continue;
                 foreach (NodePort port in graph.nodes[i].Ports)
                 {
                     port.Redirect(nodes, graph.nodes);

@@ -104,34 +104,30 @@ namespace XNode
         #endregion
 
         /// <summary> Iterate over all ports on this node. </summary>
-        public IEnumerable<NodePort> Ports { get { foreach (NodePort port in ports.Values) { yield return port; } } }
+        public IEnumerable<NodePort> Ports { get { foreach (NodePort port in ports.Values) yield return port; } }
         /// <summary> Iterate over all outputs on this node. </summary>
-        public IEnumerable<NodePort> Outputs { get { foreach (NodePort port in Ports) { if (port.IsOutput) { yield return port; } } } }
+        public IEnumerable<NodePort> Outputs { get { foreach (NodePort port in Ports) { if (port.IsOutput) yield return port; } } }
         /// <summary> Iterate over all inputs on this node. </summary>
-        public IEnumerable<NodePort> Inputs { get { foreach (NodePort port in Ports) { if (port.IsInput) { yield return port; } } } }
+        public IEnumerable<NodePort> Inputs { get { foreach (NodePort port in Ports) { if (port.IsInput) yield return port; } } }
         /// <summary> Iterate over all dynamic ports on this node. </summary>
-        public IEnumerable<NodePort> DynamicPorts { get { foreach (NodePort port in Ports) { if (port.IsDynamic) { yield return port; } } } }
+        public IEnumerable<NodePort> DynamicPorts { get { foreach (NodePort port in Ports) { if (port.IsDynamic) yield return port; } } }
         /// <summary> Iterate over all dynamic outputs on this node. </summary>
-        public IEnumerable<NodePort> DynamicOutputs { get { foreach (NodePort port in Ports) { if (port.IsDynamic && port.IsOutput) { yield return port; } } } }
+        public IEnumerable<NodePort> DynamicOutputs { get { foreach (NodePort port in Ports) { if (port.IsDynamic && port.IsOutput) yield return port; } } }
         /// <summary> Iterate over all dynamic inputs on this node. </summary>
-        public IEnumerable<NodePort> DynamicInputs { get { foreach (NodePort port in Ports) { if (port.IsDynamic && port.IsInput) { yield return port; } } } }
+        public IEnumerable<NodePort> DynamicInputs { get { foreach (NodePort port in Ports) { if (port.IsDynamic && port.IsInput) yield return port; } } }
         /// <summary> Parent <see cref="NodeGraph"/> </summary>
         [SerializeField] public NodeGraph graph;
         /// <summary> Position on the <see cref="NodeGraph"/> </summary>
         [SerializeField] public Vector2 position;
         /// <summary> It is recommended not to modify these at hand. Instead, see <see cref="InputAttribute"/> and <see cref="OutputAttribute"/> </summary>
-        [SerializeField] private readonly NodePortDictionary ports = new NodePortDictionary();
+        [SerializeField] private NodePortDictionary ports = new NodePortDictionary();
 
         /// <summary> Used during node instantiation to fix null/misconfigured graph during OnEnable/Init. Set it before instantiating a node. Will automatically be unset during OnEnable </summary>
         public static NodeGraph graphHotfix;
 
         protected void OnEnable()
         {
-            if (graphHotfix != null)
-            {
-                graph = graphHotfix;
-            }
-
+            if (graphHotfix != null) graph = graphHotfix;
             graphHotfix = null;
             UpdateStaticPorts();
             Init();
@@ -149,10 +145,7 @@ namespace XNode
         /// <summary> Checks all connections for invalid references, and removes them. </summary>
         public void VerifyConnections()
         {
-            foreach (NodePort port in Ports)
-            {
-                port.VerifyConnections();
-            }
+            foreach (NodePort port in Ports) port.VerifyConnections();
         }
 
         #region Dynamic Ports
@@ -181,10 +174,7 @@ namespace XNode
             {
                 fieldName = "dynamicInput_0";
                 int i = 0;
-                while (HasPort(fieldName))
-                {
-                    fieldName = "dynamicInput_" + (++i);
-                }
+                while (HasPort(fieldName)) fieldName = "dynamicInput_" + (++i);
             }
             else if (HasPort(fieldName))
             {
@@ -200,26 +190,15 @@ namespace XNode
         public void RemoveDynamicPort(string fieldName)
         {
             NodePort dynamicPort = GetPort(fieldName);
-            if (dynamicPort == null)
-            {
-                throw new ArgumentException("port " + fieldName + " doesn't exist");
-            }
-
+            if (dynamicPort == null) throw new ArgumentException("port " + fieldName + " doesn't exist");
             RemoveDynamicPort(GetPort(fieldName));
         }
 
         /// <summary> Remove an dynamic port from the node </summary>
         public void RemoveDynamicPort(NodePort port)
         {
-            if (port == null)
-            {
-                throw new ArgumentNullException("port");
-            }
-            else if (port.IsStatic)
-            {
-                throw new ArgumentException("cannot remove static port");
-            }
-
+            if (port == null) throw new ArgumentNullException("port");
+            else if (port.IsStatic) throw new ArgumentException("cannot remove static port");
             port.ClearConnections();
             ports.Remove(port.fieldName);
         }
@@ -241,41 +220,23 @@ namespace XNode
         public NodePort GetOutputPort(string fieldName)
         {
             NodePort port = GetPort(fieldName);
-            if (port == null || port.direction != NodePort.IO.Output)
-            {
-                return null;
-            }
-            else
-            {
-                return port;
-            }
+            if (port == null || port.direction != NodePort.IO.Output) return null;
+            else return port;
         }
 
         /// <summary> Returns input port which matches fieldName </summary>
         public NodePort GetInputPort(string fieldName)
         {
             NodePort port = GetPort(fieldName);
-            if (port == null || port.direction != NodePort.IO.Input)
-            {
-                return null;
-            }
-            else
-            {
-                return port;
-            }
+            if (port == null || port.direction != NodePort.IO.Input) return null;
+            else return port;
         }
 
         /// <summary> Returns port which matches fieldName </summary>
         public NodePort GetPort(string fieldName)
         {
-            if (ports.TryGetValue(fieldName, out NodePort port))
-            {
-                return port;
-            }
-            else
-            {
-                return null;
-            }
+            if (ports.TryGetValue(fieldName, out NodePort port)) return port;
+            else return null;
         }
 
         public bool HasPort(string fieldName)
@@ -291,14 +252,8 @@ namespace XNode
         public T GetInputValue<T>(string fieldName, T fallback = default(T))
         {
             NodePort port = GetPort(fieldName);
-            if (port != null && port.IsConnected)
-            {
-                return port.GetInputValue<T>();
-            }
-            else
-            {
-                return fallback;
-            }
+            if (port != null && port.IsConnected) return port.GetInputValue<T>();
+            else return fallback;
         }
 
         /// <summary> Return all input values for a specified port. Returns fallback value if no ports are connected </summary>
@@ -307,14 +262,8 @@ namespace XNode
         public T[] GetInputValues<T>(string fieldName, params T[] fallback)
         {
             NodePort port = GetPort(fieldName);
-            if (port != null && port.IsConnected)
-            {
-                return port.GetInputValues<T>();
-            }
-            else
-            {
-                return fallback;
-            }
+            if (port != null && port.IsConnected) return port.GetInputValues<T>();
+            else return fallback;
         }
 
         /// <summary> Returns a value based on requested port output. Should be overridden in all derived nodes with outputs. </summary>
@@ -337,10 +286,7 @@ namespace XNode
         /// <summary> Disconnect everything from this node </summary>
         public void ClearConnections()
         {
-            foreach (NodePort port in Ports)
-            {
-                port.ClearConnections();
-            }
+            foreach (NodePort port in Ports) port.ClearConnections();
         }
 
         #region Attributes
@@ -449,8 +395,8 @@ namespace XNode
         [Serializable]
         private class NodePortDictionary : Dictionary<string, NodePort>, ISerializationCallbackReceiver
         {
-            [SerializeField] private readonly List<string> keys = new List<string>();
-            [SerializeField] private readonly List<NodePort> values = new List<NodePort>();
+            [SerializeField] private List<string> keys = new List<string>();
+            [SerializeField] private List<NodePort> values = new List<NodePort>();
 
             public void OnBeforeSerialize()
             {
@@ -468,14 +414,10 @@ namespace XNode
                 Clear();
 
                 if (keys.Count != values.Count)
-                {
                     throw new System.Exception("there are " + keys.Count + " keys and " + values.Count + " values after deserialization. Make sure that both key and value types are serializable.");
-                }
 
                 for (int i = 0; i < keys.Count; i++)
-                {
                     Add(keys[i], values[i]);
-                }
             }
         }
     }

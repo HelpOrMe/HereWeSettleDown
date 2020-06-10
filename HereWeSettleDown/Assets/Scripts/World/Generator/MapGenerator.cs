@@ -1,4 +1,4 @@
-﻿using Helper.Debugger;
+﻿using Helper.Debugging;
 using Helper.Random;
 using Helper.Threading;
 using Settings;
@@ -6,6 +6,7 @@ using Settings.Generator;
 using UnityEngine;
 using World.Generator.Nodes.WorldGenerator;
 using World.Map;
+
 
 namespace World.Generator
 {
@@ -17,19 +18,24 @@ namespace World.Generator
 
         public void GenerateMap()
         {
-            Seed.seed = testSeed;
+            Log.SetWorker("GenerateMap");
 
-            BaseGeneratorSettings set = SettingsObject.GetObject<BaseGeneratorSettings>();
+            Seed.seed = testSeed;
+            Log.InfoSet("Seed");
+
+            BaseGeneratorSettings set = GameSettingsProvider.GetSettings<BaseGeneratorSettings>();
 
             Watcher.WatchRun(() => WorldMesh.CreateWorldMesh(set.worldWidth, set.worldHeight, set.chunkWidth, set.chunkHeight), "CreateWorldMesh");
             Watcher.WatchRun(() => WorldChunkMap.CreateMap(set.worldWidth, set.worldHeight, set.chunkWidth, set.chunkHeight, chunkObject.transform.localScale), "CreateMap");
 
             // Voronoi > Regions > Calculate triangles
             // WaterMask > SetWater > SetCoastline > Set distances
-            // Set lakes
+            // Set rivers
             // Set height > Smooth height
-            // Set wet
+            // Set moisture
             // Draw colors > smooth colors
+
+            Log.ResetWorker();
 
             AThread thread = new AThread(generatorGraph.GetGenerateAction());
             thread.Start();

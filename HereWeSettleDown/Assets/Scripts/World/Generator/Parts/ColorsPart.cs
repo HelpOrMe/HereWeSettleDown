@@ -1,4 +1,4 @@
-﻿using Helper.Debugger;
+﻿using Helper.Debugging;
 using Settings;
 using Settings.Generator;
 using UnityEngine;
@@ -8,8 +8,7 @@ namespace World.Generator
 {
     public class ColorsPart : GeneratorPart
     {
-        private readonly ColorsSettings colorsSettings = SettingsObject.GetObject<ColorsSettings>();
-
+        private ColorsSettings colorsSettings = GameSettingsProvider.GetSettings<ColorsSettings>();
 
         protected override void Run()
         {
@@ -47,10 +46,10 @@ namespace World.Generator
                 }
             }
 
-            // Draw lake colors
-            foreach (Lake lake in LakesInfo.lakes)
+            // Draw river colors
+            foreach (River river in RiversInfo.rivers)
             {
-                foreach (Vector2Int pos in lake.path)
+                foreach (Vector2Int pos in river.path)
                 {
                     Region region = RegionsInfo.regionsMap[pos.x, pos.y];
                     BiomeColors biomeColors = colorsSettings.biomeColors[region.type.biomeType];

@@ -7,11 +7,7 @@ namespace XNode.Examples.RuntimeMathNodes
         private RectTransform rectTransform;
         public void SetPosition(Vector2 start, Vector2 end)
         {
-            if (!rectTransform)
-            {
-                rectTransform = (RectTransform)transform;
-            }
-
+            if (!rectTransform) rectTransform = (RectTransform)transform;
             transform.position = (start + end) * 0.5f;
 
             float r = Mathf.Atan2(start.y - end.y, start.x - end.x) * Mathf.Rad2Deg;

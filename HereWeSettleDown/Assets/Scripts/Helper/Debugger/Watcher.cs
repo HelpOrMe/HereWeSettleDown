@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Helper.Debugger
+namespace Helper.Debugging
 {
+    /// <summary>
+    /// Class helper to run action/s with logging.
+    /// </summary>
     public class Watcher
     {
         public readonly Action action;
@@ -15,23 +18,41 @@ namespace Helper.Debugger
             this.name = name;
         }
 
+        /// <summary>
+        /// Run action with logging.
+        /// The same as Watcher().Start()
+        /// </summary>
+        /// <param name="action">Target action</param>
+        /// <param name="name">Logging name</param>
         public static void WatchRun(Action action, string name = null)
         {
             Watcher watcher = new Watcher(action, name);
+            Log.SetWorker(name ?? action.Method.Name);
+            Log.Info(watcher.StartLogText());
             watcher.Start();
-            watcher.Log();
+            Log.Info(watcher.EndLogText());
         }
 
+        /// <summary>
+        /// Run several actions with logging.
+        /// </summary>
+        /// <param name="actions">Target actions</param>
         public static void WatchRun(params Action[] actions)
         {
             foreach (Action action in actions)
             {
+                Log.SetWorker(action.Method.Name);
                 Watcher watcher = new Watcher(action, null);
+                Log.Info(watcher.StartLogText());
                 watcher.Start();
-                watcher.Log();
+                Log.Info(watcher.EndLogText());
             }
         }
 
+        /// <summary>
+        /// Run watcher action with logging.
+        /// </summary>
+        /// <returns>Stopwatch</returns>
         public Stopwatch Start()
         {
             stopwatch.Reset();
@@ -41,15 +62,16 @@ namespace Helper.Debugger
             return stopwatch;
         }
 
-        public string LogText()
+        private string StartLogText()
         {
-            string mName = name == null ? action.Method.Name : name;
-            return $"{mName} ends after {stopwatch.ElapsedMilliseconds} mS.";
+            string mName = name ?? action.Method.Name;
+            return $"{mName} started.";
         }
 
-        public void Log()
+        private string EndLogText()
         {
-            UnityEngine.Debug.Log(LogText());
+            string mName = name ?? action.Method.Name;
+            return $"{mName} completed after {stopwatch.ElapsedMilliseconds} ms.";
         }
     }
 }

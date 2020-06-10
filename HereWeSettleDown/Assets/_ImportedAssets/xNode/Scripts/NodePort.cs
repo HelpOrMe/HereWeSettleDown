@@ -18,10 +18,7 @@ namespace XNode
             {
                 for (int i = 0; i < connections.Count; i++)
                 {
-                    if (connections[i] != null)
-                    {
-                        return connections[i].Port;
-                    }
+                    if (connections[i] != null) return connections[i].Port;
                 }
                 return null;
             }
@@ -44,32 +41,25 @@ namespace XNode
         {
             get
             {
-                if (valueType == null && !string.IsNullOrEmpty(_typeQualifiedName))
-                {
-                    valueType = Type.GetType(_typeQualifiedName, false);
-                }
-
+                if (valueType == null && !string.IsNullOrEmpty(_typeQualifiedName)) valueType = Type.GetType(_typeQualifiedName, false);
                 return valueType;
             }
             set
             {
                 valueType = value;
-                if (value != null)
-                {
-                    _typeQualifiedName = value.AssemblyQualifiedName;
-                }
+                if (value != null) _typeQualifiedName = value.AssemblyQualifiedName;
             }
         }
         private Type valueType;
 
-        [SerializeField] private readonly string _fieldName;
-        [SerializeField] private readonly Node _node;
+        [SerializeField] private string _fieldName;
+        [SerializeField] private Node _node;
         [SerializeField] private string _typeQualifiedName;
         [SerializeField] private List<PortConnection> connections = new List<PortConnection>();
-        [SerializeField] private readonly IO _direction;
-        [SerializeField] private readonly Node.ConnectionType _connectionType;
-        [SerializeField] private readonly Node.TypeConstraint _typeConstraint;
-        [SerializeField] private readonly bool _dynamic;
+        [SerializeField] private IO _direction;
+        [SerializeField] private Node.ConnectionType _connectionType;
+        [SerializeField] private Node.TypeConstraint _typeConstraint;
+        [SerializeField] private bool _dynamic;
 
         /// <summary> Construct a static targetless nodeport. Used as a template. </summary>
         public NodePort(FieldInfo fieldInfo)
@@ -126,10 +116,7 @@ namespace XNode
                 if (connections[i].node != null &&
                     !string.IsNullOrEmpty(connections[i].fieldName) &&
                     connections[i].node.GetPort(connections[i].fieldName) != null)
-                {
                     continue;
-                }
-
                 connections.RemoveAt(i);
             }
         }
@@ -138,11 +125,7 @@ namespace XNode
         /// <returns> <see cref="Node.GetValue(NodePort)"/> </returns>
         public object GetOutputValue()
         {
-            if (direction == IO.Input)
-            {
-                return null;
-            }
-
+            if (direction == IO.Input) return null;
             return node.GetValue(this);
         }
 
@@ -151,11 +134,7 @@ namespace XNode
         public object GetInputValue()
         {
             NodePort connectedPort = Connection;
-            if (connectedPort == null)
-            {
-                return null;
-            }
-
+            if (connectedPort == null) return null;
             return connectedPort.GetOutputValue();
         }
 
@@ -194,10 +173,7 @@ namespace XNode
             T[] ts = new T[objs.Length];
             for (int i = 0; i < objs.Length; i++)
             {
-                if (objs[i] is T)
-                {
-                    ts[i] = (T)objs[i];
-                }
+                if (objs[i] is T) ts[i] = (T)objs[i];
             }
             return ts;
         }
@@ -224,18 +200,11 @@ namespace XNode
         public float GetInputSum(float fallback)
         {
             object[] objs = GetInputValues();
-            if (objs.Length == 0)
-            {
-                return fallback;
-            }
-
+            if (objs.Length == 0) return fallback;
             float result = 0;
             for (int i = 0; i < objs.Length; i++)
             {
-                if (objs[i] is float)
-                {
-                    result += (float)objs[i];
-                }
+                if (objs[i] is float) result += (float)objs[i];
             }
             return result;
         }
@@ -245,18 +214,11 @@ namespace XNode
         public int GetInputSum(int fallback)
         {
             object[] objs = GetInputValues();
-            if (objs.Length == 0)
-            {
-                return fallback;
-            }
-
+            if (objs.Length == 0) return fallback;
             int result = 0;
             for (int i = 0; i < objs.Length; i++)
             {
-                if (objs[i] is int)
-                {
-                    result += (int)objs[i];
-                }
+                if (objs[i] is int) result += (int)objs[i];
             }
             return result;
         }
@@ -265,11 +227,7 @@ namespace XNode
         /// <param name="port">The <see cref="NodePort"/> to connect to</param>
         public void Connect(NodePort port)
         {
-            if (connections == null)
-            {
-                connections = new List<PortConnection>();
-            }
-
+            if (connections == null) connections = new List<PortConnection>();
             if (port == null) { Debug.LogWarning("Cannot connect to null port"); return; }
             if (port == this) { Debug.LogWarning("Cannot connect port to self."); return; }
             if (IsConnectedTo(port)) { Debug.LogWarning("Port already connected. "); return; }
@@ -277,16 +235,8 @@ namespace XNode
             if (port.connectionType == Node.ConnectionType.Override && port.ConnectionCount != 0) { port.ClearConnections(); }
             if (connectionType == Node.ConnectionType.Override && ConnectionCount != 0) { ClearConnections(); }
             connections.Add(new PortConnection(port));
-            if (port.connections == null)
-            {
-                port.connections = new List<PortConnection>();
-            }
-
-            if (!port.IsConnectedTo(this))
-            {
-                port.connections.Add(new PortConnection(this));
-            }
-
+            if (port.connections == null) port.connections = new List<PortConnection>();
+            if (!port.IsConnectedTo(this)) port.connections.Add(new PortConnection(this));
             node.OnCreateConnection(this, port);
             port.node.OnCreateConnection(this, port);
         }
@@ -297,10 +247,7 @@ namespace XNode
             for (int i = 0; i < connections.Count; i++)
             {
                 NodePort port = GetConnection(i);
-                if (port != null)
-                {
-                    result.Add(port);
-                }
+                if (port != null) result.Add(port);
             }
             return result;
         }
@@ -327,10 +274,7 @@ namespace XNode
         {
             for (int i = 0; i < ConnectionCount; i++)
             {
-                if (connections[i].Port == port)
-                {
-                    return i;
-                }
+                if (connections[i].Port == port) return i;
             }
             return -1;
         }
@@ -339,10 +283,7 @@ namespace XNode
         {
             for (int i = 0; i < connections.Count; i++)
             {
-                if (connections[i].Port == port)
-                {
-                    return true;
-                }
+                if (connections[i].Port == port) return true;
             }
             return false;
         }
@@ -352,38 +293,15 @@ namespace XNode
         {
             // Figure out which is input and which is output
             NodePort input = null, output = null;
-            if (IsInput)
-            {
-                input = this;
-            }
-            else
-            {
-                output = this;
-            }
-
-            if (port.IsInput)
-            {
-                input = port;
-            }
-            else
-            {
-                output = port;
-            }
+            if (IsInput) input = this;
+            else output = this;
+            if (port.IsInput) input = port;
+            else output = port;
             // If there isn't one of each, they can't connect
-            if (input == null || output == null)
-            {
-                return false;
-            }
+            if (input == null || output == null) return false;
             // Check type constraints
-            if (input.typeConstraint == XNode.Node.TypeConstraint.Inherited && !input.ValueType.IsAssignableFrom(output.ValueType))
-            {
-                return false;
-            }
-
-            if (input.typeConstraint == XNode.Node.TypeConstraint.Strict && input.ValueType != output.ValueType)
-            {
-                return false;
-            }
+            if (input.typeConstraint == XNode.Node.TypeConstraint.Inherited && !input.ValueType.IsAssignableFrom(output.ValueType)) return false;
+            if (input.typeConstraint == XNode.Node.TypeConstraint.Strict && input.ValueType != output.ValueType) return false;
             // Success
             return true;
         }
@@ -412,10 +330,7 @@ namespace XNode
             }
             // Trigger OnRemoveConnection
             node.OnRemoveConnection(this);
-            if (port != null)
-            {
-                port.node.OnRemoveConnection(port);
-            }
+            if (port != null) port.node.OnRemoveConnection(port);
         }
 
         /// <summary> Disconnect this port from another port </summary>
@@ -438,10 +353,7 @@ namespace XNode
 
             // Trigger OnRemoveConnection
             node.OnRemoveConnection(this);
-            if (otherPort != null)
-            {
-                otherPort.node.OnRemoveConnection(otherPort);
-            }
+            if (otherPort != null) otherPort.node.OnRemoveConnection(otherPort);
         }
 
         public void ClearConnections()
@@ -469,30 +381,23 @@ namespace XNode
 
             // Cache port connections
             for (int i = 0; i < aConnectionCount; i++)
-            {
                 portConnections.Add(connections[i].Port);
-            }
 
             // Cache target port connections
             for (int i = 0; i < bConnectionCount; i++)
-            {
                 targetPortConnections.Add(targetPort.connections[i].Port);
-            }
 
             ClearConnections();
             targetPort.ClearConnections();
 
             // Add port connections to targetPort
             for (int i = 0; i < portConnections.Count; i++)
-            {
                 targetPort.Connect(portConnections[i]);
-            }
 
             // Add target port connections to this one
             for (int i = 0; i < targetPortConnections.Count; i++)
-            {
                 Connect(targetPortConnections[i]);
-            }
+
         }
 
         /// <summary> Copy all connections pointing to a node and add them to this one </summary>
@@ -528,10 +433,7 @@ namespace XNode
             foreach (PortConnection connection in connections)
             {
                 int index = oldNodes.IndexOf(connection.node);
-                if (index >= 0)
-                {
-                    connection.node = newNodes[index];
-                }
+                if (index >= 0) connection.node = newNodes[index];
             }
         }
 
@@ -556,11 +458,7 @@ namespace XNode
             /// <summary> Returns the port that this <see cref="PortConnection"/> points to </summary>
             private NodePort GetPort()
             {
-                if (node == null || string.IsNullOrEmpty(fieldName))
-                {
-                    return null;
-                }
-
+                if (node == null || string.IsNullOrEmpty(fieldName)) return null;
                 return node.GetPort(fieldName);
             }
         }

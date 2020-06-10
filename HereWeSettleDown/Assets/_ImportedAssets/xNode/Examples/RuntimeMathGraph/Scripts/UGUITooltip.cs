@@ -22,10 +22,7 @@ namespace XNode.Examples.RuntimeMathNodes
 
         private void Update()
         {
-            if (show)
-            {
-                UpdatePosition();
-            }
+            if (show) UpdatePosition();
         }
 
         public void Show()

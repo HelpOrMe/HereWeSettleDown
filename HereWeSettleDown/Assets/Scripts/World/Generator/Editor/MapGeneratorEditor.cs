@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using World.Generator._Debug;
 
 namespace World.Generator
 {
@@ -13,21 +14,32 @@ namespace World.Generator
 
             EditorGUILayout.Space();
             if (GUILayout.Button("Generate map"))
+            {
                 mapGenerator.GenerateMap();
+            }
+            EditorGUILayout.Space();
 
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Recolor map"))
+            if (GUILayout.Button("Reset color"))
             {
-                new BiomesPart().action();
-                new ColorsPart().action();
-                Map.WorldMesh.ConfrimChangeSplitted();
-            }
-            if (GUILayout.Button("Reset height"))
-            {
-                new HeightPart().action();
+                GeneratorPart.InvokePart<MoisturePart>();
+                GeneratorPart.InvokePart<BiomesPart>();
+                GeneratorPart.InvokePart<ColorsPart>();
                 Map.WorldMesh.ConfrimChangeSplitted();
             }
             GUILayout.EndHorizontal();
+
+            // Ignore equal, toString, etc. methods
+            foreach (var method in typeof(GeneratorDebuger).GetMethods())
+            {
+                if (method.Name == "Equals")
+                    break;
+
+                if (GUILayout.Button(method.Name))
+                {
+                    method.Invoke(null, null);
+                }
+            }
         }
     }
 }
